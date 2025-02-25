@@ -12,7 +12,9 @@ public class Fraction {
       numerator *= -1;
       denominator *= -1;
     }
-    if (numerator != 0) {
+    if (numerator == 0) {
+      denominator = 1;
+    } else {
       int gcd = this.gcd(numerator > 0 ? numerator : -numerator, denominator);
       numerator = numerator / gcd;
       denominator = denominator / gcd;

@@ -39,7 +39,7 @@ public class Console {
 		}
 	}
 
-	public static void close(){
+	public static void close() {
 		Console.close("0");
 	}
 
@@ -48,24 +48,23 @@ public class Console {
 			if (Console.inputLog != null) {
 				Console.inputLog.close();
 			}
+			File oldInputScenarioLogFile = new File(HEAD_PATH + "input-scenario-" + suffix + EXTENSION);
+			if (oldInputScenarioLogFile.exists()) {
+				oldInputScenarioLogFile.delete();
+			}
+			new File(INPUT_PATH).renameTo(oldInputScenarioLogFile);
+			
 			if (Console.inputOutputLog != null) {
 				Console.inputOutputLog.close();
 			}
+			File oldInputOutputScenarioLogFile = new File(HEAD_PATH + "inputOutput-scenario-" + suffix + EXTENSION);
+			if (oldInputOutputScenarioLogFile.exists()) {
+				oldInputOutputScenarioLogFile.delete();
+			}
+			new File(INPUT_OUTPUT_PATH).renameTo(oldInputOutputScenarioLogFile);
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
-		String inputLogPath = HEAD_PATH + "input-scenario-" + suffix + EXTENSION;
-		String inputOutputLogPath = HEAD_PATH + "inputOutput-scenario-" + suffix + EXTENSION;
-		File oldInputLog = new File(inputLogPath);
-		File oldInputOutputLog = new File(inputOutputLogPath);
-		if (oldInputLog.exists()) {
-			oldInputLog.delete();
-		}
-		if (oldInputOutputLog.exists()){
-			oldInputOutputLog.delete();
-		}
-		new File(INPUT_PATH).renameTo(oldInputLog);
-		new File(INPUT_OUTPUT_PATH).renameTo(oldInputOutputLog);
 	}
 
 	public String readString() {
