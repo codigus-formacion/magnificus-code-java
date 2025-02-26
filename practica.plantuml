@@ -1,0 +1,118 @@
+@startuml
+
+interface Comparable {
+    int compareTo
+}
+interface Number extends Comparable {
+    add
+    subtract
+}
+
+class Object {
+    equals
+}
+class Integer implements Number
+class Date extends Object implements Comparable{
+    next()
+}
+class Time extends Object implements Comparable{
+    difference(Time)
+}
+class Fraction extends Object implements Number{
+    inverse()
+}
+class Interval<T extends Comparable> extends Object{
+    includes(T)
+    includes(Interval<T>)
+}
+class Optional<T> extends Object{
+    isEmpty()
+    get()
+}
+class Pair<K,V> extends Object{
+    key()
+    value()
+}
+class ComparableOptional
+
+class Collection<T> extends Object {
+    add
+    remove
+    contains
+}
+class List<T> extends Collection
+class NumberList<T extends Number> extends List
+class MiNumberList extends NumberList implements Comparable
+class Set<T> extends Collection
+class Map<K,V> extends Object{
+    put(K, V)
+}
+
+class Menu<T>{
+    interact
+}
+class QuitMenu<T> extends Menu
+class IterativeMenu<T> extends QuitMenu
+class DinamicMenu<T> extends IterativeMenu
+class Option<T>{
+    title()
+    interact()
+    isActive()
+}
+class QuitOption<T> extends Option
+class MiMenu 
+
+class ManagerMenu{
+}
+class Manager{
+    add(Client)
+    add(Client, Date_Time_Interval_List_Pair)
+    update ...
+    remove ...
+    isColision(Date_Time_Interval_List_Pair)
+    findFree(Date)
+    findFree(Date_Interval)
+    reportBills()
+    reportSummary()
+}
+class Client
+class Date_TimeIntervalList_Map 
+note right
+Date_Fraction_Time_Interval_Pair_List_Map?!?
+Para registro y/o planificación?!?
+end note 
+class Date_TimeIntervalList_Pair  
+class TimeIntervalList
+class TimeInterval
+
+Menu <|-down- Object
+Menu *-down-> "+" Option
+QuitMenu *-down-> QuitOption
+MiMenu .down.> Menu : "instance"
+MiMenu *-down-> Object
+
+ManagerMenu .down.> IterativeMenu : "instance"
+ManagerMenu *-down-> Manager
+Manager *-down-> "*" Client
+Client *-down-> Date_TimeIntervalList_Map
+
+Date_TimeIntervalList_Map *-down-> "*" Date_TimeIntervalList_Pair
+Date_TimeIntervalList_Pair *-down-> Date
+Date_TimeIntervalList_Pair *-down-> TimeIntervalList
+TimeIntervalList *-down-> "*" TimeInterval
+TimeInterval *-down-> "2" Time
+
+Date_TimeIntervalList_Map .down.> Map : "instance"
+Date_TimeIntervalList_Pair .down.> Pair : "instance"
+TimeIntervalList .down.> List : "instance"
+TimeInterval .down.> Interval : "instance"
+
+Interval *-down-> "2" ComparableOptional
+ComparableOptional .down.> Optional : "instance"
+ComparableOptional *-down-> "?" Comparable
+Pair *-down-> "2" Object
+NumberList o-down-> Number
+Collection *-down-> "*" Object
+Map o-down-> Pair
+
+@enduml

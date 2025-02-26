@@ -2,6 +2,7 @@
 
 ## Miembros de Instancia
 - Fecha
+- Hora
 - Intervalo: doubles y fechas
 - Lista y Nodo y composiciónXlistas/iterador: enteros y fechas
 ## Atritutos
@@ -11,6 +12,7 @@
 ## Constructores
 ## Miembros Estáticos
 - Fecha
+- Hora
 ### Métodos Estáticos
 ### Atributos Estáticos
 ### Código Estático
@@ -21,6 +23,7 @@
 #### Clase del Sistema
 ### Enumerados
 - Fecha
+- Hora
 ### Registros
 ## Clases Genéricas
 - Intervalo: T

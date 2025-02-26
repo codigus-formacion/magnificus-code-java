@@ -13,7 +13,7 @@
 - Colección y Nodo y iterador/herenciaXlistas
 - Menú con Opción: interface
 ## Clases Genéricas y Herencia
-- Lista
+- Lista y Nodo y iterador/herenciaXlistas
 - Menú con Opción: T
 ## Clases Anidadas y Herencia
 ### Clases Anónimas

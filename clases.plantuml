@@ -1,0 +1,35 @@
+@startuml
+
+class Clazz {
+    nombre
+    visibilidad
+    reinstanciable
+}
+class Enun {
+    - extends!!!
+    - constructor!!! 
+    + Object1
+    + Object2
+}
+class Interna {
+    - visibilidad!!!
+}
+class Local {
+    - visibilidad!!!
+}
+
+class Anonima {
+    - nombre!!!
+    - reinstanciable!!!
+}
+class FuncionLambda 
+class ReferenceMethod
+
+Clazz <|-down-  Enun : <<limited>>
+Clazz <|-down-  Interna 
+Interna <|-down-  Local : <<limited>>
+Local <|-down-  Anonima : <<limited>>
+Anonima <|-down-  FuncionLambda : <<limited>>
+FuncionLambda <|-down-  ReferenceMethod 
+
+@enduml
