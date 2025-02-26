@@ -28,6 +28,7 @@
         - Locales a Métodos
         - Clases Anónimas
         - Funciones Lambda
+        - Método Referencia
 
 - Evolución de Práctica
     - [Introducción](practica.plantuml)

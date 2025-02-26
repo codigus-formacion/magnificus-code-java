@@ -1,5 +1,8 @@
 @startuml
 
+class Object {
+    equals
+}
 interface Comparable {
     int compareTo
 }
@@ -7,63 +10,120 @@ interface Number extends Comparable {
     add
     subtract
 }
-
-class Object {
-    equals
-}
 class Integer implements Number
-class Date extends Object implements Comparable{
-    next()
-}
-class Time extends Object implements Comparable{
-    difference(Time)
-}
-class Fraction extends Object implements Number{
-    inverse()
-}
-class Interval<T extends Comparable> extends Object{
-    includes(T)
-    includes(Interval<T>)
-}
-class Optional<T> extends Object{
-    isEmpty()
-    get()
-}
-class Pair<K,V> extends Object{
-    key()
-    value()
-}
-class ComparableOptional
 
-class Collection<T> extends Object {
-    add
-    remove
-    contains
+class Console <<singleton>>{
+    readInt()
+    readString()
+    write(Integer)
+    write(String)
 }
-class List<T> extends Collection
-class NumberList<T extends Number> extends List
-class MiNumberList extends NumberList implements Comparable
-class Set<T> extends Collection
-class Map<K,V> extends Object{
-    put(K, V)
+abstract class Dialog<T> {
+    T read()
+    write(T)
+    writeDetails(T)
 }
-
 class Menu<T>{
     interact
 }
 class QuitMenu<T> extends Menu
 class IterativeMenu<T> extends QuitMenu
 class DinamicMenu<T> extends IterativeMenu
-class Option<T>{
+abstract class Option<T> <<command>>{
     title()
     interact()
     isActive()
 }
-class QuitOption<T> extends Option
-class MiMenu 
-
-class ManagerMenu{
+class QuitOption<T> extends Option{
+    isQuit();
 }
+
+class Time extends Object implements Comparable{
+    difference(Time)
+}
+class TimeDialog
+TimeDialog *-down-> Time
+TimeDialog -down-> Dialog : <<instance>>
+
+class Date extends Object implements Comparable{
+    next()
+}
+class DateDialog
+DateDialog *-down-> Date
+DateDialog -down-> Dialog : <<instance>>
+
+class Fraction extends Object implements Number{
+    inverse()
+}
+
+class Interval<T extends Comparable> extends Object{
+    includes(T)
+    includes(Interval<T>)
+}
+class ComparableOptional
+class Optional<T> extends Object{
+    isEmpty()
+    get()
+}
+class Time_Interval
+Time_Interval *.down.> Time_Optional
+class Time_IntervalDialog 
+Time_IntervalDialog -down-> Time_Interval
+Time_IntervalDialog -down-> Dialog : <<instance>>
+
+class Time_Optional
+Time_Optional *-down-> "?" Time
+class Time_OptionalDialog
+Time_OptionalDialog -down-> TimeDialog
+Time_OptionalDialog -down-> Dialog : <<instance>>
+
+
+class Pair<K,V> extends Object{
+    key()
+    value()
+}
+class Date_Time_Interval_List_Pair
+Date_Time_Interval_List_Pair *-down-> Date
+Date_Time_Interval_List_Pair *-down-> Time_Interval_List
+class Date_Time_Interval_List_PairDialog
+Date_Time_Interval_List_PairDialog *-down-> Date_Time_Interval_List_Pair
+Date_Time_Interval_List_PairDialog *-down-> Time_Interval_List_Dialog
+Date_Time_Interval_List_PairDialog .down.> Dialog : <<instance>>
+
+Date_Time_Interval_List_PairDialog *-down-> Date_Dialog
+Date_Time_Interval_List_PairDialog -down-> Dialog : <<instance>>
+
+abstract class Collection<T> extends Object {
+    add
+    remove
+    contains
+}
+class List<T> extends Collection
+class Time_Interval_List
+Time_Interval_List *-down-> Time_Interval
+class Time_Interval_ListDialog
+Time_Interval_ListDialog *-down-> Time_Interval_List
+Time_Interval_ListDialog .down.> Dialog : <<instance>>
+
+class NumberList<T extends Number> extends List
+class MiNumberList extends NumberList implements Comparable
+class Set<T> extends Collection
+class Map<K,V> extends Object{
+    put(K, V)
+}
+class Date_Time_Interval_List_Pair_Map
+note right
+    Date_Fraction_Time_Interval_Pair_List_Map?!?
+    Para registro y/o planificación?!?
+end note
+Date_Time_Interval_List_Pair_Map *-down-> "*" Date_Time_Interval_List_Pair
+class Date_Time_Interval_List_Pair_MapDialog
+Date_Time_Interval_List_Pair_MapDialog -down-> Date_Time_Interval_List_Pair_Map
+Date_Time_Interval_List_Pair_MapDialog -down-> Dialog : <<instance>>
+class Date_Time_Interval_List_Pair_MapDialog
+Date_Time_Interval_List_Pair_MapDialog *-down-> Date_Time_Interval_List_PairDialog
+Date_Time_Interval_List_Pair_MapDialog -down-> Dialog : <<instance>>
+
 class Manager{
     add(Client)
     add(Client, Date_Time_Interval_List_Pair)
@@ -75,37 +135,22 @@ class Manager{
     reportBills()
     reportSummary()
 }
-class Client
-class Date_TimeIntervalList_Map 
-note right
-Date_Fraction_Time_Interval_Pair_List_Map?!?
-Para registro y/o planificación?!?
-end note 
-class Date_TimeIntervalList_Pair  
-class TimeIntervalList
-class TimeInterval
+class ManagerMenu
+ManagerMenu .down.> ClientDialog
 
+class Client
+class ClientDialog
+ClientDialog .down.> Client
+ClientDialog .down.> Dialog : <<instance>>
+
+
+Dialog *-down-> Console
 Menu <|-down- Object
 Menu *-down-> "+" Option
+Menu .down.> Console
+Option *--> "*" Dialog
+Option *--> "*" Menu
 QuitMenu *-down-> QuitOption
-MiMenu .down.> Menu : "instance"
-MiMenu *-down-> Object
-
-ManagerMenu .down.> IterativeMenu : "instance"
-ManagerMenu *-down-> Manager
-Manager *-down-> "*" Client
-Client *-down-> Date_TimeIntervalList_Map
-
-Date_TimeIntervalList_Map *-down-> "*" Date_TimeIntervalList_Pair
-Date_TimeIntervalList_Pair *-down-> Date
-Date_TimeIntervalList_Pair *-down-> TimeIntervalList
-TimeIntervalList *-down-> "*" TimeInterval
-TimeInterval *-down-> "2" Time
-
-Date_TimeIntervalList_Map .down.> Map : "instance"
-Date_TimeIntervalList_Pair .down.> Pair : "instance"
-TimeIntervalList .down.> List : "instance"
-TimeInterval .down.> Interval : "instance"
 
 Interval *-down-> "2" ComparableOptional
 ComparableOptional .down.> Optional : "instance"
@@ -114,5 +159,10 @@ Pair *-down-> "2" Object
 NumberList o-down-> Number
 Collection *-down-> "*" Object
 Map o-down-> Pair
+
+ManagerMenu .down.> IterativeMenu : "instance"
+ManagerMenu *-down-> Manager
+Manager *-down-> "*" Client
+Client *-down-> Date_Time_Interval_List_Pair_Map
 
 @enduml
