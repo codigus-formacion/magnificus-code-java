@@ -1,6 +1,6 @@
 package util.values.fraction;
 
-public class Fraction {
+public class Fraction implements Comparable<Fraction> {
 
   private final int numerator;
   private final int denominator;
@@ -12,26 +12,13 @@ public class Fraction {
       numerator *= -1;
       denominator *= -1;
     }
-    if (numerator == 0) {
-      denominator = 1;
-    } else {
-      int gcd = this.gcd(numerator > 0 ? numerator : -numerator, denominator);
+    if (numerator != 0) {
+      int gcd = Math.gcd(numerator > 0 ? numerator : -numerator, denominator);
       numerator = numerator / gcd;
       denominator = denominator / gcd;
     }
     this.numerator = numerator;
     this.denominator = denominator;
-  }
-
-  private int gcd(int x, int y) {
-    assert x > 0;
-    assert y > 0;
-
-    if (x == y)
-      return x;
-    if (x > y)
-      return gcd(x - y, y);
-    return gcd(x, y - x);
   }
 
   public Fraction(int numerator) {
@@ -60,12 +47,12 @@ public class Fraction {
     return this.add(fraction.opposite());
   }
 
-  public Fraction subtract(int integer) {
-    return this.subtract(new Fraction(-integer));
-  }
-
   public Fraction opposite() {
     return new Fraction(-this.numerator, this.denominator);
+  }
+
+  public Fraction subtract(int integer) {
+    return this.subtract(new Fraction(-integer));
   }
 
   public Fraction multiply(Fraction fraction) {
@@ -80,20 +67,6 @@ public class Fraction {
     return this.multiply(new Fraction(integer));
   }
 
-  public Fraction divide(Fraction fraction) {
-    assert fraction != null;
-
-    return this.multiply(fraction.reverse());
-  }
-
-  public Fraction divide(int integer) {
-    return this.divide(new Fraction(1, integer));
-  }
-
-  public Fraction reverse() {
-    return new Fraction(this.denominator, this.numerator);
-  }
-
   public Fraction power(int exponent) {
     assert exponent >= 0;
 
@@ -104,6 +77,20 @@ public class Fraction {
     return power;
   }
 
+  public Fraction divide(Fraction fraction) {
+    assert fraction != null;
+
+    return this.multiply(fraction.reverse());
+  }
+
+  public Fraction reverse() {
+    return new Fraction(this.denominator, this.numerator);
+  }
+
+  public Fraction divide(int integer) {
+    return this.divide(new Fraction(1, integer));
+  }
+
   public int numerator() {
     return this.numerator;
   }
@@ -112,16 +99,8 @@ public class Fraction {
     return this.denominator;
   }
 
-  public double value() {
+  public double valueOf() {
     return (double) this.numerator / this.denominator;
-  }
-
-  public Fraction clone() {
-    return new Fraction(this.numerator, this.denominator);
-  }
-
-  public String toString() {
-    return "Fraction (" + this.numerator + "/" + this.denominator + ")";
   }
 
   public boolean lesser(Fraction fraction) {
@@ -144,12 +123,32 @@ public class Fraction {
     return true;
   }
 
+  public int compareTo(Fraction fraction) {
+    assert fraction != null;
+    
+    if (this.greater(fraction)) {
+      return 1;
+    }
+    if (this.equals(fraction)) {
+      return 0;
+    }
+    return -1;
+  }
+
+  public String toString() {
+    return "Fraction (" + this.numerator + "/" + this.denominator + ")";
+  }
+
   public int hashCode() {
     final int prime = 31;
     int result = 1;
     result = prime * result + numerator;
     result = prime * result + denominator;
     return result;
+  }
+
+  public Fraction clone() {
+    return new Fraction(this.numerator, this.denominator);
   }
 
 }

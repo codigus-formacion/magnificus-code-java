@@ -13,11 +13,12 @@
 - Colección y Nodo y iterador/herenciaXlistas
 - Menú con Opción: interface
 ## Clases Genéricas y Herencia
-- Lista y Nodo y iterador/herenciaXlistas
+- Intervalo (sin extends con clases hijas especificas)
+- Lista y Nodo y iterador/herenciaXlistas 
 - Menú con Opción: T
 ## Clases Anidadas y Herencia
 ### Clases Anónimas
-- Menú con Opción
+- Menú con Opción (sin flecha, con anónimas)
 ### Funciones Lambda
 - Menú con Opción
 
