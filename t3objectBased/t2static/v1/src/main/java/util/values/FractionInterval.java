@@ -14,10 +14,6 @@ public class FractionInterval {
         this(interval.min, interval.max);
     }
 
-    public FractionInterval clone() {
-        return new FractionInterval(this.min, this.max);
-    }
-
     public boolean includes(Fraction point) {
         assert point != null;
 
@@ -37,10 +33,10 @@ public class FractionInterval {
         assert this.isIntersected(interval);
 
         if (this.includes(interval)) {
-            return interval.clone();
+            return new FractionInterval(interval);
         }
         if (interval.includes(this)) {
-            return this.clone();
+            return new FractionInterval(this);
         }
         if (this.includes(interval.min())) {
             return new FractionInterval(interval.min(), this.max());
@@ -52,16 +48,17 @@ public class FractionInterval {
         assert this.isIntersected(interval);
 
         if (this.includes(interval)) {
-            return this.clone();
+            return new FractionInterval(this);
         }
         if (interval.includes(this)) {
-            return interval.clone();
+            return new FractionInterval(interval);
         }
         if (this.includes(interval.min())) {
             return new FractionInterval(this.min(), interval.max());
         }
         return new FractionInterval(interval.min(), this.max());
     }
+    
     public FractionInterval superInterval(FractionInterval interval) {
         assert interval != null;
 

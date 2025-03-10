@@ -1,33 +1,24 @@
 package util.view.dialog.values;
 
 import util.values.Time;
-import util.view.dialog.primitive.Console;
+import util.view.dialog.primitive.Dialog;
 import util.view.dialog.primitive.IntDialog;
 
 public class TimeDialog {
 
     private static String SEPARATOR = ":";
 
-    private String title;
-    private String content;
+    private Dialog<Time> delegated;
 
     public TimeDialog(String title) {
-        assert !title.isBlank();
-
-        this.title = title;
+        this.delegated = new Dialog<Time>(title, TimeDialog.regExp());
     }
 
     public Time read() {
         String input;
-        boolean valid;
         do {
-            Console.instance().write(this.title + " (" + regExp() + "): ");
-            input = Console.instance().readString();
-            valid = TimeDialog.isValid(input);
-            if (!valid) {
-                Console.instance().writeln("Fallo!!!" + this.errorMsg());
-            }
-        } while (!valid);
+            input = this.delegated.read();
+        } while (!TimeDialog.isValid(input));
         return TimeDialog.create(input);
     }
 
@@ -58,10 +49,6 @@ public class TimeDialog {
         return integers;
     }
 
-    private String errorMsg() {
-        return "Al no respetar el formato \"" + regExp() + "\"";
-    }
-
     public static Time create(String string) {
         assert TimeDialog.isValid(string);
 
@@ -70,35 +57,25 @@ public class TimeDialog {
     }
 
     public void write(Time time) {
-        assert time != null;
-
-        Console.instance().write(time);
+        this.delegated.write(time);
     }
 
     public void writeln(Time time) {
-        this.write(time);
-        Console.instance().writeln();
+        this.delegated.writeln(time);
     }
 
-    public void writeDetails(Time time) {
-        assert this.title != null;
-
-        this.content = "===============";
-        this.addContent(time);
-        Console.instance().writeln(this.content);
+    public void writeDetails(Time element) {
+        this.delegated.addHead(element);
+        this.addContent(element);
+        this.delegated.writeDetails();
     }
 
     public void addContent(Time time) {
-        this.addLine("toString: " + time);
-        this.addLine("next: " + time.next());
+        this.delegated.addLine("next: " + time.next());
         Time pivot = new Time(12, 30, 0);
-        this.addLine("before " + pivot + ": " + time.before(pivot));
-        this.addLine("equals " + pivot + ": " + time.equals(pivot));
-        this.addLine("after " + pivot + ": " + time.after(pivot));
-    }
-
-    private void addLine(String line) {
-        this.content += "\n" + line;
+        this.delegated.addLine("before " + pivot + ": " + time.before(pivot));
+        this.delegated.addLine("equals " + pivot + ": " + time.equals(pivot));
+        this.delegated.addLine("after " + pivot + ": " + time.after(pivot));
     }
 
 }

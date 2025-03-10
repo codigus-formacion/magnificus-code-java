@@ -11,7 +11,7 @@ public class DoubleIntervalDialog {
     private static final String PREFIX = "\\[";
     private static final String SEPARATOR = ",";
     private static final String POSTFIX = "\\]";
-    
+
     private String title;
     private String content;
 
@@ -35,7 +35,7 @@ public class DoubleIntervalDialog {
         return DoubleIntervalDialog.create(input);
     }
 
-    public static String regExp(){
+    public static String regExp() {
         return PREFIX + DoubleDialog.regExp() + SEPARATOR + DoubleDialog.regExp() + POSTFIX;
     }
 
@@ -59,7 +59,7 @@ public class DoubleIntervalDialog {
         }
         return doubleList;
     }
-    
+
     private static LinkedList<String> strings(String string) {
         assert DoubleIntervalDialog.isValid(string);
 
@@ -106,7 +106,7 @@ public class DoubleIntervalDialog {
 
     public void addContent(DoubleInterval interval) {
         Double initial = 0.0;
-        DoubleInterval pivot = new DoubleInterval(-1.1,1.1);
+        DoubleInterval pivot = new DoubleInterval(-1.1, 1.1);
 
         this.addLine("toString: " + interval.toString());
         this.addLine("getMin: " + interval.min());
@@ -120,10 +120,7 @@ public class DoubleIntervalDialog {
             this.addLine("union [-1,1]: " + interval.union(pivot));
         }
         this.addLine("superInterval [-1,1]: " + interval.superInterval(pivot));
-        this.addLine("hashCode: " + interval.hashCode());
-        this.addLine("clone: " + interval.clone());
-
-                this.addLine("length: " + interval.length());
+        this.addLine("length: " + interval.length());
         this.addLine("middlePoint: " + interval.middlePoint());
         this.addLine("shifted 1: " + interval.shifted(1));
         this.addLine("scaled 2: " + interval.scaled(2));

@@ -118,8 +118,6 @@ public class FractionDialog {
         this.addLine("divide 1/2: " + fraction.divide(pivot));
         this.addLine("power 2: " + fraction.power(2));
         this.addLine("value: " + fraction.valueOf());
-        this.addLine("hashCode: " + fraction.hashCode());
-        this.addLine("clone: " + fraction.clone());
     }
 
     private void addLine(String line) {

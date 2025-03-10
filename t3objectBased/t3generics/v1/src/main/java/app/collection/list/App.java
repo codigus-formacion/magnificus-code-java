@@ -8,7 +8,7 @@ import util.collection.list.LinkedList;
 import util.values.Math;
 
 public class App {
-
+    
     public static void main(String[] args) {
         IntegerLinkedListDialog intLinkedListDialog = new IntegerLinkedListDialog("Lista de Enteros");
         LinkedList<LinkedList<Integer>> integerLinkedListLinkedList = LinkedList.of(

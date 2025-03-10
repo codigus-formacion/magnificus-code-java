@@ -6,21 +6,21 @@ public class Node<T> {
     private T element;
     private Node<T> next;
 
-    public Node(Node<T> previous, T element, Node<T> next) {
+    Node(Node<T> previous, T element, Node<T> next) {
         this.previous = previous;
         this.element = element;
         this.next = next;
     }
 
-    public Node(T element, Node<T> next) {
+    Node(T element, Node<T> next) {
         this(null, element, next);
     }
 
-    public Node(Node<T> previous, T element) {
+    Node(Node<T> previous, T element) {
         this(previous, element, null);
     }
     
-    public void setNext(Node<T> next) {
+    void setNext(Node<T> next) {
         assert next != null;
         
         this.next = next;

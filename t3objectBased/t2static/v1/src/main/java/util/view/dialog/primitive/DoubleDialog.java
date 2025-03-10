@@ -80,7 +80,6 @@ public class DoubleDialog {
         this.addLine("lesser 0: " + (decimal < 0));
     }
 
-
     private void addLine(String line) {
         this.content += "\n" + line;
     }

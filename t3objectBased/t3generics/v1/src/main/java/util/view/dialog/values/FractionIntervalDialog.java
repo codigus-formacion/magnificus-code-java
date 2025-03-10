@@ -127,9 +127,6 @@ public class FractionIntervalDialog {
             this.addLine("union [-1,1]: " + fractionInterval.union(pivot));
         }
         this.addLine("superInterval [-1,1]: " + fractionInterval.superInterval(pivot));
-        this.addLine("hashCode: " + fractionInterval.hashCode());
-        this.addLine("clone: " + fractionInterval.clone());
-
         this.addLine("length: " + fractionInterval.length());
         this.addLine("middlePoint: " + fractionInterval.middlePoint());
         this.addLine("shifted 1: " + fractionInterval.shifted(new Fraction(1)));

@@ -14,10 +14,6 @@ public class IntegerInterval {
         this(interval.min, interval.max);
     }
 
-    public IntegerInterval clone() {
-        return new IntegerInterval(this.min, this.max);
-    }
-
     public boolean includes(int point) {
         return this.min() <= point && point <= this.max();
     }
@@ -34,10 +30,10 @@ public class IntegerInterval {
         assert this.isIntersected(interval);
 
         if (this.includes(interval)) {
-            return interval.clone();
+            return new IntegerInterval(interval);
         }
         if (interval.includes(this)) {
-            return this.clone();
+            return new IntegerInterval(this);
         }
         if (this.includes(interval.min())) {
             return new IntegerInterval(interval.min(), this.max());
@@ -49,10 +45,10 @@ public class IntegerInterval {
         assert this.isIntersected(interval);
 
         if (this.includes(interval)) {
-            return this.clone();
+            return new IntegerInterval(this);
         }
         if (interval.includes(this)) {
-            return interval.clone();
+            return new IntegerInterval(interval);
         }
         if (this.includes(interval.min())) {
             return new IntegerInterval(this.min(), interval.max());

@@ -14,10 +14,6 @@ public class DoubleInterval {
         this(interval.min, interval.max);
     }
 
-    public DoubleInterval clone() {
-        return new DoubleInterval(this.min, this.max);
-    }
-
     public boolean includes(Double point) {
         assert point != null;
 
@@ -36,10 +32,10 @@ public class DoubleInterval {
         assert this.isIntersected(interval);
 
         if (this.includes(interval)) {
-            return interval.clone();
+            return new DoubleInterval(interval);
         }
         if (interval.includes(this)) {
-            return this.clone();
+            return new DoubleInterval(this);
         }
         if (this.includes(interval.min())) {
             return new DoubleInterval(interval.min(), this.max());
@@ -51,10 +47,10 @@ public class DoubleInterval {
         assert this.isIntersected(interval);
 
         if (this.includes(interval)) {
-            return this.clone();
+            return new DoubleInterval(this);
         }
         if (interval.includes(this)) {
-            return interval.clone();
+            return new DoubleInterval(interval);
         }
         if (this.includes(interval.min())) {
             return new DoubleInterval(this.min(), interval.max());

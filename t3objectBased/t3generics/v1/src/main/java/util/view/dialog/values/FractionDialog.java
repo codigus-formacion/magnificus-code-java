@@ -3,37 +3,28 @@ package util.view.dialog.values;
 import util.collection.list.Iterator;
 import util.collection.list.LinkedList;
 import util.values.Fraction;
-import util.view.dialog.primitive.Console;
+import util.view.dialog.primitive.Dialog;
 import util.view.dialog.primitive.IntDialog;
 
 public class FractionDialog {
 
     private static final String SEPARATOR = "/";
 
-    private String title;
-    private String content;
-
-    public FractionDialog(String title) {
-        assert !title.isBlank();
-
-        this.title = title;
-    }
+    private Dialog<Fraction> delegated;
 
     public FractionDialog() {
-        this("");
+        this.delegated = new Dialog<Fraction>("", FractionDialog.regExp());
+    }
+
+    public FractionDialog(String title) {
+        this.delegated = new Dialog<Fraction>(title, FractionDialog.regExp());
     }
 
     public Fraction read() {
         String input;
-        boolean valid;
         do {
-            Console.instance().write(this.title + " (" + regExp() + "): ");
-            input = Console.instance().readString();
-            valid = FractionDialog.isValid(input);
-            if (!valid) {
-                Console.instance().writeln("Fallo!!!" + this.errorMsg());
-            }
-        } while (!valid);
+            input = this.delegated.read();
+        } while (!FractionDialog.isValid(input));
         return FractionDialog.create(input);
     }
 
@@ -72,10 +63,6 @@ public class FractionDialog {
         return strings;
     }
 
-    private String errorMsg() {
-        return "Al no respetar el formato \"" + regExp() + "\"" + " o un denominador nulo";
-    }
-
     public static Fraction create(String string) {
         assert FractionDialog.isValid(string);
 
@@ -84,45 +71,33 @@ public class FractionDialog {
     }
 
     public void write(Fraction fraction) {
-        assert fraction != null;
-
-        Console.instance().write(fraction);
+        this.delegated.write(fraction);
     }
 
     public void writeln(Fraction fraction) {
-        this.write(fraction);
-        Console.instance().writeln();
+        this.delegated.writeln(fraction);
     }
 
-    public void writeDetails(Fraction fraction) {
-        assert this.title != null;
-
-        this.content = "===============";
-        this.addContent(fraction);
-        Console.instance().writeln(this.content);
+    public void writeDetails(Fraction element) {
+        this.delegated.addHead(element);
+        this.addContent(element);
+        this.delegated.writeDetails();
     }
 
     public void addContent(Fraction fraction) {
-        this.addLine("toString: " + fraction.toString());
-        this.addLine("numerator: " + fraction.numerator());
-        this.addLine("denominator: " + fraction.denominator());
-        this.addLine("opposite: " + fraction.opposite());
+        this.delegated.addLine("numerator: " + fraction.numerator());
+        this.delegated.addLine("denominator: " + fraction.denominator());
+        this.delegated.addLine("opposite: " + fraction.opposite());
         if (!fraction.equals(new Fraction(0))) {
-            this.addLine("reverse: " + fraction.reverse());
+            this.delegated.addLine("reverse: " + fraction.reverse());
         }
         Fraction pivot = new Fraction(1, 2);
-        this.addLine("add 1/2: " + fraction.add(pivot));
-        this.addLine("subtract 1/2: " + fraction.subtract(pivot));
-        this.addLine("multiply 1/2: " + fraction.multiply(pivot));
-        this.addLine("divide 1/2: " + fraction.divide(pivot));
-        this.addLine("power 2: " + fraction.power(2));
-        this.addLine("value: " + fraction.valueOf());
-        this.addLine("hashCode: " + fraction.hashCode());
-        this.addLine("clone: " + fraction.clone());
-    }
-
-    private void addLine(String line) {
-        this.content += "\n" + line;
+        this.delegated.addLine("add 1/2: " + fraction.add(pivot));
+        this.delegated.addLine("subtract 1/2: " + fraction.subtract(pivot));
+        this.delegated.addLine("multiply 1/2: " + fraction.multiply(pivot));
+        this.delegated.addLine("divide 1/2: " + fraction.divide(pivot));
+        this.delegated.addLine("power 2: " + fraction.power(2));
+        this.delegated.addLine("value: " + fraction.valueOf());;
     }
 
 }

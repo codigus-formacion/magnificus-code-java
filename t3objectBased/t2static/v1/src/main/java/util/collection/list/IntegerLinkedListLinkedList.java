@@ -3,6 +3,7 @@ package util.collection.list;
 import util.collection.list.iterator.IntegerLinkedListIterator;
 import util.collection.list.node.IntegerLinkedListNode;
 import util.values.IntegerInterval;
+import util.values.Math;
 
 public class IntegerLinkedListLinkedList {
 
@@ -22,6 +23,30 @@ public class IntegerLinkedListLinkedList {
             dateLinkedList.add(element);
         }
         return dateLinkedList;
+    }
+    
+    public static IntegerLinkedList getRandomIntList() {
+        IntegerLinkedList randomIntList = new IntegerLinkedList();
+        for (int i = 0; i < 10; i++) {
+            randomIntList.add(0 + Math.randomInt(10));
+        }
+        return randomIntList;
+    }
+
+    public static IntegerLinkedList getRangeIntList() {
+        IntegerLinkedList rangeIntList = new IntegerLinkedList();
+        for (int i = 0; i < 10; i++) {
+            rangeIntList.add(i);
+        }
+        return rangeIntList;
+    }
+
+    public static IntegerLinkedList getRangeClosedIntList() {
+        IntegerLinkedList rangeClosedIntList = new IntegerLinkedList();
+        for (int i = 0; i <= 10; i++) {
+            rangeClosedIntList.add(i);
+        }
+        return rangeClosedIntList;
     }
 
     public static IntegerLinkedListLinkedList empty(){

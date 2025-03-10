@@ -3,6 +3,7 @@ package util.collection.list;
 import util.collection.list.iterator.DoubleLinkedListIterator;
 import util.collection.list.node.DoubleLinkedListNode;
 import util.values.IntegerInterval;
+import util.values.Math;
 
 public class DoubleLinkedListLinkedList {
 
@@ -22,6 +23,14 @@ public class DoubleLinkedListLinkedList {
             dateLinkedList.add(element);
         }
         return dateLinkedList;
+    }
+    
+    public static DoubleLinkedList getRandomDoublelist() {
+        DoubleLinkedList randomDoublelist = new DoubleLinkedList();
+        for (int i = 0; i < 10; i++) {
+            randomDoublelist.add(0 + Math.nextDouble(10));
+        }
+        return randomDoublelist;
     }
 
     public static DoubleLinkedListLinkedList empty(){

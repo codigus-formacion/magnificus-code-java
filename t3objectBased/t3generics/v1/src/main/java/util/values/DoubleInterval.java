@@ -2,20 +2,14 @@ package util.values;
 
 public class DoubleInterval {
 
-    private final double min;
-    private final double max;
+    private final Interval<Double> delegated;
 
     public DoubleInterval(double min, double max) {
-        this.min = min;
-        this.max = max;
+        this.delegated = new Interval<Double>(min,max);
     }
 
     public DoubleInterval(DoubleInterval interval) {
-        this(interval.min, interval.max);
-    }
-
-    public DoubleInterval clone() {
-        return new DoubleInterval(this.min, this.max);
+        this(interval.min(), interval.max());
     }
 
     public boolean includes(Double point) {
@@ -36,10 +30,10 @@ public class DoubleInterval {
         assert this.isIntersected(interval);
 
         if (this.includes(interval)) {
-            return interval.clone();
+            return new DoubleInterval(interval);
         }
         if (interval.includes(this)) {
-            return this.clone();
+            return new DoubleInterval(this);
         }
         if (this.includes(interval.min())) {
             return new DoubleInterval(interval.min(), this.max());
@@ -51,10 +45,10 @@ public class DoubleInterval {
         assert this.isIntersected(interval);
 
         if (this.includes(interval)) {
-            return this.clone();
+            return new DoubleInterval(this);
         }
         if (interval.includes(this)) {
-            return interval.clone();
+            return new DoubleInterval(interval);
         }
         if (this.includes(interval.min())) {
             return new DoubleInterval(this.min(), interval.max());
@@ -71,15 +65,15 @@ public class DoubleInterval {
     }
 
     public String toString() {
-        return "Interval [min=" + this.min + ", max=" + this.max + "]";
+        return this.delegated.toString();
     }
 
     public double min() {
-        return this.min;
+        return this.delegated.min();
     }
 
     public double max() {
-        return this.max;
+        return this.delegated.max();
     }
 
     public DoubleInterval(Double max) {
