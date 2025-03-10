@@ -1,24 +1,15 @@
 package util.view.dialog.values;
 
-import util.values.time.Date;
-import util.view.Console;
+import util.values.Date;
+import util.view.dialog.primitive.Console;
 import util.view.dialog.primitive.IntDialog;
 
 public class DateDialog {
 
-    private static String SEPARATOR = "/";
+    private String SEPARATOR = "/";
 
-    public static String REGEXP() {
-        return IntDialog.REGEXP() + SEPARATOR + IntDialog.REGEXP() + SEPARATOR + IntDialog.REGEXP();
-    }
-
-    protected String title;
-    protected Date element;
+    private String title;
     private String content;
-
-    protected DateDialog() {
-        this.title = "";
-    }
 
     public DateDialog(String title) {
         assert !title.isBlank();
@@ -30,63 +21,74 @@ public class DateDialog {
         String input;
         boolean valid;
         do {
-            Console.instance().write(this.title + " (" + REGEXP() + "): ");
+            Console.instance().write(this.title + " (" + regExp() + "): ");
             input = Console.instance().readString();
             valid = this.isValid(input);
             if (!valid) {
                 Console.instance().writeln("Fallo!!!" + this.errorMsg());
             }
         } while (!valid);
-        return this.of(input);
+        return this.create(input);
     }
 
-    protected boolean isValid(String string) {
-        if (!string.matches(REGEXP())) {
+    public String regExp() {
+        IntDialog intDialog = new IntDialog();
+        return intDialog.regExp() + SEPARATOR + intDialog.regExp() + SEPARATOR + intDialog.regExp();
+    }
+
+    private boolean isValid(String string) {
+        assert string != null;
+
+        if (!string.matches(regExp())) {
             return false;
         }
         Integer[] integers = this.values(string);
-        return Date.isValidMonth(integers[1])
-            && Date.isValidDay(integers[2]);
-    }
-
-    protected String errorMsg() {
-        return "Al no respetar el formato \"" + REGEXP() + "\"";
-    }
-
-    public Date of(String string) {
-        Integer[] integers = values(string);
-        return new Date(integers[0], integers[1], integers[2]);
+        return new Date(0,1,1).isValidMonth(integers[1])
+            && new Date(0,1,1).isValidDay(integers[2]);
     }
 
     private Integer[] values(String string) {
+        assert this.isValid(string);
+
         String[] strings = string.split(SEPARATOR);
         Integer[] integers = new Integer[strings.length];
         for (int i = 0; i < integers.length; i++) {
-            integers[i] = new IntDialog().of(strings[i]);
+            integers[i] = new IntDialog().create(strings[i]);
         }
         return integers;
     }
 
-    public void write(Date element) {
-        assert this.title != null;
-
-        Console.instance().write(element);
+    private String errorMsg() {
+        return "Al no respetar el formato \"" + regExp() + "\"";
     }
 
-    public void writeln(Date element) {
-        this.write(element);
+    public Date create(String string) {
+        assert this.isValid(string);
+
+        Integer[] integers = values(string);
+        return new Date(integers[0], integers[1], integers[2]);
+    }
+
+    public void write(Date date) {
+        assert date != null;
+
+        Console.instance().write(date);
+    }
+
+    public void writeln(Date date) {
+        this.write(date);
         Console.instance().writeln();
     }
 
-    public void writeDetails(Date element) {
-        assert this.title != null;
-
+    public void writeDetails(Date date) {
         this.content = "===============";
-        this.addContent(element);
+        this.addContent(date);
         Console.instance().writeln(this.content);
     }
 
     public void addContent(Date date) {
+        assert date != null;
+
         this.addLine("toString: " + date);
         this.addLine("next: " + date.next());
         Date pivot = new Date(2025,6,6);
@@ -95,7 +97,9 @@ public class DateDialog {
         this.addLine("after: " + date.after(pivot));
     }
 
-    protected void addLine(String line) {
+    private void addLine(String line) {
+        assert line != null;
+
         this.content += "\n" + line;
     }
 

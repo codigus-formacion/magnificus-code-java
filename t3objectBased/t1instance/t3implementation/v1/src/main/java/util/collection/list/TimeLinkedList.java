@@ -1,12 +1,14 @@
 package util.collection.list;
 
-import util.values.time.Time;
-import util.values.interval.IntegerInterval;
+import util.values.IntegerInterval;
+import util.values.Time;
+import util.collection.list.iterator.TimeIterator;
+import util.collection.list.node.TimeNode;
 
 public class TimeLinkedList {
 
-    protected TimeNode head;
-    protected TimeNode last;
+    private TimeNode head;
+    private TimeNode last;
 
     public TimeLinkedList() {
         this.head = null;
@@ -22,14 +24,6 @@ public class TimeLinkedList {
         }
     }
 
-    public static TimeLinkedList of(Time... elements) {
-        return new TimeLinkedList(elements);
-    }
-
-    public static TimeLinkedList empty() {
-        return new TimeLinkedList();
-    }
-
     public boolean add(Time element) {
         assert element != null : "Element cannot be null";
 
@@ -43,12 +37,34 @@ public class TimeLinkedList {
         return true;
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return this.head == null;
+    }
+
+    public int size() {
+        int size = 0;
+        TimeIterator iterator = this.iterator();
+        while (iterator.hasNext()) {
+            size++;
+            iterator.next();
+        }
+        return size;
     }
 
     public TimeIterator iterator() {
         return new TimeIterator(this.head);
+    }
+
+    public Time get(int position) {
+        assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
+
+        TimeIterator iterator = this.iterator();
+        Time time = iterator.next().element();
+        while (position > 0) {
+            time = iterator.next().element();
+            position--;
+        }
+        return time;
     }
 
     public String toString() {
@@ -61,31 +77,6 @@ public class TimeLinkedList {
             toString = toString.substring(1);
         }
         return "{" + toString + "}";
-    }
-
-    public Time get(int position) {
-        assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
-
-        TimeNode current = this.head;
-        while (position > 0) {
-            position--;
-            current = current.next();
-        }
-        return current.element();
-    }
-
-    public int size() {
-        int size = 0;
-        TimeNode current = this.head;
-        while (current != null) {
-            size++;
-            current = current.next();
-        }
-        return size;
-    }
-
-    protected TimeNode head() {
-        return this.head();
     }
 
 }

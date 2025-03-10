@@ -1,30 +1,20 @@
 package util.view.dialog.values;
 
 import util.collection.list.DoubleLinkedList;
-import util.collection.list.StringIterator;
 import util.collection.list.StringLinkedList;
-import util.values.interval.DoubleInterval;
-import util.values.interval.FractionInterval;
-import util.view.Console;
+import util.collection.list.iterator.StringIterator;
+import util.values.DoubleInterval;
+import util.view.dialog.primitive.Console;
 import util.view.dialog.primitive.DoubleDialog;
 
 public class DoubleIntervalDialog {
 
-    protected static final String PREFIX = "\\[";
-    protected static final String SEPARATOR = ",";
-    protected static final String POSTFIX = "\\]";
-
-    public static String REGEXP(){
-        return PREFIX + DoubleDialog.REGEXP() + SEPARATOR + DoubleDialog.REGEXP() + POSTFIX;
-    }
+    private final String PREFIX = "\\[";
+    private final String SEPARATOR = ",";
+    private final String POSTFIX = "\\]";
     
-    protected String title;
-    protected FractionInterval element;
+    private String title;
     private String content;
-    
-    protected DoubleIntervalDialog() {
-        this.title = "";
-    }
 
     public DoubleIntervalDialog(String title) {
         assert !title.isBlank();
@@ -36,34 +26,45 @@ public class DoubleIntervalDialog {
         String input;
         boolean valid;
         do {
-            Console.instance().write(this.title + " (" + REGEXP() + "): ");
+            Console.instance().write(this.title + " (" + regExp() + "): ");
             input = Console.instance().readString();
             valid = this.isValid(input);
             if (!valid) {
                 Console.instance().writeln("Fallo!!!" + this.errorMsg());
             }
         } while (!valid);
-        return this.of(input);
+        return this.create(input);
     }
 
-    protected boolean isValid(String string) {
-        if (!string.matches(REGEXP())) {
+    public String regExp(){
+        DoubleDialog doubleDialog = new DoubleDialog();
+        return PREFIX + doubleDialog.regExp() + SEPARATOR + doubleDialog.regExp() + POSTFIX;
+    }
+
+    private boolean isValid(String string) {
+        assert string != null;
+
+        if (!string.matches(regExp())) {
             return false;
         }
         DoubleLinkedList values = this.values(string);
         return values.get(0).compareTo(values.get(1)) <= 0;
     }
 
-    protected DoubleLinkedList values(String string) {
+    private DoubleLinkedList values(String string) {
+        assert this.isValid(string);
+
         DoubleLinkedList doubleList = new DoubleLinkedList();
         StringIterator iterator = this.strings(string).iterator();
         while (iterator.hasNext()) {
-            doubleList.add(new DoubleDialog().of(iterator.next().element()));
+            doubleList.add(new DoubleDialog().create(iterator.next().element()));
         }
         return doubleList;
     }
     
-    protected StringLinkedList strings(String string) {
+    private StringLinkedList strings(String string) {
+        assert this.isValid(string);
+
         StringLinkedList strings = new StringLinkedList();
         String withoutBrackets = string.replaceAll("[" + PREFIX + POSTFIX + "]", "");
         if (withoutBrackets.isBlank()) {
@@ -76,32 +77,32 @@ public class DoubleIntervalDialog {
         return strings;
     }
 
-    protected String errorMsg() {
-        return "Al no respetar el formato \"" + REGEXP() + "\"";
+    private String errorMsg() {
+        return "Al no respetar el formato \"" + regExp() + "\"";
     }
 
-    public DoubleInterval of(String string) {
+    public DoubleInterval create(String string) {
         assert this.isValid(string);
 
         return new DoubleInterval(this.values(string).get(0), this.values(string).get(1));
     }
 
-    public void write(DoubleInterval element) {
-        assert this.title != null;
+    public void write(DoubleInterval doubleInterval) {
+        assert doubleInterval != null;
 
-        Console.instance().write(element);
+        Console.instance().write(doubleInterval);
     }
 
-    public void writeln(DoubleInterval element) {
-        this.write(element);
+    public void writeln(DoubleInterval doubleInterval) {
+        this.write(doubleInterval);
         Console.instance().writeln();
     }
 
-    public void writeDetails(DoubleInterval element) {
+    public void writeDetails(DoubleInterval doubleInterval) {
         assert this.title != null;
 
         this.content = "===============";
-        this.addContent(element);
+        this.addContent(doubleInterval);
         Console.instance().writeln(this.content);
     }
 
@@ -134,7 +135,7 @@ public class DoubleIntervalDialog {
         }
     }
 
-    protected void addLine(String line) {
+    private void addLine(String line) {
         this.content += "\n" + line;
     }
 

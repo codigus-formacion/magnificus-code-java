@@ -1,15 +1,8 @@
 package util.view.dialog.primitive;
 
-import util.view.Console;
-
 public class DoubleDialog {
 
-    public static String REGEXP() {
-        return Console.DOUBLE_REGEXP;
-    }
-
-    protected String title;
-    protected double element;
+    private String title;
     private String content;
 
     public DoubleDialog() {
@@ -26,26 +19,30 @@ public class DoubleDialog {
         String input;
         boolean valid;
         do {
-            Console.instance().write(this.title + " (" + REGEXP() + "): ");
+            Console.instance().write(this.title + " (" + regExp() + "): ");
             input = Console.instance().readString();
             valid = this.isValid(input);
             if (!valid) {
                 Console.instance().writeln("Fallo!!!" + this.errorMsg());
             }
         } while (!valid);
-        return this.of(input);
+        return this.create(input);
     }
 
-    protected boolean isValid(String string) {
-        return string.matches(REGEXP());
+    public String regExp() {
+        return Console.DOUBLE_regExp;
     }
 
-    protected String errorMsg() {
-        return "Al no respetar el formato \"" + REGEXP() + "\"";
+    private boolean isValid(String string) {
+        return string.matches(regExp());
     }
 
-    public Double of(String string) {
-        assert string.matches(REGEXP());
+    private String errorMsg() {
+        return "Al no respetar el formato \"" + regExp() + "\"";
+    }
+
+    public Double create(String string) {
+        assert string.matches(regExp());
 
         return Double.parseDouble(string);
     }
@@ -71,10 +68,20 @@ public class DoubleDialog {
 
     public void addContent(Double decimal) {
         this.addLine("toString: " + decimal.toString());
+        this.addLine("sum 1: " + (decimal + 1));
+        this.addLine("substract 1: " + (decimal - 1));
+        this.addLine("multiply 2: " + (decimal * 2));
+        this.addLine("divide 2: " + (decimal * 2));
+        this.addLine("module 2: " + (decimal % 2));
+        this.addLine("greater 0: " + (decimal > 0));
+        this.addLine("equals or greater 0: " + (decimal >= 0));
+        this.addLine("equals 0: " + (decimal == 0));
+        this.addLine("lesser or equals 0: " + (decimal <= 0));
+        this.addLine("lesser 0: " + (decimal < 0));
     }
 
 
-    protected void addLine(String line) {
+    private void addLine(String line) {
         this.content += "\n" + line;
     }
 

@@ -1,29 +1,20 @@
 package util.view.dialog.values;
 
-import util.collection.list.StringIterator;
 import util.collection.list.StringLinkedList;
+import util.collection.list.iterator.StringIterator;
 import util.collection.list.FractionLinkedList;
-import util.values.fraction.Fraction;
-import util.values.interval.FractionInterval;
-import util.view.Console;
+import util.values.Fraction;
+import util.values.FractionInterval;
+import util.view.dialog.primitive.Console;
 
 public class FractionIntervalDialog {
 
-    protected static final String PREFIX = "\\[";
-    protected static final String SEPARATOR = ",";
-    protected static final String POSTFIX = "\\]";
-
-    public static String REGEXP(){
-        return PREFIX + FractionDialog.REGEXP() + SEPARATOR + FractionDialog.REGEXP() + POSTFIX;
-    }
+    private final String PREFIX = "\\[";
+    private final String SEPARATOR = ",";
+    private final String POSTFIX = "\\]";
     
-    protected String title;
-    protected FractionInterval element;
+    private String title;
     private String content;
-    
-    protected FractionIntervalDialog() {
-        this.title = "";
-    }
 
     public FractionIntervalDialog(String title) {
         assert !title.isBlank();
@@ -35,34 +26,50 @@ public class FractionIntervalDialog {
         String input;
         boolean valid;
         do {
-            Console.instance().write(this.title + " (" + REGEXP() + "): ");
+            Console.instance().write(this.title + " (" + regExp() + "): ");
             input = Console.instance().readString();
             valid = this.isValid(input);
             if (!valid) {
                 Console.instance().writeln("Fallo!!!" + this.errorMsg());
             }
         } while (!valid);
-        return this.of(input);
+        return this.create(input);
     }
 
-    protected boolean isValid(String string) {
-        if (!string.matches(REGEXP())) {
+    public String regExp(){
+        FractionDialog fractionDialog = new FractionDialog();
+        return PREFIX + fractionDialog.regExp() + SEPARATOR + fractionDialog.regExp() + POSTFIX;
+    }
+
+    private boolean isValid(String string) {
+        assert string != null;
+
+        if (!string.matches(regExp())) {
             return false;
         }
         FractionLinkedList values = this.values(string);
         return values.get(0).compareTo(values.get(1)) <= 0;
     }
 
-    protected FractionLinkedList values(String string) {
+    private FractionLinkedList values(String string) {
+        assert this.isValid(string);
+
         FractionLinkedList fractions = new FractionLinkedList();
         StringIterator iterator = this.strings(string).iterator();
         while (iterator.hasNext()) {
-            fractions.add(new FractionDialog().of(iterator.next().element()));
+            String fraction = iterator.next().element();
+            System.out.println("+" + fraction);
+            System.out.println("=" + new FractionDialog().create(fraction));
+            fractions.add(new FractionDialog().create(fraction));
         }
+        System.out.println(fractions.isEmpty());
+        System.out.println(fractions.size());
         return fractions;
     }
     
-    protected StringLinkedList strings(String string) {
+    private StringLinkedList strings(String string) {
+        assert this.isValid(string);
+
         StringLinkedList strings = new StringLinkedList();
         String withoutBrackets = string.replaceAll("[" + PREFIX + POSTFIX + "]", "");
         if (withoutBrackets.isBlank()) {
@@ -70,70 +77,71 @@ public class FractionIntervalDialog {
         }
         String[] elements = withoutBrackets.split(SEPARATOR);
         for (String element : elements) {
+            System.out.println("-" + element);
             strings.add(element);
         }
         return strings;
     }
 
-    protected String errorMsg() {
-        return "Al no respetar el formato \"" + REGEXP() + "\"";
+    private String errorMsg() {
+        return "Al no respetar el formato \"" + regExp() + "\"";
     }
 
-    public FractionInterval of(String string) {
+    public FractionInterval create(String string) {
         assert this.isValid(string);
 
         return new FractionInterval(this.values(string).get(0), this.values(string).get(1));
     }
 
-    public void write(FractionInterval element) {
-        assert this.title != null;
+    public void write(FractionInterval fractionInterval) {
+        assert fractionInterval != null;
 
-        Console.instance().write(element);
+        Console.instance().write(fractionInterval);
     }
 
-    public void writeln(FractionInterval element) {
-        this.write(element);
+    public void writeln(FractionInterval fractionInterval) {
+        this.write(fractionInterval);
         Console.instance().writeln();
     }
 
-    public void writeDetails(FractionInterval element) {
+    public void writeDetails(FractionInterval fractionInterval) {
         assert this.title != null;
 
         this.content = "===============";
-        this.addContent(element);
+        this.addContent(fractionInterval);
         Console.instance().writeln(this.content);
     }
 
-    public void addContent(FractionInterval interval) {
+    public void addContent(FractionInterval fractionInterval) {
         Fraction initial = new Fraction();
         FractionInterval pivot = new FractionInterval(new Fraction(1,2), new Fraction(3,4));
 
-        this.addLine("toString: " + interval.toString());
-        this.addLine("getMin: " + interval.min());
-        this.addLine("getMax: " + interval.max());
-        this.addLine("includes 0: " + interval.includes(initial));
-        this.addLine("includes [-1,1]: " + interval.includes(pivot));
-        this.addLine("equals [-1,1]: " + interval.equals(pivot));
-        this.addLine("isIntersected [-1,1]: " + interval.isIntersected(pivot));
-        if (interval.isIntersected(pivot)) {
-            this.addLine("intersection [-1,1]: " + interval.intersection(pivot));
-            this.addLine("union [-1,1]: " + interval.union(pivot));
+        this.addLine("toString: " + fractionInterval.toString());
+        this.addLine("getMin: " + fractionInterval.min());
+        this.addLine("getMax: " + fractionInterval.max());
+        this.addLine("includes 0: " + fractionInterval.includes(initial));
+        this.addLine("includes [-1,1]: " + fractionInterval.includes(pivot));
+        this.addLine("equals [-1,1]: " + fractionInterval.equals(pivot));
+        this.addLine("isIntersected [-1,1]: " + fractionInterval.isIntersected(pivot));
+        if (fractionInterval.isIntersected(pivot)) {
+            this.addLine("intersection [-1,1]: " + fractionInterval.intersection(pivot));
+            this.addLine("union [-1,1]: " + fractionInterval.union(pivot));
         }
-        this.addLine("superInterval [-1,1]: " + interval.superInterval(pivot));
-        this.addLine("hashCode: " + interval.hashCode());
-        this.addLine("clone: " + interval.clone());
+        this.addLine("superInterval [-1,1]: " + fractionInterval.superInterval(pivot));
+        this.addLine("hashCode: " + fractionInterval.hashCode());
+        this.addLine("clone: " + fractionInterval.clone());
 
-        this.addLine("length: " + interval.length());
-        this.addLine("middlePoint: " + interval.middlePoint());
-        this.addLine("shifted 1: " + interval.shifted(new Fraction(1)));
-        this.addLine("scaled 2: " + interval.scaled(2));
-        this.addLine("symetric: " + interval.symetric());
-        for (FractionInterval splitedInterval : interval.split(3)) {
+        this.addLine("length: " + fractionInterval.length());
+        this.addLine("middlePoint: " + fractionInterval.middlePoint());
+        this.addLine("shifted 1: " + fractionInterval.shifted(new Fraction(1)));
+        this.addLine("scaled 2: " + fractionInterval.scaled(2));
+        this.addLine("symetric: " + fractionInterval.symetric());
+        for (FractionInterval splitedInterval : fractionInterval.split(3)) {
             this.addLine("split: " + splitedInterval);
         }
     }
 
-    protected void addLine(String line) {
+    private void addLine(String line) {
         this.content += "\n" + line;
     }
     

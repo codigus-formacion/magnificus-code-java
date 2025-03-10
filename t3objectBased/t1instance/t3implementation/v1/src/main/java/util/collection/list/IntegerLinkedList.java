@@ -1,11 +1,13 @@
 package util.collection.list;
 
-import util.values.interval.IntegerInterval;
+import util.collection.list.iterator.IntegerIterator;
+import util.collection.list.node.IntegerNode;
+import util.values.IntegerInterval;
 
 public class IntegerLinkedList {
 
-    protected IntegerNode head;
-    protected IntegerNode last;
+    private IntegerNode head;
+    private IntegerNode last;
 
     public IntegerLinkedList() {
         this.head = null;
@@ -21,14 +23,6 @@ public class IntegerLinkedList {
         }
     }
 
-    public static IntegerLinkedList of(Integer... elements) {
-        return new IntegerLinkedList(elements);
-    }
-
-    public static IntegerLinkedList empty() {
-        return new IntegerLinkedList();
-    }
-
     public boolean add(Integer element) {
         assert element != null : "Element cannot be null";
 
@@ -42,12 +36,34 @@ public class IntegerLinkedList {
         return true;
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return this.head == null;
+    }
+
+    public int size() {
+        int size = 0;
+        IntegerIterator iterator = this.iterator();
+        while (iterator.hasNext()) {
+            size++;
+            iterator.next();
+        }
+        return size;
     }
 
     public IntegerIterator iterator() {
         return new IntegerIterator(this.head);
+    }
+
+    public Integer get(int position) {
+        assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
+
+        IntegerIterator iterator = this.iterator();
+        int integer = iterator.next().element();
+        while (position > 0) {
+            integer = iterator.next().element();
+            position--;
+        }
+        return integer;
     }
 
     public String toString() {
@@ -60,31 +76,6 @@ public class IntegerLinkedList {
             toString = toString.substring(1);
         }
         return "{" + toString + "}";
-    }
-
-    public Integer get(int position) {
-        assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
-
-        IntegerNode current = this.head;
-        while (position > 0) {
-            position--;
-            current = current.next();
-        }
-        return current.element();
-    }
-
-    public int size() {
-        int size = 0;
-        IntegerNode current = this.head;
-        while (current != null) {
-            size++;
-            current = current.next();
-        }
-        return size;
-    }
-
-    protected IntegerNode head() {
-        return this.head();
     }
 
 }

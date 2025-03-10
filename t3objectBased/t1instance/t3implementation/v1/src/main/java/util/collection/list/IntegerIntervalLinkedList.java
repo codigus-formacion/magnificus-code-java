@@ -1,11 +1,13 @@
 package util.collection.list;
 
-import util.values.interval.IntegerInterval;
+import util.collection.list.iterator.IntegerIntervalIterator;
+import util.collection.list.node.IntegerIntervalNode;
+import util.values.IntegerInterval;
 
 public class IntegerIntervalLinkedList {
 
-    protected IntegerIntervalNode head;
-    protected IntegerIntervalNode last;
+    private IntegerIntervalNode head;
+    private IntegerIntervalNode last;
 
     public IntegerIntervalLinkedList() {
         this.head = null;
@@ -21,14 +23,6 @@ public class IntegerIntervalLinkedList {
         }
     }
 
-    public static IntegerIntervalLinkedList of(IntegerInterval... elements) {
-        return new IntegerIntervalLinkedList(elements);
-    }
-
-    public static IntegerIntervalLinkedList empty() {
-        return new IntegerIntervalLinkedList();
-    }
-
     public boolean add(IntegerInterval element) {
         assert element != null : "Element cannot be null";
 
@@ -42,12 +36,34 @@ public class IntegerIntervalLinkedList {
         return true;
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return this.head == null;
+    }
+
+    public int size() {
+        int size = 0;
+        IntegerIntervalIterator iterator = this.iterator();
+        while (iterator.hasNext()) {
+            size++;
+            iterator.next();
+        }
+        return size;
     }
 
     public IntegerIntervalIterator iterator() {
         return new IntegerIntervalIterator(this.head);
+    }
+
+    public IntegerInterval get(int position) {
+        assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
+
+        IntegerIntervalIterator iterator = this.iterator();
+        IntegerInterval intergerInterval = iterator.next().element();
+        while (position > 0) {
+            intergerInterval = iterator.next().element();
+            position--;
+        }
+        return intergerInterval;
     }
 
     public String toString() {
@@ -60,31 +76,6 @@ public class IntegerIntervalLinkedList {
             toString = toString.substring(1);
         }
         return "{" + toString + "}";
-    }
-
-    public IntegerInterval get(int position) {
-        assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
-
-        IntegerIntervalNode current = this.head;
-        while (position > 0) {
-            position--;
-            current = current.next();
-        }
-        return current.element();
-    }
-
-    public int size() {
-        int size = 0;
-        IntegerIntervalNode current = this.head;
-        while (current != null) {
-            size++;
-            current = current.next();
-        }
-        return size;
-    }
-
-    protected IntegerIntervalNode head() {
-        return this.head();
     }
 
 }

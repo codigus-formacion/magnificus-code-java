@@ -1,22 +1,15 @@
 package util.view.dialog.primitive;
 
-import util.view.Console;
-
 public class IntDialog {
 
-    public static String REGEXP() {
-        return Console.INTEGER_REGEXP;
-    }
-
-    protected String title;
-    protected int element;
+    private String title;
     private String content;
 
     public IntDialog() {
         this.title = "";
     }
 
-    protected IntDialog(String title) {
+    public IntDialog(String title) {
         assert !title.isBlank();
 
         this.title = title;
@@ -26,26 +19,30 @@ public class IntDialog {
         String input;
         boolean valid;
         do {
-            Console.instance().write(this.title + " (" + REGEXP() + "): ");
+            Console.instance().write(this.title + " (" + regExp() + "): ");
             input = Console.instance().readString();
             valid = this.isValid(input);
             if (!valid) {
                 Console.instance().writeln("Fallo!!!" + this.errorMsg());
             }
         } while (!valid);
-        return this.of(input);
+        return this.create(input);
     }
 
-    protected boolean isValid(String string) {
-        return string.matches(REGEXP());
+    private boolean isValid(String string) {
+        return string.matches(regExp());
     }
 
-    protected String errorMsg() {
-        return "Al no respetar el formato \"" + REGEXP() + "\"";
+    public String regExp() {
+        return Console.INTEGER_regExp;
     }
 
-    public Integer of(String string) {
-        assert string.matches(REGEXP());
+    private String errorMsg() {
+        return "Al no respetar el formato \"" + regExp() + "\"";
+    }
+
+    public Integer create(String string) {
+        assert string.matches(regExp());
 
         return Integer.parseInt(string);
     }
@@ -71,9 +68,19 @@ public class IntDialog {
 
     public void addContent(Integer integer) {
         this.addLine("toString: " + integer.toString());
+        this.addLine("sum 1: " + (integer + 1));
+        this.addLine("substract 1: " + (integer - 1));
+        this.addLine("multiply 2: " + (integer * 2));
+        this.addLine("divide 2: " + (integer * 2));
+        this.addLine("module 2: " + (integer % 2));
+        this.addLine("greater 0: " + (integer > 0));
+        this.addLine("equals or greater 0: " + (integer >= 0));
+        this.addLine("equals 0: " + (integer == 0));
+        this.addLine("lesser or equals 0: " + (integer <= 0));
+        this.addLine("lesser 0: " + (integer < 0));
     }
 
-    protected void addLine(String line) {
+    private void addLine(String line) {
         this.content += "\n" + line;
     }
 

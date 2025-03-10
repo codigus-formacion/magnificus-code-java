@@ -1,12 +1,14 @@
 package util.collection.list;
 
-import util.values.interval.FractionInterval;
-import util.values.interval.IntegerInterval;
+import util.collection.list.iterator.FractionIntervalIterator;
+import util.collection.list.node.FractionIntervalNode;
+import util.values.FractionInterval;
+import util.values.IntegerInterval;
 
 public class FractionIntervalLinkedList {
 
-    protected FractionIntervalNode head;
-    protected FractionIntervalNode last;
+    private FractionIntervalNode head;
+    private FractionIntervalNode last;
 
     public FractionIntervalLinkedList() {
         this.head = null;
@@ -22,14 +24,6 @@ public class FractionIntervalLinkedList {
         }
     }
 
-    public static FractionIntervalLinkedList of(FractionInterval... elements) {
-        return new FractionIntervalLinkedList(elements);
-    }
-
-    public static FractionIntervalLinkedList empty() {
-        return new FractionIntervalLinkedList();
-    }
-
     public boolean add(FractionInterval element) {
         assert element != null : "Element cannot be null";
 
@@ -43,12 +37,34 @@ public class FractionIntervalLinkedList {
         return true;
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return this.head == null;
+    }
+
+    public int size() {
+        int size = 0;
+        FractionIntervalIterator iterator = this.iterator();
+        while (iterator.hasNext()) {
+            size++;
+            iterator.next();
+        }
+        return size;
     }
 
     public FractionIntervalIterator iterator() {
         return new FractionIntervalIterator(this.head);
+    }
+
+    public FractionInterval get(int position) {
+        assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
+
+        FractionIntervalIterator iterator = this.iterator();
+        FractionInterval fractionInterval = iterator.next().element();
+        while (position > 0) {
+            fractionInterval = iterator.next().element();
+            position--;
+        }
+        return fractionInterval;
     }
 
     public String toString() {
@@ -61,31 +77,6 @@ public class FractionIntervalLinkedList {
             toString = toString.substring(1);
         }
         return "{" + toString + "}";
-    }
-
-    public FractionInterval get(int position) {
-        assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
-
-        FractionIntervalNode current = this.head;
-        while (position > 0) {
-            position--;
-            current = current.next();
-        }
-        return current.element();
-    }
-
-    public int size() {
-        int size = 0;
-        FractionIntervalNode current = this.head;
-        while (current != null) {
-            size++;
-            current = current.next();
-        }
-        return size;
-    }
-
-    protected FractionIntervalNode head() {
-        return this.head();
     }
 
 }

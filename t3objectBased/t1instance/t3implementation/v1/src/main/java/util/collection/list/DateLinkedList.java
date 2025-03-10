@@ -1,12 +1,14 @@
 package util.collection.list;
 
-import util.values.time.Date;
-import util.values.interval.IntegerInterval;
+import util.values.Date;
+import util.values.IntegerInterval;
+import util.collection.list.iterator.DateIterator;
+import util.collection.list.node.DateNode;
 
 public class DateLinkedList {
 
-    protected DateNode head;
-    protected DateNode last;
+    private DateNode head;
+    private DateNode last;
 
     public DateLinkedList() {
         this.head = null;
@@ -21,16 +23,8 @@ public class DateLinkedList {
             this.add(element);
         }
     }
-
-    public static DateLinkedList of(Date... elements) {
-        return new DateLinkedList(elements);
-    }
-
-    public static DateLinkedList empty() {
-        return new DateLinkedList();
-    }
-
-    public boolean add(Date element) {
+    
+    public void add(Date element) {
         assert element != null : "Element cannot be null";
 
         DateNode last = new DateNode(this.last, element);
@@ -40,15 +34,36 @@ public class DateLinkedList {
             this.last.setNext(last);
         }
         this.last = last;
-        return true;
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return this.head == null;
+    }
+
+    public int size() {
+        int size = 0;
+        DateIterator iterator = this.iterator();
+        while (iterator.hasNext()) {
+            size++;
+            iterator.next();
+        }
+        return size;
     }
 
     public DateIterator iterator() {
         return new DateIterator(this.head);
+    }
+
+    public Date get(int position) {
+        assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
+
+        DateIterator iterator = this.iterator();
+        Date date = iterator.next().element();
+        while (position > 0) {
+            date = iterator.next().element();
+            position--;
+        }
+        return date;
     }
 
     public String toString() {
@@ -61,31 +76,6 @@ public class DateLinkedList {
             toString = toString.substring(1);
         }
         return "{" + toString + "}";
-    }
-
-    public Date get(int position) {
-        assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
-
-        DateNode current = this.head;
-        while (position > 0) {
-            position--;
-            current = current.next();
-        }
-        return current.element();
-    }
-
-    public int size() {
-        int size = 0;
-        DateNode current = this.head;
-        while (current != null) {
-            size++;
-            current = current.next();
-        }
-        return size;
-    }
-
-    protected DateNode head() {
-        return this.head();
     }
 
 }

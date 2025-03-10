@@ -1,36 +1,25 @@
 package util.view.dialog.collection.list;
 
-import util.view.Console;
+import util.view.dialog.primitive.Console;
 import util.view.dialog.primitive.DoubleDialog;
-import util.view.dialog.primitive.IntDialog;
-
 import util.collection.list.DoubleIntervalLinkedList;
-import util.collection.list.DoubleIterator;
-import util.collection.list.DoubleLinkedList;
-import util.collection.list.StringIterator;
 import util.collection.list.StringLinkedList;
-import util.values.interval.DoubleInterval;
+import util.collection.list.iterator.DoubleIterator;
+import util.collection.list.iterator.StringIterator;
+import util.values.DoubleInterval;
+import util.collection.list.DoubleLinkedList;
 
 public class DoubleLinkedListDialog {
 
-    protected static final String PREFIX = "\\{";
-    protected static final String SEPARATOR = ",";
-    protected static final String POSTFIX = "\\}";
+    private final String PREFIX = "\\{";
+    private final String SEPARATOR = ",";
+    private final String POSTFIX = "\\}";
 
-    protected static String REGEXP() {
-        return PREFIX + "(" + IntDialog.REGEXP() + "(" + SEPARATOR + IntDialog.REGEXP() + ")*)?" + POSTFIX;
-    }
-
-    protected String title;
-    protected Integer element;
+    private String title;
     private String content;
 
-    protected DoubleLinkedListDialog() {
-        this.title = "";
-    }
-
     public DoubleLinkedListDialog(String title) {
-        assert title != null && !title.isBlank() : "Title cannot be null or blank";
+        assert !title.isBlank() : "Title cannot be null or blank";
 
         this.title = title;
     }
@@ -39,25 +28,30 @@ public class DoubleLinkedListDialog {
         String input;
         boolean valid;
         do {
-            Console.instance().write(this.title + " (" + REGEXP() + "): ");
+            Console.instance().write(this.title + " (" + regExp() + "): ");
             input = Console.instance().readString();
             valid = this.isValid(input);
             if (!valid) {
                 Console.instance().writeln("Fallo!!!" + this.errorMsg());
             }
         } while (!valid);
-        return this.of(input);
+        return this.create(input);
     }
 
-    protected String errorMsg() {
-        return "Al no respetar el formato \"" + REGEXP() + "\"";
+    public String regExp() {
+        DoubleDialog doubleDialog = new DoubleDialog();
+        return PREFIX + "(" + doubleDialog.regExp() + "(" + SEPARATOR + doubleDialog.regExp() + ")*)?" + POSTFIX;
     }
 
-    protected boolean isValid(String string) {
-        return string.matches(REGEXP());
+    private boolean isValid(String string) {
+        return string.matches(regExp());
     }
 
-    public DoubleLinkedList of(String string) {
+    private String errorMsg() {
+        return "Al no respetar el formato \"" + regExp() + "\"";
+    }
+
+    public DoubleLinkedList create(String string) {
         assert this.isValid(string);
 
         DoubleLinkedList intList = new DoubleLinkedList();
@@ -67,19 +61,21 @@ public class DoubleLinkedListDialog {
         }
         return intList;
     }
+    
+    private DoubleLinkedList values(String string) {
+        assert this.isValid(string);
 
-    protected DoubleLinkedList values(String string) {
         DoubleLinkedList integers = new DoubleLinkedList();
         StringIterator iterator = this.strings(string).iterator();
         while (iterator.hasNext()) {
             String elementString = iterator.next().element();
-            integers.add(new DoubleDialog().of(elementString));
+            integers.add(new DoubleDialog().create(elementString));
         }
         return integers;
     }
 
-    protected StringLinkedList strings(String string) {
-        assert string != null : "Input string cannot be null";
+    private StringLinkedList strings(String string) {
+        assert this.isValid(string);
 
         StringLinkedList strings = new StringLinkedList();
         String withoutBrackets = string.replaceAll("[" + PREFIX + POSTFIX + "]", "");
@@ -92,45 +88,45 @@ public class DoubleLinkedListDialog {
         return strings;
     }
 
-    public void write(DoubleLinkedList element) {
+    public void write(DoubleLinkedList doubleLinkedList) {
         assert this.title != null;
 
-        Console.instance().write(element);
+        Console.instance().write(doubleLinkedList);
     }
 
-    public void writeln(DoubleLinkedList element) {
-        this.write(element);
+    public void writeln(DoubleLinkedList doubleLinkedList) {
+        this.write(doubleLinkedList);
         Console.instance().writeln();
     }
 
-    public void writeDetails(DoubleLinkedList element) {
+    public void writeDetails(DoubleLinkedList doubleLinkedList) {
         assert this.title != null;
 
         this.content = "===============";
-        this.addContent(element);
+        this.addContent(doubleLinkedList);
         Console.instance().writeln(this.content);
     }
 
-    public void addContent(DoubleLinkedList list) {
-        assert list != null : "Element cannot be null";
+    public void addContent(DoubleLinkedList doubleLinkedList) {
+        assert doubleLinkedList != null : "Element cannot be null";
 
-        this.addLine("toString: " + list.toString());
+        this.addLine("toString: " + doubleLinkedList.toString());
         int sum = 0;
-        DoubleIterator iterator = list.iterator();
+        DoubleIterator iterator = doubleLinkedList.iterator();
         while (iterator.hasNext()) {
             sum += iterator.next().element();
         }
         this.addLine("sum: " + sum);
 
         DoubleLinkedList mappedList = new DoubleLinkedList();
-        iterator = list.iterator();
+        iterator = doubleLinkedList.iterator();
         while (iterator.hasNext()) {
             mappedList.add(iterator.next().element() + 1);
         }
         this.addLine("map + 1: " + mappedList);
 
         DoubleIntervalLinkedList intervalList = new DoubleIntervalLinkedList();
-        iterator = list.iterator();
+        iterator = doubleLinkedList.iterator();
         while (iterator.hasNext()) {
             Double integer = iterator.next().element();
             intervalList.add(new DoubleInterval(-integer, integer));
@@ -138,7 +134,7 @@ public class DoubleLinkedListDialog {
         this.addLine("mapToObj Interval: " + intervalList);
 
         DoubleLinkedList doubleList = new DoubleLinkedList();
-        iterator = list.iterator();
+        iterator = doubleLinkedList.iterator();
         while (iterator.hasNext()) {
             doubleList.add(iterator.next().element() * 2.0);
         }
@@ -147,7 +143,7 @@ public class DoubleLinkedListDialog {
         this.addLine("asDoubleList: " + doubleList.toString());
     }
 
-    protected void addLine(String line) {
+    private void addLine(String line) {
         this.content += "\n" + line;
     }
 

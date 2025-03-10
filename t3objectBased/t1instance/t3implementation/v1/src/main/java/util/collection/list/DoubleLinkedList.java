@@ -1,11 +1,13 @@
 package util.collection.list;
 
-import util.values.interval.IntegerInterval;
+import util.collection.list.iterator.DoubleIterator;
+import util.collection.list.node.DoubleNode;
+import util.values.IntegerInterval;
 
 public class DoubleLinkedList {
 
-    protected DoubleNode head;
-    protected DoubleNode last;
+    private DoubleNode head;
+    private DoubleNode last;
 
     public DoubleLinkedList() {
         this.head = null;
@@ -21,14 +23,6 @@ public class DoubleLinkedList {
         }
     }
 
-    public static DoubleLinkedList of(Double... elements) {
-        return new DoubleLinkedList(elements);
-    }
-
-    public static DoubleLinkedList empty() {
-        return new DoubleLinkedList();
-    }
-
     public boolean add(Double element) {
         assert element != null : "Element cannot be null";
 
@@ -42,12 +36,34 @@ public class DoubleLinkedList {
         return true;
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return this.head == null;
+    }
+
+    public int size() {
+        int size = 0;
+        DoubleIterator iterator = this.iterator();
+        while (iterator.hasNext()) {
+            size++;
+            iterator.next();
+        }
+        return size;
     }
 
     public DoubleIterator iterator() {
         return new DoubleIterator(this.head);
+    }
+
+    public Double get(int position) {
+        assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
+
+        DoubleIterator iterator = this.iterator();
+        double decimal = iterator.next().element();
+        while (position > 0) {
+            decimal = iterator.next().element();
+            position--;
+        }
+        return decimal;
     }
 
     public String toString() {
@@ -60,31 +76,6 @@ public class DoubleLinkedList {
             toString = toString.substring(1);
         }
         return "{" + toString + "}";
-    }
-
-    public Double get(int position) {
-        assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
-
-        DoubleNode current = this.head;
-        while (position > 0) {
-            position--;
-            current = current.next();
-        }
-        return current.element();
-    }
-
-    public int size() {
-        int size = 0;
-        DoubleNode current = this.head;
-        while (current != null) {
-            size++;
-            current = current.next();
-        }
-        return size;
-    }
-
-    protected DoubleNode head() {
-        return this.head();
     }
 
 }
