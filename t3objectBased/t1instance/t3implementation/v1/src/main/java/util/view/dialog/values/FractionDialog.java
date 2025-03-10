@@ -101,12 +101,12 @@ public class FractionDialog {
         assert this.title != null;
 
         this.content = "===============";
+        this.addLine("toString: " + fraction.toString());
         this.addContent(fraction);
         Console.instance().writeln(this.content);
     }
 
     public void addContent(Fraction fraction) {
-        this.addLine("toString: " + fraction.toString());
         this.addLine("numerator: " + fraction.numerator());
         this.addLine("denominator: " + fraction.denominator());
         this.addLine("opposite: " + fraction.opposite());
@@ -120,8 +120,6 @@ public class FractionDialog {
         this.addLine("divide 1/2: " + fraction.divide(pivot));
         this.addLine("power 2: " + fraction.power(2));
         this.addLine("value: " + fraction.valueOf());
-        this.addLine("hashCode: " + fraction.hashCode());
-        this.addLine("clone: " + fraction.clone());
     }
 
     private void addLine(String line) {

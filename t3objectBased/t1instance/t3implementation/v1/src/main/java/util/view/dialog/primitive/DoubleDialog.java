@@ -62,12 +62,12 @@ public class DoubleDialog {
         assert this.title != null;
 
         this.content = "===============";
+        this.addLine("toString: " + element);
         this.addContent(element);
         Console.instance().writeln(this.content);
     }
 
-    public void addContent(Double decimal) {
-        this.addLine("toString: " + decimal.toString());
+    public void addContent(double decimal) {
         this.addLine("sum 1: " + (decimal + 1));
         this.addLine("substract 1: " + (decimal - 1));
         this.addLine("multiply 2: " + (decimal * 2));
@@ -79,7 +79,6 @@ public class DoubleDialog {
         this.addLine("lesser or equals 0: " + (decimal <= 0));
         this.addLine("lesser 0: " + (decimal < 0));
     }
-
 
     private void addLine(String line) {
         this.content += "\n" + line;

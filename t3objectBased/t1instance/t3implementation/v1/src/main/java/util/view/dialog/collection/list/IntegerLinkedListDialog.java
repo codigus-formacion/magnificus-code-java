@@ -103,16 +103,15 @@ public class IntegerLinkedListDialog {
 
     public void writeDetails(IntegerLinkedList integerLinkedList) {
         assert this.title != null;
+        assert integerLinkedList != null;       
 
         this.content = "===============";
+        this.addLine("toString: " + integerLinkedList.toString()); 
         this.addContent(integerLinkedList);
         Console.instance().writeln(this.content);
     }
 
     public void addContent(IntegerLinkedList integerLinkedList) {
-        assert integerLinkedList != null : "Element cannot be null";
-
-        this.addLine("toString: " + integerLinkedList.toString());        
         int sum = 0;
         IntegerIterator iterator = integerLinkedList.iterator();
         while (iterator.hasNext()) {

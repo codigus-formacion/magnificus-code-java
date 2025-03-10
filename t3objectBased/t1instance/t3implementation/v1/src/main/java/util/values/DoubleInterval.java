@@ -10,84 +10,16 @@ public class DoubleInterval {
         this.max = max;
     }
 
-    public DoubleInterval(DoubleInterval interval) {
-        this(interval.min, interval.max);
-    }
-
-    public DoubleInterval clone() {
-        return new DoubleInterval(this.min, this.max);
-    }
-
-    public boolean includes(Double point) {
-        assert point != null;
-
-        return this.min() <= point && point <= this.max();
-    }
-
-    public boolean isIntersected(DoubleInterval interval) {
-        assert interval != null;
-
-        return this.includes(interval.min())
-                || this.includes(interval.max())
-                || interval.includes(this);
-    }
-
-    public DoubleInterval intersection(DoubleInterval interval) {
-        assert this.isIntersected(interval);
-
-        if (this.includes(interval)) {
-            return interval.clone();
-        }
-        if (interval.includes(this)) {
-            return this.clone();
-        }
-        if (this.includes(interval.min())) {
-            return new DoubleInterval(interval.min(), this.max());
-        }
-        return new DoubleInterval(this.min(), interval.max());
-    }
-
-    public DoubleInterval union(DoubleInterval interval) {
-        assert this.isIntersected(interval);
-
-        if (this.includes(interval)) {
-            return this.clone();
-        }
-        if (interval.includes(this)) {
-            return interval.clone();
-        }
-        if (this.includes(interval.min())) {
-            return new DoubleInterval(this.min(), interval.max());
-        }
-        return new DoubleInterval(interval.min(), this.max());
-    }
-
-    public DoubleInterval superInterval(DoubleInterval interval) {
-        assert interval != null;
-
-        double min = this.min() < interval.min() ? this.min() : interval.min();
-        double max = this.max() > interval.max() ? this.max() : interval.max();
-        return new DoubleInterval(min, max);
-    }
-
-    public String toString() {
-        return "Interval [min=" + this.min + ", max=" + this.max + "]";
-    }
-
-    public double min() {
-        return this.min;
-    }
-
-    public double max() {
-        return this.max;
-    }
-
     public DoubleInterval(Double max) {
         this(0.0, max);
     }
 
     public DoubleInterval() {
         this(0.0);
+    }
+
+    public DoubleInterval(DoubleInterval interval) {
+        this(interval.min, interval.max);
     }
 
     public Double length() {
@@ -112,11 +44,63 @@ public class DoubleInterval {
         return new DoubleInterval(-this.max(), -this.min());
     }
 
+    public boolean includes(Double point) {
+        assert point != null;
+
+        return this.min() <= point && point <= this.max();
+    }
+
     public boolean includes(DoubleInterval interval) {
         assert this != null;
 
         return this.includes(interval.min())
                 && this.includes(interval.max());
+    }
+
+    public boolean isIntersected(DoubleInterval interval) {
+        assert interval != null;
+
+        return this.includes(interval.min())
+                || this.includes(interval.max())
+                || interval.includes(this);
+    }
+
+    public DoubleInterval intersection(DoubleInterval interval) {
+        assert this.isIntersected(interval);
+
+        if (this.includes(interval)) {
+            return new DoubleInterval(interval);
+        }
+        if (interval.includes(this)) {
+            return new DoubleInterval(this);
+        }
+        if (this.includes(interval.min())) {
+            return new DoubleInterval(interval.min(), this.max());
+        }
+        return new DoubleInterval(this.min(), interval.max());
+    }
+
+    public DoubleInterval union(DoubleInterval interval) {
+        assert this.isIntersected(interval);
+
+        if (this.includes(interval)) {
+            return new DoubleInterval(this);
+        }
+        if (interval.includes(this)) {
+            return new DoubleInterval(interval);
+        }
+        if (this.includes(interval.min())) {
+            return new DoubleInterval(this.min(), interval.max());
+        }
+        return new DoubleInterval(interval.min(), this.max());
+    }
+
+    public DoubleInterval superInterval(DoubleInterval interval) {
+        assert interval != null;
+
+        double min = this.min() < interval.min() ? this.min() : interval.min();
+        double max = this.max() > interval.max() ? this.max() : interval.max();
+        return new DoubleInterval(min, max);
     }
 
     public DoubleInterval[] split(int times) {
@@ -129,6 +113,18 @@ public class DoubleInterval {
             intervals[i] = intervals[i - 1].shifted(length);
         }
         return intervals;
+    }
+
+    public String toString() {
+        return "Interval [min=" + this.min + ", max=" + this.max + "]";
+    }
+
+    public double min() {
+        return this.min;
+    }
+
+    public double max() {
+        return this.max;
     }
 
 }

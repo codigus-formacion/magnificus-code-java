@@ -62,12 +62,12 @@ public class IntDialog {
         assert this.title != null;
 
         this.content = "===============";
+        this.addLine("toString: " + element);
         this.addContent(element);
         Console.instance().writeln(this.content);
     }
 
-    public void addContent(Integer integer) {
-        this.addLine("toString: " + integer.toString());
+    public void addContent(int integer) {
         this.addLine("sum 1: " + (integer + 1));
         this.addLine("substract 1: " + (integer - 1));
         this.addLine("multiply 2: " + (integer * 2));

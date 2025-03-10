@@ -85,12 +85,12 @@ public class TimeDialog {
         assert this.title != null;
 
         this.content = "===============";
+        this.addLine("toString: " + time);
         this.addContent(time);
         Console.instance().writeln(this.content);
     }
 
     public void addContent(Time time) {
-        this.addLine("toString: " + time);
         this.addLine("next: " + time.next());
         Time pivot = new Time(12, 30, 0);
         this.addLine("before " + pivot + ": " + time.before(pivot));

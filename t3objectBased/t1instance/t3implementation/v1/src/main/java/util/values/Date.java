@@ -18,7 +18,6 @@ public class Date {
         this.day = day;
     }
     
-
     public boolean isValidMonth(int month) {
         return new IntegerInterval(1, this.MONTHS_MODULE).includes(month);
     }
@@ -27,11 +26,7 @@ public class Date {
         return new IntegerInterval(1, this.DYAS_MODULE).includes(day);
     }
 
-
-    public boolean equals(Object object) {
-        assert object instanceof Date;
-
-        Date date = (Date) object;
+    public boolean equals(Date date) {
         return this.year == date.year
                 && this.month == date.month
                 && this.day == date.day;

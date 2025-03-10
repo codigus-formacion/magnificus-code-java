@@ -108,6 +108,7 @@ public class FractionIntervalDialog {
         assert this.title != null;
 
         this.content = "===============";
+        this.addLine("toString: " + fractionInterval.toString());
         this.addContent(fractionInterval);
         Console.instance().writeln(this.content);
     }
@@ -116,7 +117,6 @@ public class FractionIntervalDialog {
         Fraction initial = new Fraction();
         FractionInterval pivot = new FractionInterval(new Fraction(1,2), new Fraction(3,4));
 
-        this.addLine("toString: " + fractionInterval.toString());
         this.addLine("getMin: " + fractionInterval.min());
         this.addLine("getMax: " + fractionInterval.max());
         this.addLine("includes 0: " + fractionInterval.includes(initial));
@@ -128,8 +128,6 @@ public class FractionIntervalDialog {
             this.addLine("union [-1,1]: " + fractionInterval.union(pivot));
         }
         this.addLine("superInterval [-1,1]: " + fractionInterval.superInterval(pivot));
-        this.addLine("hashCode: " + fractionInterval.hashCode());
-        this.addLine("clone: " + fractionInterval.clone());
 
         this.addLine("length: " + fractionInterval.length());
         this.addLine("middlePoint: " + fractionInterval.middlePoint());

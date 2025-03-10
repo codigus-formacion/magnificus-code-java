@@ -101,16 +101,15 @@ public class DoubleLinkedListDialog {
 
     public void writeDetails(DoubleLinkedList doubleLinkedList) {
         assert this.title != null;
+        assert doubleLinkedList != null;
 
         this.content = "===============";
+        this.addLine("toString: " + doubleLinkedList.toString());
         this.addContent(doubleLinkedList);
         Console.instance().writeln(this.content);
     }
 
     public void addContent(DoubleLinkedList doubleLinkedList) {
-        assert doubleLinkedList != null : "Element cannot be null";
-
-        this.addLine("toString: " + doubleLinkedList.toString());
         int sum = 0;
         DoubleIterator iterator = doubleLinkedList.iterator();
         while (iterator.hasNext()) {

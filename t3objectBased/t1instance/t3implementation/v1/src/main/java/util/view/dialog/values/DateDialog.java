@@ -82,14 +82,12 @@ public class DateDialog {
 
     public void writeDetails(Date date) {
         this.content = "===============";
+        this.addLine("toString: " + date);
         this.addContent(date);
         Console.instance().writeln(this.content);
     }
 
     public void addContent(Date date) {
-        assert date != null;
-
-        this.addLine("toString: " + date);
         this.addLine("next: " + date.next());
         Date pivot = new Date(2025,6,6);
         this.addLine("before: " + date.before(pivot));
@@ -98,8 +96,6 @@ public class DateDialog {
     }
 
     private void addLine(String line) {
-        assert line != null;
-
         this.content += "\n" + line;
     }
 

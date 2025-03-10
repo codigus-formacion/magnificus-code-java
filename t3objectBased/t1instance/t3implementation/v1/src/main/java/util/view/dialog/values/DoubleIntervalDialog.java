@@ -102,6 +102,7 @@ public class DoubleIntervalDialog {
         assert this.title != null;
 
         this.content = "===============";
+        this.addLine("toString: " + doubleInterval.toString());
         this.addContent(doubleInterval);
         Console.instance().writeln(this.content);
     }
@@ -109,8 +110,6 @@ public class DoubleIntervalDialog {
     public void addContent(DoubleInterval interval) {
         Double initial = 0.0;
         DoubleInterval pivot = new DoubleInterval(-1.1,1.1);
-
-        this.addLine("toString: " + interval.toString());
         this.addLine("getMin: " + interval.min());
         this.addLine("getMax: " + interval.max());
         this.addLine("includes 0: " + interval.includes(initial));
@@ -122,8 +121,6 @@ public class DoubleIntervalDialog {
             this.addLine("union [-1,1]: " + interval.union(pivot));
         }
         this.addLine("superInterval [-1,1]: " + interval.superInterval(pivot));
-        this.addLine("hashCode: " + interval.hashCode());
-        this.addLine("clone: " + interval.clone());
 
                 this.addLine("length: " + interval.length());
         this.addLine("middlePoint: " + interval.middlePoint());
