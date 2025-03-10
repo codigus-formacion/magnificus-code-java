@@ -15,13 +15,10 @@ public class DoubleDialog extends Dialog<Double>{
     }
 
     public Double create(String string) {
-        assert string.matches(regExp());
-
         return Double.parseDouble(string);
     }
 
     public void addContent(Double decimal) {
-        this.addLine("toString: " + decimal.toString());
         this.addLine("sum 1: " + (decimal + 1));
         this.addLine("substract 1: " + (decimal - 1));
         this.addLine("multiply 2: " + (decimal * 2));

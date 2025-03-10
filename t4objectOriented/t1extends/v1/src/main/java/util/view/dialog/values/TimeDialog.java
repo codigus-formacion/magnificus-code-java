@@ -17,16 +17,11 @@ public class TimeDialog extends Dialog<Time> {
     }
 
     public String regExp() {
-        IntDialog intDialog = new IntDialog();
-        return intDialog.regExp() + SEPARATOR + intDialog.regExp() + SEPARATOR + intDialog.regExp();
+        String regExp = new IntDialog().regExp();
+        return regExp + SEPARATOR + regExp + SEPARATOR + regExp;
     }
 
-    protected boolean isValid(String string) {
-        assert string != null;
-
-        if (!string.matches(regExp())) {
-            return false;
-        }
+    protected boolean isSemanticValid(String string) {
         Integer[] integers = this.values(string);
         return Time.isValidHour(integers[0])
                 && Time.isValidMinute(integers[1])
@@ -45,14 +40,11 @@ public class TimeDialog extends Dialog<Time> {
     }
 
     public Time create(String string) {
-        assert this.isValid(string);
-
         Integer[] values = values(string);
         return new Time(values[0], values[1], values[2]);
     }
 
     public void addContent(Time time) {
-        this.addLine("toString: " + time);
         this.addLine("next: " + time.next());
         Time pivot = new Time(12, 30, 0);
         this.addLine("before " + pivot + ": " + time.before(pivot));

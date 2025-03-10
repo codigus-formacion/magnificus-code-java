@@ -1,6 +1,5 @@
 package app.values;
 
-import util.collection.list.Iterator;
 import util.collection.list.LinkedList;
 import util.values.DoubleInterval;
 import util.values.Fraction;
@@ -15,10 +14,10 @@ public class IntervalApp {
         DoubleIntervalDialog doubleIntervalDialog = new DoubleIntervalDialog("Intervalo de Doubles");
         LinkedList<DoubleInterval> doubleIntervalList = LinkedList.of(
                 doubleIntervalDialog.read(),
-                new DoubleInterval(-1, 1),
-                new DoubleInterval(0, 0),
-                DoubleIntervalDialog.create("[100,200]"));
-        Iterator<DoubleInterval> doubleIntervalIterator = doubleIntervalList.iterator();
+                new DoubleInterval(-1.0, 1.0),
+                new DoubleInterval(0.0, 0.0),
+                doubleIntervalDialog.create("[100,200]"));
+        LinkedList<DoubleInterval>.Iterator<DoubleInterval> doubleIntervalIterator = doubleIntervalList.iterator();
         while (doubleIntervalIterator.hasNext()) {
             doubleIntervalDialog.writeDetails(doubleIntervalIterator.next().element());
         }
@@ -29,8 +28,9 @@ public class IntervalApp {
                 new FractionInterval(new Fraction(-1), new Fraction(1)),
                 new FractionInterval(new Fraction(1, 2), new Fraction(2, 1)),
                 new FractionInterval(new Fraction(0), new Fraction(0)),
-                FractionIntervalDialog.create("[1/2,2/3]"));
-        Iterator<FractionInterval> fractionIntervalIterator = fractionIntervalList.iterator();
+                fractionIntervalDialog.create("[1/2,2/3]"));
+        LinkedList<FractionInterval>.Iterator<FractionInterval> fractionIntervalIterator = fractionIntervalList
+                .iterator();
         while (fractionIntervalIterator.hasNext()) {
             fractionIntervalDialog.writeDetails(fractionIntervalIterator.next().element());
         }

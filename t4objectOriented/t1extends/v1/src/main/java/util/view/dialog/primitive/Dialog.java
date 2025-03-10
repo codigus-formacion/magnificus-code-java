@@ -5,10 +5,10 @@ public abstract class Dialog<T> {
     private String title;
     private String content;
 
-    protected Dialog(){
+    protected Dialog() {
         this.title = "";
     }
-    
+
     protected Dialog(String title) {
         assert !title.isBlank();
 
@@ -29,14 +29,24 @@ public abstract class Dialog<T> {
         return this.create(input);
     }
 
-    protected boolean isValid(String string){
-        return string.matches(this.regExp());
-    }
-
     protected abstract String regExp();
 
+    protected boolean isValid(String string) {
+        assert string != null;
+
+        return string.matches(this.regExp()) && this.isSemanticValid(string);
+    }
+
+    protected boolean isSemanticValid(String string) {
+        return true;
+    }
+
     private String errorMsg() {
-        return "Al no respetar el formato \"" + this.regExp() + "\"";
+        return "Al no respetar el formato \"" + this.regExp() + this.semanticError() + "\"";
+    }
+
+    private String semanticError() {
+        return "";
     }
 
     public abstract T create(String string);
@@ -56,6 +66,7 @@ public abstract class Dialog<T> {
         assert this.title != null;
 
         this.content = "===============";
+        this.addLine("toString: " + element.toString());
         this.addContent(element);
         Console.instance().writeln(this.content);
     }

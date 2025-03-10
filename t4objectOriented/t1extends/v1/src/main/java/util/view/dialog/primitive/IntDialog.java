@@ -15,13 +15,10 @@ public class IntDialog extends Dialog<Integer> {
     }
 
     public Integer create(String string) {
-        assert string.matches(regExp());
-
         return Integer.parseInt(string);
     }
 
     public void addContent(Integer integer) {
-        this.addLine("toString: " + integer.toString());
         this.addLine("sum 1: " + (integer + 1));
         this.addLine("substract 1: " + (integer - 1));
         this.addLine("multiply 2: " + (integer * 2));

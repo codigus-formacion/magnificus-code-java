@@ -1,6 +1,5 @@
 package app.views.primitive;
 
-import util.collection.list.Iterator;
 import util.collection.list.LinkedList;
 import util.view.dialog.primitive.DoubleDialog;
 import util.view.dialog.primitive.IntDialog;
@@ -14,7 +13,7 @@ public class App {
                 0,
                 1,
                 -1);
-        Iterator<Integer> intIterator = intList.iterator();
+        LinkedList<Integer>.Iterator<Integer> intIterator = intList.iterator();
         while (intIterator.hasNext()) {
             intDialog.writeDetails(intIterator.next().element());
         }
@@ -25,7 +24,7 @@ public class App {
                 0.0,
                 1.1,
                 -1.2);
-        Iterator<Double> doubleIterator = doubleList.iterator();
+        LinkedList<Double>.Iterator<Double> doubleIterator = doubleList.iterator();
         while (doubleIterator.hasNext()) {
             doubleDialog.writeDetails(doubleIterator.next().element());
         }

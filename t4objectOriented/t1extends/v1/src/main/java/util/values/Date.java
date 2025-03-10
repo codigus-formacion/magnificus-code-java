@@ -26,10 +26,7 @@ public class Date {
         return new IntegerInterval(1, Date.DYAS_MODULE).includes(day);
     }
 
-    public boolean equals(Object object) {
-        assert object instanceof Date;
-
-        Date date = (Date) object;
+    public boolean equals(Date date) {
         return this.year == date.year
                 && this.month == date.month
                 && this.day == date.day;

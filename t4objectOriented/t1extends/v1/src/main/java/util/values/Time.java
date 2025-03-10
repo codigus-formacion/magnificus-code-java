@@ -32,10 +32,7 @@ public class Time {
         return new IntegerInterval(0, Time.SECONDS_MODULE - 1).includes(seconds);
     }
 
-    public boolean equals(Object object) {
-        assert object instanceof Time;
-
-        Time time = (Time) object;
+    public boolean equals(Time time) {
         return this.hours == time.hours
                 && this.minutes == time.minutes
                 && this.seconds == time.seconds;

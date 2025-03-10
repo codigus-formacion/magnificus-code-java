@@ -1,6 +1,5 @@
 package util.view.dialog.values;
 
-import util.collection.list.Iterator;
 import util.collection.list.LinkedList;
 import util.values.Fraction;
 import util.view.dialog.primitive.Dialog;
@@ -23,12 +22,7 @@ public class FractionDialog extends Dialog<Fraction> {
         return intDialog.regExp() + SEPARATOR + intDialog.regExp();
     }
 
-    protected boolean isValid(String string) {
-        assert string != null;
-
-        if (!string.matches(regExp())) {
-            return false;
-        }
+    protected boolean isSemanticValid(String string) {
         return new FractionDialog().values(string).get(1) != 0;
     }
 
@@ -36,7 +30,7 @@ public class FractionDialog extends Dialog<Fraction> {
         assert new FractionDialog().isValid(string);
         
         LinkedList<Integer> intList = new LinkedList<Integer>();
-        Iterator<String> iterator = this.strings(string).iterator();
+        LinkedList<String>.Iterator<String> iterator = this.strings(string).iterator();
         while (iterator.hasNext()) {
             intList.add(new IntDialog().create(iterator.next().element()));
         }
@@ -63,7 +57,6 @@ public class FractionDialog extends Dialog<Fraction> {
     }
 
     public void addContent(Fraction fraction) {
-        this.addLine("toString: " + fraction.toString());
         this.addLine("numerator: " + fraction.numerator());
         this.addLine("denominator: " + fraction.denominator());
         this.addLine("opposite: " + fraction.opposite());
@@ -77,8 +70,6 @@ public class FractionDialog extends Dialog<Fraction> {
         this.addLine("divide 1/2: " + fraction.divide(pivot));
         this.addLine("power 2: " + fraction.power(2));
         this.addLine("value: " + fraction.valueOf());
-        this.addLine("hashCode: " + fraction.hashCode());
-        this.addLine("clone: " + fraction.clone());
     }
 
 }

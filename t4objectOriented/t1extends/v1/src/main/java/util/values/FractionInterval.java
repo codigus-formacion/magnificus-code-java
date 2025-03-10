@@ -1,87 +1,9 @@
 package util.values;
 
-public class FractionInterval {
-
-    private final Fraction min;
-    private final Fraction max;
+public class FractionInterval extends Interval<Fraction> {
 
     public FractionInterval(Fraction min, Fraction max){
-        this.min = min;
-        this.max = max;
-    }
-
-    public FractionInterval(FractionInterval interval) {
-        this(interval.min, interval.max);
-    }
-
-    public FractionInterval clone() {
-        return new FractionInterval(this.min, this.max);
-    }
-
-    public boolean includes(Fraction point) {
-        assert point != null;
-
-        return this.min().compareTo(point) <= 0
-                && point.compareTo(this.max()) <= 0;
-    }
-
-    public boolean isIntersected(FractionInterval interval) {
-        assert interval != null;
-
-        return this.includes(interval.min())
-                || this.includes(interval.max())
-                || interval.includes(this);
-    }
-
-    public FractionInterval intersection(FractionInterval interval) {
-        assert this.isIntersected(interval);
-
-        if (this.includes(interval)) {
-            return interval.clone();
-        }
-        if (interval.includes(this)) {
-            return this.clone();
-        }
-        if (this.includes(interval.min())) {
-            return new FractionInterval(interval.min(), this.max());
-        }
-        return new FractionInterval(this.min(), interval.max());
-    }
-
-    public FractionInterval union(FractionInterval interval) {
-        assert this.isIntersected(interval);
-
-        if (this.includes(interval)) {
-            return this.clone();
-        }
-        if (interval.includes(this)) {
-            return interval.clone();
-        }
-        if (this.includes(interval.min())) {
-            return new FractionInterval(this.min(), interval.max());
-        }
-        return new FractionInterval(interval.min(), this.max());
-    }
-    public FractionInterval superInterval(FractionInterval interval) {
-        assert interval != null;
-
-        Fraction min = this.min().compareTo(interval.min()) < 0 ? this.min()
-                : interval.min();
-                Fraction max = this.max().compareTo(interval.max()) > 0 ? this.max()
-                : interval.max();
-        return new FractionInterval(min, max);
-    }
-
-    public String toString() {
-        return "Interval [min=" + this.min + ", max=" + this.max + "]";
-    }
-
-    public Fraction min() {
-        return this.min;
-    }
-
-    public Fraction max() {
-        return this.max;
+        super(min, max);
     }
 
     public FractionInterval(Fraction max) {
@@ -90,6 +12,10 @@ public class FractionInterval {
 
     public FractionInterval() {
         this(new Fraction());
+    }
+
+    public FractionInterval(Interval<Fraction> interval) {
+        this(interval.min(), interval.max());
     }
 
     public Fraction length() {
@@ -104,9 +30,9 @@ public class FractionInterval {
         return new FractionInterval(this.min().add(shiftment), this.max().add(shiftment));
     }
 
-    public FractionInterval scaled(int scale) {
+    public FractionInterval scaled(Fraction scale) {
         Fraction newMiddelPoint = this.middlePoint();
-        Fraction newHalfLength = this.length().multiply(scale / 2);
+        Fraction newHalfLength = this.length().multiply(scale.divide(2));
         return new FractionInterval(newMiddelPoint.subtract(newHalfLength), newMiddelPoint.add(newHalfLength));
     }
 
@@ -114,11 +40,29 @@ public class FractionInterval {
         return new FractionInterval(this.max().opposite(), this.min().opposite());
     }
 
-    public boolean includes(FractionInterval interval) {
-        assert this != null;
+    protected FractionInterval copyOf(Interval<Fraction> interval) {
+        return new FractionInterval(interval);
+    }
 
-        return this.includes(interval.min())
-                && this.includes(interval.max());
+    protected Interval<Fraction> create(Fraction min, Fraction max) {
+        return new FractionInterval(min, max);
+    }
+
+    public boolean includes(Fraction point) {
+        assert point != null;
+
+        return this.min().compareTo(point) <= 0
+                && point.compareTo(this.max()) <= 0;
+    }
+
+    public FractionInterval superInterval(Interval<Fraction> interval) {
+        assert interval != null;
+
+        Fraction min = this.min().compareTo(interval.min()) < 0 ? this.min()
+                : interval.min();
+                Fraction max = this.max().compareTo(interval.max()) > 0 ? this.max()
+                : interval.max();
+        return new FractionInterval(min, max);
     }
 
     public FractionInterval[] split(int times) {

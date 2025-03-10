@@ -4,27 +4,27 @@ import util.values.IntegerInterval;
 
 public class LinkedList<T> {
 
-    public static class Node<U> {
+    public class Node<U> {
 
         private Node<U> previous;
         private U element;
         private Node<U> next;
     
-        public Node(Node<U> previous, U element, Node<U> next) {
+        Node(Node<U> previous, U element, Node<U> next) {
             this.previous = previous;
             this.element = element;
             this.next = next;
         }
     
-        public Node(U element, Node<U> next) {
+        Node(U element, Node<U> next) {
             this(null, element, next);
         }
     
-        public Node(Node<U> previous, U element) {
+        Node(Node<U> previous, U element) {
             this(previous, element, null);
         }
         
-        public void setNext(Node<U> next) {
+        void setNext(Node<U> next) {
             assert next != null;
             
             this.next = next;
@@ -44,6 +44,28 @@ public class LinkedList<T> {
     
         public Node<U> previous(){
             return this.previous;
+        }
+    
+    }
+
+    public class Iterator<U> {
+
+        private Node<U> current;
+    
+        public Iterator(Node<U> head) {
+            this.current = head;
+        }
+    
+        public boolean hasNext() {
+            return this.current != null;
+        }
+    
+        public Node<U> next(){
+            assert this.hasNext();
+    
+            Node<U> element = this.current;
+            this.current = this.current.next();
+            return element;
         }
     
     }
@@ -120,9 +142,9 @@ public class LinkedList<T> {
             toString += "," + iterator.next().element();
         }
         if (toString.length() > 0) {
-            toString = toString.substring(1);
+            toString = "\n" + toString.substring(1);
         }
-        return "{" + toString + "}";
+        return "LinkedList [" + toString + "]";
     }
 
 }

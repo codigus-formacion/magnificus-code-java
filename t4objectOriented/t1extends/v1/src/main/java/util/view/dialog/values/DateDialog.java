@@ -13,16 +13,11 @@ public class DateDialog extends Dialog<Date> {
     }
 
     public String regExp() {
-        IntDialog intDialog = new IntDialog();
-        return intDialog.regExp() + SEPARATOR + intDialog.regExp() + SEPARATOR + intDialog.regExp();
+        String regExp = new IntDialog().regExp();
+        return regExp + SEPARATOR + regExp + SEPARATOR + regExp;
     }
 
-    public boolean isValid(String string) {
-        assert string != null;
-
-        if (!super.isValid(string)) {
-            return false;
-        }
+    protected boolean isSemanticValid(String string) {
         Integer[] integers = this.values(string);
         return Date.isValidMonth(integers[1])
             && Date.isValidDay(integers[2]);
@@ -40,16 +35,11 @@ public class DateDialog extends Dialog<Date> {
     }
 
     public Date create(String string) {
-        assert this.isValid(string);
-
         Integer[] integers = this.values(string);
         return new Date(integers[0], integers[1], integers[2]);
     }
 
     public void addContent(Date date) {
-        assert date != null;
-
-        this.addLine("toString: " + date);
         this.addLine("next: " + date.next());
         Date pivot = new Date(2025,6,6);
         this.addLine("before: " + date.before(pivot));
