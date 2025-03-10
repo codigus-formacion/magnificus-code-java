@@ -54,23 +54,34 @@ controlador/modelos
 
 usuario/desarrollador
 
-
 compromisos/consecuencias
 
 Reutilización?
 Evolución?
 
+
+
+
+
+
+
+
+
 - recurrentes
+Espacio
+Tiempo
+
 Modelos
-abstracción
+Abstracción
 Asociación
+
 Complejidad
-espacio
-tiempo
-Compromisos
-consecuencias
+
 Eficiencia
 Reutilización
+
 Eficacia
 Seguridad
+
+Compromisos
 Evolución
