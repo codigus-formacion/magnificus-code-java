@@ -69,6 +69,16 @@ public class LinkedList<T> {
         return element;
     }
 
+    public boolean contains(T element){
+        Iterator<T> iterator = this.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().element() == element) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public String toString() {
         String toString = "";
         Iterator<T> iterator = this.iterator();

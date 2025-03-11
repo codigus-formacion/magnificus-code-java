@@ -1,0 +1,130 @@
+@startuml mecanismo
+
+class FractionLinkedListApp{
+    {static} main
+}
+
+class FractionIntervalLinkedListDialog {
+    - PREFFIX
+    - SEPARATOR
+    - POSTFIX
+    - title
+    - content
+
+    + read() : FractionIntervalLinkedList
+    - isValid(input)
+    - regExp()
+    - create(input)
+    - createElement(input)
+    - values(input)
+    - strings(input)
+    - errorMsg()
+    + write(FractionIntervalLinkedList)
+    + wrteln(FractionIntervalLinkedList)
+    + writelnDetails(FractionIntervalLinkedList)
+}
+class FractionIntervalDialog {
+    - PREFFIX
+    - SEPARATOR
+    - POSTFIX
+    - title
+    - content
+
+    + read() : FractionInterval
+    - isValid(input)
+    - regExp()
+    - create(input)
+    - createElement(input)
+    - values(input)
+    - strings(input)
+    - errorMsg()
+    + write(FractionInterval)
+    + wrteln(FractionInterval)
+    + writelnDetails(FractionInterval)
+}
+class FractionDialog {
+    - title
+    - content
+
+    + read() : Fraction
+    - isValid(input)
+    - regExp()
+    - create(input)
+    - createElement(input)
+    - values(input)
+    - strings(input)
+    - errorMsg()
+    + write(Fraction)
+    + wrteln(Fraction)
+    + writelnDetails(Fraction)
+}
+class Console{
+    + readString(title) : String
+    + write(String)
+    + writeln(String)
+    + readInt(title) : int
+    + write(int)
+    + writeln(int)
+    + ...()
+}
+
+class FractionIntervalLinkedList{
+    + add(FractionInterval)
+    + size() : int
+    + get(positon) : FractionInterval
+    + ...()
+    + iterator() : FractionIntervalIterator
+}
+class FractionIntervalNode {
+    + setNext(FractionIntervalNode)
+    + isLast() : boolean
+    + previous() : FractionIntervalNode
+    + next() : FractionIntervalNode
+}
+class FractionIntervalIterator {
+    + hasNext() : Boolean
+    + next() : FractionIntervalNode
+}
+class FractionInterval {
+    + includes(Fraction)
+    + includes(FractionInterval)
+    + isIntersected(FractionInterval)
+    + intersection(FractionInterval)
+    + union(FractionInterval)
+    + superInterval(FractionInterval)
+    + ...()
+}
+class Fraction {
+    - numerator
+    - denominator
+
+    + sum(Fraction)
+    + substract(Fraction)
+    + multiply(Fraction)
+    + divide(Fraction)
+    + ...()
+}
+
+FractionLinkedListApp *-down-> FractionIntervalLinkedListDialog
+FractionLinkedListApp *-down-> "*" FractionIntervalLinkedList
+
+FractionIntervalLinkedListDialog .down.> "*" FractionIntervalDialog
+FractionIntervalDialog .down.> "*" FractionDialog
+FractionIntervalLinkedListDialog .down.> Console
+FractionIntervalDialog .down.> Console
+FractionDialog .down.> Console
+
+FractionIntervalLinkedList *-down-> FractionIntervalNode : head
+FractionIntervalNode *-down-> FractionInterval
+FractionInterval *-down-> Fraction : min
+FractionInterval *-down-> Fraction : max
+FractionIntervalLinkedList o-down-> "*" FractionIntervalIterator
+FractionIntervalIterator .down.> FractionIntervalNode
+FractionIntervalNode --> FractionIntervalNode : previous
+FractionIntervalNode --> FractionIntervalNode : next
+
+FractionIntervalLinkedListDialog .down.> FractionIntervalLinkedList
+FractionIntervalDialog .down.> FractionInterval
+FractionDialog .down.> Fraction
+
+@enduml

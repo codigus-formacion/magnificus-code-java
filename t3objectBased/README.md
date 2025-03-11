@@ -1,12 +1,17 @@
 # Programación Basada en Objetos
 
+
 ## Miembros de Instancia
+
+[Miembros de Instancia](./instance.plantuml)
+
 - app
     - LinkedListApp -> Principio de Unicidad!!
     - FractionApp -> Principio de Unicidad!!
     - TntervalApp -> Principio de Unicidad!!
     - TimeApp -> Principio de Unicidad!!
     - PrimitiveApp -> Principio de Unicidad!!
+    - ... -> Principio de Unicidad!!
 - util
     - collection
         - list
@@ -53,12 +58,16 @@
 ### Parámetros Variables
 ## Constructores
 ## Miembros Estáticos
+
+[Miembros Estáticos](./static.plantuml)
+
 - app
     - LinkedListApp -> Principio de Unicidad!! *
     - FractionApp -> Principio de Unicidad!! *
     - TntervalApp -> Principio de Unicidad!! *
     - TimeApp -> Principio de Unicidad!! *
-    - PrimitiveApp -> Principio de Unicidad!!
+    - PrimitiveApp -> Principio de Unicidad!! *
+    - ... -> Principio de Unicidad!!
 - util
     - collection
         - list
@@ -110,12 +119,16 @@
 ### Enumerados
 ### Registros
 ## Clases Genéricas
+
+[Clases genéricas](./generic.plantuml)
+
 - app
     - LinkedListApp -> Principio de Unicidad!!
     - FractionApp -> Principio de Unicidad!!
     - TntervalApp -> Principio de Unicidad!!
     - TimeApp -> Principio de Unicidad!!
     - PrimitiveApp -> Principio de Unicidad!!
+    - ... -> Principio de Unicidad!!
 - util
     - collection
         - list
@@ -127,7 +140,7 @@
         - Date
         - Time
         - Fraction
-        - Interval *
+        - Interval<T> *
         - DoubleInterval -> Principio de Unicidad! *
         - FractionInterval -> Principio de Unicidad! *
         - ... -> Principio de Unicidad!!
@@ -158,27 +171,29 @@
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 - Pair
-- Result
-- Nodo: Optional 1
-- Intervalo: Optional (infinto)
-- Map: composición 2
-- Set: composición 2
+- Nodo: Optional 1 ------------------
+- Intervalo: Optional (infinto) -----------
+- Result EJERCICIO!!!!
+- Map: composición EJERCICIO!!!! ---- hascode?!?!
+- Set: composición EJERCICIO!!!! -------------------------------------------------------
 
 ## Clases Anidadas
 ### Clases Internas
 ### Clases Locales
+
 - app
     - LinkedListApp -> Principio de Unicidad!!
     - FractionApp -> Principio de Unicidad!!
     - TntervalApp -> Principio de Unicidad!!
     - TimeApp -> Principio de Unicidad!!
     - PrimitiveApp -> Principio de Unicidad!! *
+    - ... -> Principio de Unicidad!!
 - util
     - collection
         - list
-            - Node<T> *
-            - Iterator<T> *
             - LinkList<T>  *
+                - Node<T> *
+                - Iterator<T> *
     - values
         - Fraction
         - Date

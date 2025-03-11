@@ -10,9 +10,9 @@
 - util
     - collection
         - list
-            - Node<T> *
-            - Iterator<T>
             - LinkedList<T> *
+                - Node<T> *
+                - Iterator<T>
     - values
         - Fraction
         - Date
@@ -59,9 +59,9 @@
 - util
     - collection
         - list
-            - Node<T> 
-            - Iterator<T>
             - LinkedList<T> 
+                - Node<T> 
+                - Iterator<T>
     - values
         - Fraction
         - Date

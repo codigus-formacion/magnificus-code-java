@@ -1,0 +1,171 @@
+@startuml mecanismo
+
+class FractionIntervalLinkedListApp {
+    {static} main
+}
+
+class FractionIntervalLinkedListDialog {
+    + read() : FractionIntervalLinkedList
+    - {static} isValid(input)
+    - {static} regExp()
+    - {static} create(input)
+    - {static} createElement(input)
+    - {static} values(input)
+    + write(FractionIntervalLinkedList)
+    + wrteln(FractionIntervalLinkedList)
+    + writelnDetails(FractionIntervalLinkedList)
+}
+FractionIntervalLinkedListDialog *-down-> LinkedListDialog : <<FractionInterval>>  delegated
+class LinkedListDialog<T> {
+    - {static} PREFFIX
+    - {static} SEPARATOR
+    - {static} POSTFIX
+    - title
+    - content
+
+    + read() : FractionIntervalLinkedList
+    - {static} isValid(input)
+    - {static} regExp()
+    - {static} strings(input)
+    - errorMsg()
+    + write(FractionIntervalLinkedList)
+    + wrteln(FractionIntervalLinkedList)
+}
+class FractionIntervalDialog {
+    - {static} PREFFIX
+    - {static} SEPARATOR
+    - {static} POSTFIX
+    - title
+    - content
+
+    + read() : FractionInterval
+    - {static} isValid(input)
+    - {static} regExp()
+    - {static} create(input)
+    - {static} createElement(input)
+    - {static} values(input)
+    + write(FractionInterval)
+    + wrteln(FractionInterval)
+    + writelnDetails(FractionInterval)
+}
+class IntervalDialog<T> {
+    - {static} PREFFIX
+    - {static} SEPARATOR
+    - {static} POSTFIX
+    - title
+    - content
+
+    + read() : FractionInterval
+    - {static} isValid(input)
+    - {static} regExp()
+    - {static} strings(input)
+    - errorMsg()
+    + write(FractionInterval)
+    + wrteln(FractionInterval)
+    + writelnDetails(FractionInterval)
+}
+FractionIntervalDialog *-down-> IntervalDialog : <<Fraction>> delegated
+class FractionDialog {
+    - title
+    - content
+
+    + read() : Fraction
+    - {static} isValid(input)
+    - {static} regExp()
+    - {static} create(input)
+    - {static} createElement(input)
+    - {static} values(input)
+    - {static} strings(input)
+    - errorMsg()
+    + write(Fraction)
+    + wrteln(Fraction)
+    + writelnDetails(Fraction)
+}
+class Dialog<T> {
+    - title
+    - content
+
+    + read() : Fraction
+    - {static} isValid(input)
+    - {static} regExp()
+    - {static} create(input)
+    - {static} createElement(input)
+    - {static} values(input)
+    - {static} strings(input)
+    - errorMsg()
+    + write(Fraction)
+    + wrteln(Fraction)
+    + writelnDetails(Fraction)
+}
+FractionDialog *-down-> Dialog : <<Fraction>> delegated
+class Console{
+    + readString(title) : String
+    + write(String)
+    + writeln(String)
+    + readInt(title) : int
+    + write(int)
+    + writeln(int)
+    + ...()
+}
+
+class LinkedList<T> {
+    + add(FractionInterval)
+    + size() : int
+    + get(positon) : FractionInterval
+    + ...()
+    + iterator() : FractionIntervalIterator
+    + {static} random(bound, limit) : FractionIntervalLinkedList
+}
+class Node<T> {
+    + setNext(FractionIntervalNode)
+    + isLast() : boolean
+    + previous() : FractionIntervalNode
+    + next() : FractionIntervalNode
+}
+class Iterator<T> {
+    + hasNext() : Boolean
+    + next() : FractionIntervalNode
+}
+class FractionInterval {
+    + includes(Fraction)
+    + includes(FractionInterval)
+    + isIntersected(FractionInterval)
+    + intersection(FractionInterval)
+    + union(FractionInterval)
+    + superInterval(FractionInterval)
+    + ...()
+}
+class Fraction {
+    - numerator
+    - denominator
+
+    + sum(Fraction)
+    + substract(Fraction)
+    + multiply(Fraction)
+    + divide(Fraction)
+    + ...()
+}
+
+FractionIntervalLinkedListApp *-down-> FractionIntervalLinkedListDialog
+FractionIntervalLinkedListApp *-down-> "*" LinkedList : <<FractionInterval>>
+
+FractionIntervalLinkedListDialog .down.> "*" FractionIntervalDialog
+FractionIntervalDialog .down.> "*" FractionDialog
+FractionIntervalLinkedListDialog .down.> Console
+FractionIntervalDialog .down.> Console
+FractionDialog .down.> Console
+
+LinkedList *-down-> Node : <<FractionInterval>> head
+Node *-down-> FractionInterval
+FractionInterval *-down-> Fraction : min
+FractionInterval *-down-> Fraction : max
+LinkedList o-down-> "*" Iterator : <<FractionInterval>>
+Iterator .down.> Node : <<FractionInterval>>
+Node --> Node : previous
+Node --> Node : next
+
+FractionIntervalLinkedListDialog .down.> LinkedList
+FractionIntervalDialog .down.> FractionInterval
+FractionDialog .down.> Fraction
+
+@enduml
