@@ -32,7 +32,7 @@ public class Dialog<T> {
         return input;
     }
 
-    boolean isValid(String string) {
+    public boolean isValid(String string) {
         return string.matches(this.regExp);
     }
 

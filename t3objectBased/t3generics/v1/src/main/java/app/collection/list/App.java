@@ -25,6 +25,7 @@ public class App {
                 IntegerLinkedListDialog.create("{1,2,3}"),
                 IntegerLinkedListDialog.create("{-3,-2,-1}"),
                 IntegerLinkedListDialog.create("{100,150,200}"));
+        
         Iterator<LinkedList<Integer>> integerLinkedListIterator = integerLinkedListLinkedList.iterator();
         while (integerLinkedListIterator.hasNext()) {
             intLinkedListDialog.writeDetails(integerLinkedListIterator.next().element());
