@@ -2,43 +2,22 @@ package util.view.dialog.primitive;
 
 public class IntDialog {
 
-    private String title;
-    private String content;
+    private Dialog<Integer> delegated;
 
     public IntDialog() {
-        this.title = "";
+        this.delegated = new Dialog<Integer>("", IntDialog.regExp());
     }
 
     public IntDialog(String title) {
-        assert !title.isBlank();
-
-        this.title = title;
+        this.delegated = new Dialog<Integer>(title, IntDialog.regExp());
     }
 
     public int read() {
-        String input;
-        boolean valid;
-        do {
-            Console.instance().write(this.title + " (" + regExp() + "): ");
-            input = Console.instance().readString();
-            valid = IntDialog.isValid(input);
-            if (!valid) {
-                Console.instance().writeln("Fallo!!!" + this.errorMsg());
-            }
-        } while (!valid);
-        return IntDialog.create(input);
-    }
-
-    private static boolean isValid(String string) {
-        return string.matches(regExp());
+        return IntDialog.create(this.delegated.read());
     }
 
     public static String regExp() {
         return Console.INTEGER_regExp;
-    }
-
-    private String errorMsg() {
-        return "Al no respetar el formato \"" + regExp() + "\"";
     }
 
     public static Integer create(String string) {
@@ -48,40 +27,30 @@ public class IntDialog {
     }
 
     public void write(int element) {
-        assert this.title != null;
-
-        Console.instance().write(element);
+        this.delegated.write(element);
     }
 
     public void writeln(int element) {
-        this.write(element);
-        Console.instance().writeln();
+        this.delegated.writeln(element);
     }
 
     public void writeDetails(int element) {
-        assert this.title != null;
-
-        this.content = "===============";
+        this.delegated.addHead(element);
         this.addContent(element);
-        Console.instance().writeln(this.content);
+        this.delegated.writeDetails();
     }
 
     public void addContent(Integer integer) {
-        this.addLine("toString: " + integer.toString());
-        this.addLine("sum 1: " + (integer + 1));
-        this.addLine("substract 1: " + (integer - 1));
-        this.addLine("multiply 2: " + (integer * 2));
-        this.addLine("divide 2: " + (integer * 2));
-        this.addLine("module 2: " + (integer % 2));
-        this.addLine("greater 0: " + (integer > 0));
-        this.addLine("equals or greater 0: " + (integer >= 0));
-        this.addLine("equals 0: " + (integer == 0));
-        this.addLine("lesser or equals 0: " + (integer <= 0));
-        this.addLine("lesser 0: " + (integer < 0));
-    }
-
-    private void addLine(String line) {
-        this.content += "\n" + line;
+        this.delegated.addLine("sum 1: " + (integer + 1));
+        this.delegated.addLine("substract 1: " + (integer - 1));
+        this.delegated.addLine("multiply 2: " + (integer * 2));
+        this.delegated.addLine("divide 2: " + (integer * 2));
+        this.delegated.addLine("module 2: " + (integer % 2));
+        this.delegated.addLine("greater 0: " + (integer > 0));
+        this.delegated.addLine("equals or greater 0: " + (integer >= 0));
+        this.delegated.addLine("equals 0: " + (integer == 0));
+        this.delegated.addLine("lesser or equals 0: " + (integer <= 0));
+        this.delegated.addLine("lesser 0: " + (integer < 0));
     }
 
 }

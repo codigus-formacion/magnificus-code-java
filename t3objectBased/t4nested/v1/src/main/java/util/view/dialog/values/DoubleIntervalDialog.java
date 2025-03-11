@@ -1,140 +1,71 @@
 package util.view.dialog.values;
 
-import util.collection.list.Iterator;
 import util.collection.list.LinkedList;
 import util.values.DoubleInterval;
-import util.view.dialog.primitive.Console;
 import util.view.dialog.primitive.DoubleDialog;
 
 public class DoubleIntervalDialog {
 
-    private static final String PREFIX = "\\[";
-    private static final String SEPARATOR = ",";
-    private static final String POSTFIX = "\\]";
-    
-    private String title;
-    private String content;
+    private IntervalDialog<DoubleInterval> delegated;
 
     public DoubleIntervalDialog(String title) {
-        assert !title.isBlank();
-
-        this.title = title;
+        this.delegated = new IntervalDialog<DoubleInterval>(title, DoubleDialog.regExp());
     }
 
     public DoubleInterval read() {
-        String input;
-        boolean valid;
-        do {
-            Console.instance().write(this.title + " (" + regExp() + "): ");
-            input = Console.instance().readString();
-            valid = DoubleIntervalDialog.isValid(input);
-            if (!valid) {
-                Console.instance().writeln("Fallo!!!" + this.errorMsg());
-            }
-        } while (!valid);
-        return DoubleIntervalDialog.create(input);
+        return DoubleIntervalDialog.create(this.delegated.read());
     }
 
-    public static String regExp(){
-        return PREFIX + DoubleDialog.regExp() + SEPARATOR + DoubleDialog.regExp() + POSTFIX;
-    }
-
-    private static boolean isValid(String string) {
-        assert string != null;
-
-        if (!string.matches(regExp())) {
-            return false;
-        }
+    public static DoubleInterval create(String string) {
         LinkedList<Double> values = DoubleIntervalDialog.values(string);
-        return values.get(0).compareTo(values.get(1)) <= 0;
+        return new DoubleInterval(values.get(0), values.get(1));
     }
 
     private static LinkedList<Double> values(String string) {
-        assert DoubleIntervalDialog.isValid(string);
-
         LinkedList<Double> doubleList = new LinkedList<Double>();
-        Iterator<String> iterator = DoubleIntervalDialog.strings(string).iterator();
+        LinkedList<String>.Iterator<String> iterator = IntervalDialog.strings(string).iterator();
         while (iterator.hasNext()) {
             doubleList.add(DoubleDialog.create(iterator.next().element()));
         }
         return doubleList;
     }
-    
-    private static LinkedList<String> strings(String string) {
-        assert DoubleIntervalDialog.isValid(string);
-
-        LinkedList<String> strings = new LinkedList<String>();
-        String withoutBrackets = string.replaceAll("[" + PREFIX + POSTFIX + "]", "");
-        if (withoutBrackets.isBlank()) {
-            return strings;
-        }
-        String[] elements = withoutBrackets.split(SEPARATOR);
-        for (String element : elements) {
-            strings.add(element);
-        }
-        return strings;
-    }
-
-    private String errorMsg() {
-        return "Al no respetar el formato \"" + regExp() + "\"";
-    }
-
-    public static DoubleInterval create(String string) {
-        assert DoubleIntervalDialog.isValid(string);
-        LinkedList<Double> values = DoubleIntervalDialog.values(string);
-        return new DoubleInterval(values.get(0), values.get(1));
-    }
 
     public void write(DoubleInterval doubleInterval) {
-        assert doubleInterval != null;
-
-        Console.instance().write(doubleInterval);
+        this.delegated.write(doubleInterval);
     }
 
     public void writeln(DoubleInterval doubleInterval) {
-        this.write(doubleInterval);
-        Console.instance().writeln();
+        this.delegated.writeln(doubleInterval);
     }
 
     public void writeDetails(DoubleInterval doubleInterval) {
-        assert this.title != null;
-
-        this.content = "===============";
+        this.delegated.addHead(doubleInterval);
         this.addContent(doubleInterval);
-        Console.instance().writeln(this.content);
+        this.delegated.writeDetails();
     }
 
     public void addContent(DoubleInterval interval) {
         Double initial = 0.0;
-        DoubleInterval pivot = new DoubleInterval(-1.1,1.1);
-
-        this.addLine("toString: " + interval.toString());
-        this.addLine("getMin: " + interval.min());
-        this.addLine("getMax: " + interval.max());
-        this.addLine("includes 0: " + interval.includes(initial));
-        this.addLine("includes [-1,1]: " + interval.includes(pivot));
-        this.addLine("equals [-1,1]: " + interval.equals(pivot));
-        this.addLine("isIntersected [-1,1]: " + interval.isIntersected(pivot));
+        DoubleInterval pivot = new DoubleInterval(-1.1, 1.1);
+        this.delegated.addLine("getMin: " + interval.min());
+        this.delegated.addLine("getMax: " + interval.max());
+        this.delegated.addLine("includes 0: " + interval.includes(initial));
+        this.delegated.addLine("includes [-1,1]: " + interval.includes(pivot));
+        this.delegated.addLine("equals [-1,1]: " + interval.equals(pivot));
+        this.delegated.addLine("isIntersected [-1,1]: " + interval.isIntersected(pivot));
         if (interval.isIntersected(pivot)) {
-            this.addLine("intersection [-1,1]: " + interval.intersection(pivot));
-            this.addLine("union [-1,1]: " + interval.union(pivot));
+            this.delegated.addLine("intersection [-1,1]: " + interval.intersection(pivot));
+            this.delegated.addLine("union [-1,1]: " + interval.union(pivot));
         }
-        this.addLine("superInterval [-1,1]: " + interval.superInterval(pivot));
-        this.addLine("hashCode: " + interval.hashCode());
-        this.addLine("clone: " + interval.clone());
-
-                this.addLine("length: " + interval.length());
-        this.addLine("middlePoint: " + interval.middlePoint());
-        this.addLine("shifted 1: " + interval.shifted(1));
-        this.addLine("scaled 2: " + interval.scaled(2));
-        this.addLine("symetric: " + interval.symetric());
+        this.delegated.addLine("superInterval [-1,1]: " + interval.superInterval(pivot));
+        this.delegated.addLine("length: " + interval.length());
+        this.delegated.addLine("middlePoint: " + interval.middlePoint());
+        this.delegated.addLine("shifted 1: " + interval.shifted(1));
+        this.delegated.addLine("scaled 2: " + interval.scaled(2));
+        this.delegated.addLine("symetric: " + interval.symetric());
         for (DoubleInterval splitedInterval : interval.split(3)) {
-            this.addLine("split: " + splitedInterval);
+            this.delegated.addLine("split: " + splitedInterval);
         }
-    }
-
-    private void addLine(String line) {
-        this.content += "\n" + line;
     }
 
 }

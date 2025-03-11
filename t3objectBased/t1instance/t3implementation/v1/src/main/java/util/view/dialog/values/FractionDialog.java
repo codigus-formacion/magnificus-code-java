@@ -39,8 +39,8 @@ public class FractionDialog {
     }
 
     public final String regExp() {
-        IntDialog intDialog = new IntDialog();
-        return intDialog.regExp() + SEPARATOR + intDialog.regExp();
+        String regExp = new IntDialog().regExp();
+        return regExp + SEPARATOR + regExp;
     }
 
     private boolean isValid(String string) {

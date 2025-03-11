@@ -1,69 +1,37 @@
 package util.view.dialog.collection.list;
 
-import util.view.dialog.primitive.Console;
 import util.view.dialog.primitive.IntDialog;
-
-import util.collection.list.Iterator;
 import util.collection.list.LinkedList;
 import util.values.IntegerInterval;
 
 public class IntegerLinkedListDialog {
 
-    private static final String PREFIX = "\\{";
-    private static final String SEPARATOR = ",";
-    private static final String POSTFIX = "\\}";
-
-    private String title;
-    private String content;
+    private LinkedListDialog<LinkedList<Integer>> delegated;
 
     public IntegerLinkedListDialog(String title) {
-        assert title != null && !title.isBlank() : "Title cannot be null or blank";
-
-        this.title = title;
+        this.delegated = new LinkedListDialog<LinkedList<Integer>>(title, IntDialog.regExp());
     }
 
     public LinkedList<Integer> read() {
         String input;
-        boolean valid;
         do {
-            Console.instance().write(this.title + " (" + regExp() + "): ");
-            input = Console.instance().readString();
-            valid = IntegerLinkedListDialog.isValid(input);
-            if (!valid) {
-                Console.instance().writeln("Fallo!!!" + this.errorMsg());
-            }
-        } while (!valid);
+            input = this.delegated.read();
+        } while (!this.delegated.isValid(input));
         return IntegerLinkedListDialog.create(input);
     }
 
-    private static String regExp() {
-        return PREFIX + "(" + IntDialog.regExp() + "(" + SEPARATOR + IntDialog.regExp() + ")*)?" + POSTFIX;
-    }
-
-    private static boolean isValid(String string) {
-        return string.matches(regExp());
-    }
-
-    private String errorMsg() {
-        return "Al no respetar el formato \"" + regExp() + "\"";
-    }
-
     public static LinkedList<Integer> create(String string) {
-        assert IntegerLinkedListDialog.isValid(string);
-
         LinkedList<Integer> intList = new LinkedList<Integer>();
-        Iterator<Integer> iterator = IntegerLinkedListDialog.values(string).iterator();
+        LinkedList<Integer>.Iterator<Integer> iterator = IntegerLinkedListDialog.values(string).iterator();
         while (iterator.hasNext()) {
             intList.add(iterator.next().element());
         }
         return intList;
     }
-
+    
     private static LinkedList<Integer> values(String string) {
-        assert IntegerLinkedListDialog.isValid(string);
-
         LinkedList<Integer> integers = new LinkedList<Integer>();
-        Iterator<String> iterator = IntegerLinkedListDialog.strings(string).iterator();
+        LinkedList<String>.Iterator<String> iterator = LinkedListDialog.strings(string).iterator();
         while (iterator.hasNext()) {
             String elementString = iterator.next().element();
             integers.add(IntDialog.create(elementString));
@@ -71,77 +39,51 @@ public class IntegerLinkedListDialog {
         return integers;
     }
 
-    private static LinkedList<String> strings(String string) {
-        assert IntegerLinkedListDialog.isValid(string);
-
-        LinkedList<String> strings = new LinkedList<String>();
-        String withoutBrackets = string.replaceAll("[" + PREFIX + POSTFIX + "]", "");
-        if (withoutBrackets.isBlank()) {
-            return strings;
-        }
-        for (String elementString : withoutBrackets.split(SEPARATOR)) {
-            strings.add(elementString);
-        }
-        return strings;
+    public void write(LinkedList<Integer> linkedList) {
+        this.delegated.write(linkedList);
     }
 
-    public void write(LinkedList<Integer> integerLinkedList) {
-        assert this.title != null;
-
-        Console.instance().write(integerLinkedList);
+    public void writeln(LinkedList<Integer> linkedList) {
+        this.delegated.writeln(linkedList);
     }
 
-    public void writeln(LinkedList<Integer> integerLinkedList) {
-        this.write(integerLinkedList);
-        Console.instance().writeln();
+    public void writeDetails(LinkedList<Integer> linkedList) {
+        this.delegated.addHead(linkedList);
+        this.addContent(linkedList);
+        this.delegated.writeDetails();
     }
 
-    public void writeDetails(LinkedList<Integer> integerLinkedList) {
-        assert this.title != null;
-
-        this.content = "===============";
-        this.addContent(integerLinkedList);
-        Console.instance().writeln(this.content);
-    }
-
-    public void addContent(LinkedList<Integer> integerLinkedList) {
-        assert integerLinkedList != null : "Element cannot be null";
-
-        this.addLine("toString: " + integerLinkedList.toString());        
+    public void addContent(LinkedList<Integer> linkedList) {
         int sum = 0;
-        Iterator<Integer> iterator = integerLinkedList.iterator();
+        LinkedList<Integer>.Iterator<Integer> iterator = linkedList.iterator();
         while (iterator.hasNext()) {
             sum += iterator.next().element();
         }
-        this.addLine("sum: " + sum);
+        this.delegated.addLine("sum: " + sum);
 
         LinkedList<Integer> mappedList = new LinkedList<Integer>();
-        iterator = integerLinkedList.iterator();
+        iterator = linkedList.iterator();
         while (iterator.hasNext()) {
             mappedList.add(iterator.next().element() + 1);
         }
-        this.addLine("map + 1: " + mappedList);
+        this.delegated.addLine("map + 1: " + mappedList);
 
         LinkedList<IntegerInterval> intervalList = new LinkedList<IntegerInterval>();
-        iterator = integerLinkedList.iterator();
+        iterator = linkedList.iterator();
         while (iterator.hasNext()) {
             Integer integer = iterator.next().element();
             intervalList.add(new IntegerInterval(-integer, integer));
         }
-        this.addLine("mapToObj Interval: " + intervalList);
+        this.delegated.addLine("mapToObj Interval: " + intervalList);
 
-        LinkedList<Double> doubleList = new LinkedList<Double>();
-        iterator = integerLinkedList.iterator();
+        LinkedList<Integer> doubleList = new LinkedList<Integer>();
+        iterator = linkedList.iterator();
         while (iterator.hasNext()) {
-            doubleList.add(iterator.next().element() * 2.0);
+            doubleList.add(iterator.next().element() * 2);
         }
-        this.addLine("mapToDouble *2: " + doubleList);
+        this.delegated.addLine("mapToDouble *2: " + doubleList);
 
-        this.addLine("asDoubleList: " + doubleList.toString());
-    }    
-
-    private void addLine(String line) {
-        this.content += "\n" + line;
+        this.delegated.addLine("asDoubleList: " + doubleList.toString());
     }
 
 }

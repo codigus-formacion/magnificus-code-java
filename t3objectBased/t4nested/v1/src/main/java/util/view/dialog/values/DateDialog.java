@@ -1,33 +1,24 @@
 package util.view.dialog.values;
 
 import util.values.Date;
-import util.view.dialog.primitive.Console;
+import util.view.dialog.primitive.Dialog;
 import util.view.dialog.primitive.IntDialog;
 
 public class DateDialog {
 
     private static String SEPARATOR = "/";
 
-    private String title;
-    private String content;
+    private Dialog<Date> delegated;
 
     public DateDialog(String title) {
-        assert !title.isBlank();
-
-        this.title = title;
+        this.delegated = new Dialog<Date>(title, DateDialog.regExp());
     }
 
     public Date read() {
         String input;
-        boolean valid;
         do {
-            Console.instance().write(this.title + " (" + regExp() + "): ");
-            input = Console.instance().readString();
-            valid = DateDialog.isValid(input);
-            if (!valid) {
-                Console.instance().writeln("Fallo!!!" + this.errorMsg());
-            }
-        } while (!valid);
+            input = this.delegated.read();
+        } while (!DateDialog.isValid(input));
         return DateDialog.create(input);
     }
 
@@ -36,11 +27,6 @@ public class DateDialog {
     }
 
     private static boolean isValid(String string) {
-        assert string != null;
-
-        if (!string.matches(regExp())) {
-            return false;
-        }
         Integer[] integers = DateDialog.values(string);
         return Date.isValidMonth(integers[1])
             && Date.isValidDay(integers[2]);
@@ -57,10 +43,6 @@ public class DateDialog {
         return integers;
     }
 
-    private String errorMsg() {
-        return "Al no respetar el formato \"" + regExp() + "\"";
-    }
-
     public static Date create(String string) {
         assert DateDialog.isValid(string);
 
@@ -69,37 +51,25 @@ public class DateDialog {
     }
 
     public void write(Date date) {
-        assert date != null;
-
-        Console.instance().write(date);
+        this.delegated.write(date);
     }
 
     public void writeln(Date date) {
-        this.write(date);
-        Console.instance().writeln();
+        this.delegated.writeln(date);
     }
 
-    public void writeDetails(Date date) {
-        this.content = "===============";
-        this.addContent(date);
-        Console.instance().writeln(this.content);
+    public void writeDetails(Date element) {
+        this.delegated.addHead(element);
+        this.addContent(element);
+        this.delegated.writeDetails();
     }
 
     public void addContent(Date date) {
-        assert date != null;
-
-        this.addLine("toString: " + date);
-        this.addLine("next: " + date.next());
+        this.delegated.addLine("next: " + date.next());
         Date pivot = new Date(2025,6,6);
-        this.addLine("before: " + date.before(pivot));
-        this.addLine("equals: " + date.equals(pivot));
-        this.addLine("after: " + date.after(pivot));
-    }
-
-    private void addLine(String line) {
-        assert line != null;
-
-        this.content += "\n" + line;
+        this.delegated.addLine("before: " + date.before(pivot));
+        this.delegated.addLine("equals: " + date.equals(pivot));
+        this.delegated.addLine("after: " + date.after(pivot));
     }
 
 }

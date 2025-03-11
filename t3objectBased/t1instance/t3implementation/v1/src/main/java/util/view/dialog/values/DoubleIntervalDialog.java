@@ -37,8 +37,8 @@ public class DoubleIntervalDialog {
     }
 
     public String regExp(){
-        DoubleDialog doubleDialog = new DoubleDialog();
-        return PREFIX + doubleDialog.regExp() + SEPARATOR + doubleDialog.regExp() + POSTFIX;
+        String regExp = new DoubleDialog().regExp();
+        return PREFIX + regExp + SEPARATOR + regExp + POSTFIX;
     }
 
     private boolean isValid(String string) {

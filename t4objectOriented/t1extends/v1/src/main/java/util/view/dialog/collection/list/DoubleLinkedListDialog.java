@@ -22,7 +22,7 @@ public class DoubleLinkedListDialog extends LinkedListDialog<Double> {
         assert doubleLinkedList != null : "Element cannot be null";
 
         this.addLine("toString: " + doubleLinkedList.toString());
-        int sum = 0;
+        double sum = 0;
         LinkedList<Double>.Iterator<Double> iterator = doubleLinkedList.iterator();
         while (iterator.hasNext()) {
             sum += iterator.next().element();
@@ -39,8 +39,8 @@ public class DoubleLinkedListDialog extends LinkedListDialog<Double> {
         LinkedList<DoubleInterval> intervalList = new LinkedList<DoubleInterval>();
         iterator = doubleLinkedList.iterator();
         while (iterator.hasNext()) {
-            Double integer = iterator.next().element();
-            intervalList.add(new DoubleInterval(-integer, integer));
+            Double decimal = iterator.next().element();
+            intervalList.add(new DoubleInterval(-decimal, decimal));
         }
         this.addLine("mapToObj Interval: " + intervalList);
 

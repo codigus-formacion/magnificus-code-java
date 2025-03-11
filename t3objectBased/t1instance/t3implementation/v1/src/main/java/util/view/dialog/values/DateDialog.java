@@ -32,8 +32,8 @@ public class DateDialog {
     }
 
     public String regExp() {
-        IntDialog intDialog = new IntDialog();
-        return intDialog.regExp() + SEPARATOR + intDialog.regExp() + SEPARATOR + intDialog.regExp();
+        String regExp = new IntDialog().regExp();
+        return regExp + SEPARATOR + regExp + SEPARATOR + regExp;
     }
 
     private boolean isValid(String string) {

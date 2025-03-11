@@ -37,8 +37,8 @@ public class FractionIntervalDialog {
     }
 
     public String regExp(){
-        FractionDialog fractionDialog = new FractionDialog();
-        return PREFIX + fractionDialog.regExp() + SEPARATOR + fractionDialog.regExp() + POSTFIX;
+        String regExp = new FractionDialog().regExp();
+        return PREFIX + regExp + SEPARATOR + regExp + POSTFIX;
     }
 
     private boolean isValid(String string) {

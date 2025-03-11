@@ -2,20 +2,14 @@ package util.values;
 
 public class FractionInterval {
 
-    private final Fraction min;
-    private final Fraction max;
+    private final Interval<Fraction> delegated;
 
     public FractionInterval(Fraction min, Fraction max){
-        this.min = min;
-        this.max = max;
+        this.delegated = new Interval<Fraction>(min, max);
     }
 
     public FractionInterval(FractionInterval interval) {
-        this(interval.min, interval.max);
-    }
-
-    public FractionInterval clone() {
-        return new FractionInterval(this.min, this.max);
+        this(interval.min(), interval.max());
     }
 
     public boolean includes(Fraction point) {
@@ -37,10 +31,10 @@ public class FractionInterval {
         assert this.isIntersected(interval);
 
         if (this.includes(interval)) {
-            return interval.clone();
+            return new FractionInterval(interval);
         }
         if (interval.includes(this)) {
-            return this.clone();
+            return new FractionInterval(this);
         }
         if (this.includes(interval.min())) {
             return new FractionInterval(interval.min(), this.max());
@@ -52,10 +46,10 @@ public class FractionInterval {
         assert this.isIntersected(interval);
 
         if (this.includes(interval)) {
-            return this.clone();
+            return new FractionInterval(this);
         }
         if (interval.includes(this)) {
-            return interval.clone();
+            return new FractionInterval(interval);
         }
         if (this.includes(interval.min())) {
             return new FractionInterval(this.min(), interval.max());
@@ -73,15 +67,15 @@ public class FractionInterval {
     }
 
     public String toString() {
-        return "Interval [min=" + this.min + ", max=" + this.max + "]";
+        return this.delegated.toString();
     }
 
     public Fraction min() {
-        return this.min;
+        return this.delegated.min();
     }
 
     public Fraction max() {
-        return this.max;
+        return this.delegated.max();
     }
 
     public FractionInterval(Fraction max) {

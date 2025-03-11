@@ -1,6 +1,5 @@
 package util.view.dialog.collection.list;
 
-import util.view.dialog.primitive.DoubleDialog;
 import util.view.dialog.primitive.IntDialog;
 
 import util.collection.list.LinkedList;
@@ -13,7 +12,7 @@ public class IntegerLinkedListDialog extends LinkedListDialog<Integer> {
     }
 
     protected String regExp() {
-        return this.regExp(new DoubleDialog().regExp());
+        return this.regExp(new IntDialog().regExp());
     }
 
     protected Integer createElement(String elementString) {

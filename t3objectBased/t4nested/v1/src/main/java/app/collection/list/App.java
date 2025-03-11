@@ -3,7 +3,6 @@ package app.collection.list;
 import util.view.dialog.collection.list.DoubleLinkedListDialog;
 import util.view.dialog.collection.list.IntegerLinkedListDialog;
 import util.view.dialog.primitive.Console;
-import util.collection.list.Iterator;
 import util.collection.list.LinkedList;
 import util.values.Math;
 
@@ -25,7 +24,9 @@ public class App {
                 IntegerLinkedListDialog.create("{1,2,3}"),
                 IntegerLinkedListDialog.create("{-3,-2,-1}"),
                 IntegerLinkedListDialog.create("{100,150,200}"));
-        Iterator<LinkedList<Integer>> integerLinkedListIterator = integerLinkedListLinkedList.iterator();
+
+        LinkedList<LinkedList<Integer>>.Iterator<LinkedList<Integer>> integerLinkedListIterator = integerLinkedListLinkedList
+                .iterator();
         while (integerLinkedListIterator.hasNext()) {
             intLinkedListDialog.writeDetails(integerLinkedListIterator.next().element());
         }
@@ -42,7 +43,8 @@ public class App {
                 DoubleLinkedListDialog.create("{1.1,2.2,3.3}"),
                 DoubleLinkedListDialog.create("{-3.3,-2.2,-1.1}"),
                 DoubleLinkedListDialog.create("{100.0,150.0,200.0}"));
-        Iterator<LinkedList<Double>> doubleLinkedListIterator = doubleLinkedListLinkedList.iterator();
+        LinkedList<LinkedList<Double>>.Iterator<LinkedList<Double>> doubleLinkedListIterator = doubleLinkedListLinkedList
+                .iterator();
         while (doubleLinkedListIterator.hasNext()) {
             doubleLinkedListDialog.writeDetails(doubleLinkedListIterator.next().element());
         }

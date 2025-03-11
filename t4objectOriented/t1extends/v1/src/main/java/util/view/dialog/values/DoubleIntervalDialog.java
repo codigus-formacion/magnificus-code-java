@@ -19,6 +19,10 @@ public class DoubleIntervalDialog extends IntervalDialog<DoubleInterval, Double>
         return values.get(0).compareTo(values.get(1)) <= 0;
     }
 
+    protected Double createElement(String element) {
+        return new DoubleDialog().create(element);
+    }
+
     public DoubleInterval create(String string) {
         assert this.isValid(string);
 
@@ -50,10 +54,6 @@ public class DoubleIntervalDialog extends IntervalDialog<DoubleInterval, Double>
         for (DoubleInterval splitedInterval : interval.split(3)) {
             this.addLine("split: " + splitedInterval);
         }
-    }
-
-    protected Double createElement(String element) {
-        return new DoubleDialog().create(element);
     }
 
 }

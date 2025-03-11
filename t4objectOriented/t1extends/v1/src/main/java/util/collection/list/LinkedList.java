@@ -47,28 +47,6 @@ public class LinkedList<T> {
         }
     
     }
-
-    public class Iterator<U> {
-
-        private Node<U> current;
-    
-        public Iterator(Node<U> head) {
-            this.current = head;
-        }
-    
-        public boolean hasNext() {
-            return this.current != null;
-        }
-    
-        public Node<U> next(){
-            assert this.hasNext();
-    
-            Node<U> element = this.current;
-            this.current = this.current.next();
-            return element;
-        }
-    
-    }
     
     private Node<T> head;
     private Node<T> last;
@@ -107,6 +85,28 @@ public class LinkedList<T> {
 
     public boolean isEmpty() {
         return this.head == null;
+    }
+
+    public class Iterator<U> {
+
+        private Node<U> current;
+    
+        public Iterator(Node<U> head) {
+            this.current = head;
+        }
+    
+        public boolean hasNext() {
+            return this.current != null;
+        }
+    
+        public Node<U> next(){
+            assert this.hasNext();
+    
+            Node<U> element = this.current;
+            this.current = this.current.next();
+            return element;
+        }
+    
     }
 
     public int size() {

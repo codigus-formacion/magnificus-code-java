@@ -139,16 +139,4 @@ public class Fraction {
     return "Fraction (" + this.numerator + "/" + this.denominator + ")";
   }
 
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + numerator;
-    result = prime * result + denominator;
-    return result;
-  }
-
-  public Fraction clone() {
-    return new Fraction(this.numerator, this.denominator);
-  }
-
 }

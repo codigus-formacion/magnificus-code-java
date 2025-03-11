@@ -1,24 +1,339 @@
 # Programación Orientada a Objetos
 
 ## Herencia por Extensión
-- Lista y Nodo y iterador/herenciaXlistas
-- Conjunto y Nodo y iterador/herenciaXlistas
-- Colección y Nodo y iterador/herenciaXlistas: clase abstracta
+- app
+    - LinkedListApp -> Principio de Unicidad!!
+    - FractionApp -> Principio de Unicidad!!
+    - TntervalApp -> Principio de Unicidad!!
+    - TimeApp -> Principio de Unicidad!!
+    - PrimitiveApp -> Principio de Unicidad!!
+- util
+    - collection
+        - list
+            - Node<T> *
+            - Iterator<T>
+            - LinkedList<T> *
+    - values
+        - Fraction
+        - Date
+        - Time
+        - Fraction
+        - Interval 
+        - DoubleInterval -> Principio de Unicidad!
+        - FractionInterval -> Principio de Unicidad!
+        - ... -> Principio de Unicidad!!
+    - view
+        - dialog
+            - collection
+                - list
+                    - LinkedListDialog<T>
+                    - StringLinkedListDialog -> Principio de Unicidad!
+                    - IntegerLinkedListDialog -> Principio de Unicidad!
+                    - FractionIntervalLinkedListDialog -> Principio de Unicidad!
+                    - FractionIntervalLinkedListLinkedListDialog -> Principio de Unicidad!
+                    - ...  -> Principio de Unicidad!!
+            - values
+                - FractionDialog -> Principio de Unicidad
+                - DateDialog -> Principio de Unicidad
+                - TimeDialog -> Principio de Unicidad
+                - IntervalDialog<T>
+                - DoubleIntervalDialog -> Principio de Unicidad
+                - FractionIntervalDialog -> Principio de Unicidad
+                - ...  -> Principio de Unicidad!
+            - primitive
+                - Console
+                - Dialog<T>
+                - IntDialgog -> Principio de Unicidad
+                - DoubleDialog -> Principio de Unicidad
+                - ... -> Principio de Unicidad!
+
+- Nodo: herencia de T 
+- Lista: centinela 
 ## Polimorfismo
-- Intervalo y Abierto/Cerrado
-- Intervalo y infinitos con Optional
-- Colección y Nodo y iterador/herenciaXlistas: listas y conjuntos
-- Menú con Opción: clase abstracta
+- app
+    - LinkedListApp -> Principio de Unicidad!!
+    - FractionApp -> Principio de Unicidad!!
+    - TntervalApp -> Principio de Unicidad!!
+    - TimeApp -> Principio de Unicidad!!
+    - PrimitiveApp -> Principio de Unicidad!!
+- util
+    - collection
+        - list
+            - Node<T> 
+            - Iterator<T>
+            - LinkedList<T> 
+    - values
+        - Fraction
+        - Date
+        - Time
+        - Fraction
+        - Interval *
+        - DoubleInterval -> Principio de Unicidad! *
+        - FractionInterval -> Principio de Unicidad! *
+        - ... -> Principio de Unicidad!!
+    - view
+        - dialog
+            - collection
+                - list
+                    - LinkedListDialog<T>
+                    - StringLinkedListDialog -> Principio de Unicidad!
+                    - IntegerLinkedListDialog -> Principio de Unicidad!
+                    - FractionIntervalLinkedListDialog -> Principio de Unicidad!
+                    - FractionIntervalLinkedListLinkedListDialog -> Principio de Unicidad!
+                    - ...  -> Principio de Unicidad!!
+            - values
+                - FractionDialog -> Principio de Unicidad
+                - DateDialog -> Principio de Unicidad
+                - TimeDialog -> Principio de Unicidad
+                - IntervalDialog<T> *
+                - DoubleIntervalDialog -> Principio de Unicidad *
+                - FractionIntervalDialog -> Principio de Unicidad *
+                - ...  -> Principio de Unicidad! 
+            - primitive
+                - Console
+                - Dialog<T>
+                - IntDialgog -> Principio de Unicidad
+                - DoubleDialog -> Principio de Unicidad
+                - ... -> Principio de Unicidad!
+
+- Intervalo: Optional (abierto/cerrado)
 ## Herencia por Implementación
-- Colección y Nodo y iterador/herenciaXlistas
-- Menú con Opción: interface
+- app
+    - LinkedListApp -> Principio de Unicidad!!
+    - FractionApp -> Principio de Unicidad!!
+    - TntervalApp -> Principio de Unicidad!!
+    - TimeApp -> Principio de Unicidad!!
+    - PrimitiveApp -> Principio de Unicidad!!
+- util
+    - collection
+        - Collection<T> *
+        - set 
+            - Set<T> *
+        - list
+            - LinkedList<T> 
+                - Node<T> 
+                - Iterator<T>
+            - ArrayList<T>
+                - Iterator<T>
+    - values
+        - Fraction
+        - Date
+        - Time
+        - Fraction *
+        - Interval 
+        - DoubleInterval -> Principio de Unicidad!
+        - FractionInterval -> Principio de Unicidad!
+        - ... -> Principio de Unicidad!!
+    - view
+        - dialog
+            - collection
+                - list
+                    - LinkedListDialog<T>
+                    - StringLinkedListDialog -> Principio de Unicidad!
+                    - IntegerLinkedListDialog -> Principio de Unicidad!
+                    - FractionIntervalLinkedListDialog -> Principio de Unicidad!
+                    - FractionIntervalLinkedListLinkedListDialog -> Principio de Unicidad!
+                    - ...  -> Principio de Unicidad!!
+            - values
+                - FractionDialog -> Principio de Unicidad
+                - DateDialog -> Principio de Unicidad
+                - TimeDialog -> Principio de Unicidad
+                - IntervalDialog<T>
+                - DoubleIntervalDialog -> Principio de Unicidad
+                - FractionIntervalDialog -> Principio de Unicidad
+                - ...  -> Principio de Unicidad!
+            - primitive
+                - Console
+                - Dialog<T>
+                - IntDialgog -> Principio de Unicidad
+                - DoubleDialog -> Principio de Unicidad
+                - ... -> Principio de Unicidad!
+
+- Colección: polimorfismo en app
+- Fraction: Comparable
 ## Clases Genéricas y Herencia
-- Intervalo (sin extends con clases hijas especificas)
-- Lista y Nodo y iterador/herenciaXlistas 
-- Menú con Opción: T
+- app
+    - LinkedListApp -> Principio de Unicidad!!
+    - FractionApp -> Principio de Unicidad!!
+    - TntervalApp -> Principio de Unicidad!!
+    - TimeApp -> Principio de Unicidad!!
+    - PrimitiveApp -> Principio de Unicidad!!
+- util
+    - collection
+        - Collection<T> 
+        - set 
+            - Set<T> 
+        - list
+            - LinkedList<T> 
+                - Node<T> 
+                - Iterator<T>
+            - ArrayList<T>
+                - Iterator<T>
+    - values
+        - Fraction
+        - Date
+        - Time
+        - Fraction 
+        - Interval *
+        - DoubleInterval -> Principio de Unicidad! *
+        - FractionInterval -> Principio de Unicidad! *
+        - ... -> Principio de Unicidad!!
+    - view
+        - dialog
+            - collection
+                - list
+                    - LinkedListDialog<T>
+                    - StringLinkedListDialog -> Principio de Unicidad!
+                    - IntegerLinkedListDialog -> Principio de Unicidad!
+                    - FractionIntervalLinkedListDialog -> Principio de Unicidad!
+                    - FractionIntervalLinkedListLinkedListDialog -> Principio de Unicidad!
+                    - ...  -> Principio de Unicidad!!
+            - values
+                - FractionDialog -> Principio de Unicidad
+                - DateDialog -> Principio de Unicidad
+                - TimeDialog -> Principio de Unicidad
+                - IntervalDialog<T> *
+                - DoubleIntervalDialog -> Principio de Unicidad *
+                - FractionIntervalDialog -> Principio de Unicidad *
+                - ...  -> Principio de Unicidad!
+            - primitive
+                - Console
+                - Dialog<T>
+                - IntDialgog -> Principio de Unicidad
+                - DoubleDialog -> Principio de Unicidad
+                - ... -> Principio de Unicidad!
+        - menu
+            - Option<T> *
+                - QuitOption<T> *
+            - Menu<T> *
+                - EscapeMen<T> *
+                    - IterativeMenu<T> *
+                        - DynamicMenu<T> *
+
+- Intervalo: T extends Comparable 2
+- Menú: Option<T extends Option>
 ## Clases Anidadas y Herencia
 ### Clases Anónimas
-- Menú con Opción (sin flecha, con anónimas)
+- app
+    - LinkedListApp -> Principio de Unicidad!!
+    - FractionApp -> Principio de Unicidad!!
+    - TntervalApp -> Principio de Unicidad!!
+    - TimeApp -> Principio de Unicidad!!
+    - PrimitiveApp -> Principio de Unicidad!!
+- util
+    - collection
+        - Collection<T> *
+        - set 
+            - Set<T> *
+        - list
+            - LinkedList<T> *
+                - Node<T> 
+                - Iterator<T>
+            - ArrayList<T> *
+                - Iterator<T>
+    - values
+        - Fraction
+        - Date
+        - Time
+        - Fraction 
+        - Interval 
+        - DoubleInterval -> Principio de Unicidad! 
+        - FractionInterval -> Principio de Unicidad! 
+        - ... -> Principio de Unicidad!!
+    - view
+        - dialog
+            - collection
+                - list
+                    - LinkedListDialog<T>
+                    - StringLinkedListDialog -> Principio de Unicidad!
+                    - IntegerLinkedListDialog -> Principio de Unicidad!
+                    - FractionIntervalLinkedListDialog -> Principio de Unicidad!
+                    - FractionIntervalLinkedListLinkedListDialog -> Principio de Unicidad!
+                    - ...  -> Principio de Unicidad!!
+            - values
+                - FractionDialog -> Principio de Unicidad
+                - DateDialog -> Principio de Unicidad
+                - TimeDialog -> Principio de Unicidad
+                - IntervalDialog<T> 
+                - DoubleIntervalDialog -> Principio de Unicidad 
+                - FractionIntervalDialog -> Principio de Unicidad 
+                - ...  -> Principio de Unicidad!
+            - primitive
+                - Console
+                - Dialog<T>
+                - IntDialgog -> Principio de Unicidad
+                - DoubleDialog -> Principio de Unicidad
+                - ... -> Principio de Unicidad!
+        - menu
+            - Option<T> *
+                - QuitOption<T> *
+            - Menu<T> *
+                - EscapeMen<T> *
+                    - IterativeMenu<T> *
+                        - DynamicMenu<T> *
+
+- Menú: derivadas anónimas y locales
+- LinkedList: mapper, confusion, ...
 ### Funciones Lambda
-- Menú con Opción
+- app
+    - LinkedListApp -> Principio de Unicidad!!
+    - FractionApp -> Principio de Unicidad!!
+    - TntervalApp -> Principio de Unicidad!!
+    - TimeApp -> Principio de Unicidad!!
+    - PrimitiveApp -> Principio de Unicidad!!
+- util
+    - collection
+        - Collection<T> *
+        - set 
+            - Set<T> *
+        - list
+            - LinkedList<T> * 
+                - Node<T> 
+                - Iterator<T>
+            - ArrayList<T> *
+                - Iterator<T>
+    - values
+        - Fraction
+        - Date
+        - Time
+        - Fraction 
+        - Interval 
+        - DoubleInterval -> Principio de Unicidad! 
+        - FractionInterval -> Principio de Unicidad! 
+        - ... -> Principio de Unicidad!!
+    - view
+        - dialog
+            - collection
+                - list
+                    - LinkedListDialog<T>
+                    - StringLinkedListDialog -> Principio de Unicidad!
+                    - IntegerLinkedListDialog -> Principio de Unicidad!
+                    - FractionIntervalLinkedListDialog -> Principio de Unicidad!
+                    - FractionIntervalLinkedListLinkedListDialog -> Principio de Unicidad!
+                    - ...  -> Principio de Unicidad!!
+            - values
+                - FractionDialog -> Principio de Unicidad
+                - DateDialog -> Principio de Unicidad
+                - TimeDialog -> Principio de Unicidad
+                - IntervalDialog<T> 
+                - DoubleIntervalDialog -> Principio de Unicidad 
+                - FractionIntervalDialog -> Principio de Unicidad 
+                - ...  -> Principio de Unicidad!
+            - primitive
+                - Console
+                - Dialog<T>
+                - IntDialgog -> Principio de Unicidad
+                - DoubleDialog -> Principio de Unicidad
+                - ... -> Principio de Unicidad!
+        - menu
+            - Option<T> *
+                - QuitOption<T> *
+            - Menu<T> *
+                - EscapeMen<T> *
+                    - IterativeMenu<T> *
+                        - DynamicMenu<T> *
+
+- Menú: derivadas flecha
+- LinkedList: mapper, confusion, ...
+
 

@@ -1,6 +1,5 @@
 package app.values;
 
-import util.collection.list.Iterator;
 import util.collection.list.LinkedList;
 import util.values.Fraction;
 import util.view.dialog.primitive.Console;
@@ -19,7 +18,7 @@ public class FractionApp {
                 FractionDialog.create("-1/5"),
                 FractionDialog.create("1/-5"),
                 FractionDialog.create("-1/-5"));
-        Iterator<Fraction> fractionIterator = fractionLinkedList.iterator();
+        LinkedList<Fraction>.Iterator<Fraction> fractionIterator = fractionLinkedList.iterator();
         while (fractionIterator.hasNext()) {
             fractionDialog.writeDetails(fractionIterator.next().element());
         }

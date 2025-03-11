@@ -2,20 +2,14 @@ package util.values;
 
 public class IntegerInterval {
 
-    private final int min;
-    private final int max;
+    private final Interval<Integer> delegated;
 
     public IntegerInterval(int min, int max) {
-        this.min = min;
-        this.max = max;
+        this.delegated = new Interval<Integer>(min, max);
     }
 
     public IntegerInterval(IntegerInterval interval) {
-        this(interval.min, interval.max);
-    }
-
-    public IntegerInterval clone() {
-        return new IntegerInterval(this.min, this.max);
+        this(interval.delegated.min(), interval.delegated.max());
     }
 
     public boolean includes(int point) {
@@ -34,10 +28,10 @@ public class IntegerInterval {
         assert this.isIntersected(interval);
 
         if (this.includes(interval)) {
-            return interval.clone();
+            return new IntegerInterval(interval);
         }
         if (interval.includes(this)) {
-            return this.clone();
+            return new IntegerInterval(this);
         }
         if (this.includes(interval.min())) {
             return new IntegerInterval(interval.min(), this.max());
@@ -49,10 +43,10 @@ public class IntegerInterval {
         assert this.isIntersected(interval);
 
         if (this.includes(interval)) {
-            return this.clone();
+            return new IntegerInterval(this);
         }
         if (interval.includes(this)) {
-            return interval.clone();
+            return new IntegerInterval(interval);
         }
         if (this.includes(interval.min())) {
             return new IntegerInterval(this.min(), interval.max());
@@ -69,15 +63,15 @@ public class IntegerInterval {
     }
 
     public String toString() {
-        return "Interval [min=" + this.min + ", max=" + this.max + "]";
+        return this.delegated.toString();
     }
 
     public Integer min() {
-        return this.min;
+        return this.delegated.min();
     }
 
     public Integer max() {
-        return this.max;
+        return this.delegated.max();
     }
 
     public IntegerInterval(int max) {
