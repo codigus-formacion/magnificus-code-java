@@ -2,16 +2,12 @@ package util.view.dialog.primitive;
 
 public class IntDialog extends Dialog<Integer> {
 
-    public IntDialog() {
-        super();
-    }
-
     public IntDialog(String title) {
-        super(title);
+        super(title, Console.INTEGER_regExp);
     }
 
-    public String regExp() {
-        return Console.INTEGER_regExp;
+    public IntDialog() {
+        this("");
     }
 
     public Integer create(String string) {

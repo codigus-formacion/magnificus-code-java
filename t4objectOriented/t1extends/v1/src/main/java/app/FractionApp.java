@@ -18,9 +18,9 @@ public class FractionApp {
                 fractionDialog.create("-1/5"),
                 fractionDialog.create("1/-5"),
                 fractionDialog.create("-1/-5"));
-        LinkedList<Fraction>.Iterator<Fraction> fractionIterator = fractionLinkedList.iterator();
+                LinkedList<Fraction>.Iterator<Fraction> fractionIterator = fractionLinkedList.iterator();
         while (fractionIterator.hasNext()) {
-            fractionDialog.writeDetails(fractionIterator.next().element());
+            fractionDialog.writeDetails(fractionIterator.next());
         }
         Console.close("0");
     }

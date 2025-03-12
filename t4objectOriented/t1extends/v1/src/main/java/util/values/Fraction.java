@@ -77,26 +77,21 @@ public class Fraction {
     return power;
   }
 
-  public Fraction divide(Fraction fraction) {
+  public Optional<Fraction> divide(Fraction fraction) {
     assert fraction != null;
 
-    return this.multiply(fraction.reverse());
+    if (fraction.equals(new Fraction(0))) {
+      return Optional.empty();
+    }
+    return Optional.of(this.multiply(fraction.reverse()));
   }
 
   public Fraction reverse() {
     return new Fraction(this.denominator, this.numerator);
   }
 
-  public Fraction divide(int integer) {
+  public Optional<Fraction> divide(int integer) {
     return this.divide(new Fraction(1, integer));
-  }
-
-  public int numerator() {
-    return this.numerator;
-  }
-
-  public int denominator() {
-    return this.denominator;
   }
 
   public double valueOf() {
@@ -125,7 +120,7 @@ public class Fraction {
 
   public int compareTo(Fraction fraction) {
     assert fraction != null;
-    
+
     if (this.greater(fraction)) {
       return 1;
     }
@@ -137,6 +132,14 @@ public class Fraction {
 
   public String toString() {
     return "Fraction (" + this.numerator + "/" + this.denominator + ")";
+  }
+
+  public int numerator() {
+    return this.numerator;
+  }
+
+  public int denominator() {
+    return this.denominator;
   }
 
 }

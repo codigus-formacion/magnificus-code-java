@@ -2,58 +2,38 @@ package util.view.dialog.values;
 
 import util.collection.list.LinkedList;
 import util.values.Fraction;
-import util.view.dialog.primitive.Dialog;
 import util.view.dialog.primitive.IntDialog;
+import util.view.dialog.primitive.SecuenceDialog;
 
-public class FractionDialog extends Dialog<Fraction> {
+public class FractionDialog extends SecuenceDialog<Fraction> {
 
     private static final String SEPARATOR = "/";
 
-    public FractionDialog() {
-        super();
-    }
-
     public FractionDialog(String title) {
-        super(title);
+        super(title, "", new IntDialog().regExp(), SEPARATOR, "");
     }
 
-    public final String regExp() {
-        IntDialog intDialog = new IntDialog();
-        return intDialog.regExp() + SEPARATOR + intDialog.regExp();
+    public FractionDialog() {
+        this("");
     }
 
-    protected boolean isSemanticValid(String string) {
-        return new FractionDialog().values(string).get(1) != 0;
+    public boolean isSemanticValid(String string) {
+        LinkedList<Integer> values = this.values(string);
+        return values.size() == 2 && values.get(1) != 0;
     }
 
-    private LinkedList<Integer> values(String string) {
-        assert new FractionDialog().isValid(string);
-        
+    private LinkedList<Integer> values(String string) {        
         LinkedList<Integer> intList = new LinkedList<Integer>();
         LinkedList<String>.Iterator<String> iterator = this.strings(string).iterator();
         while (iterator.hasNext()) {
-            intList.add(new IntDialog().create(iterator.next().element()));
+            intList.add(new IntDialog().create(iterator.next()));
         }
         return intList;
     }
 
-    private LinkedList<String> strings(String string) {
-        assert this.isValid(string);
-        
-        LinkedList<String> strings = new LinkedList<String>();
-        String[] elements = string.split(SEPARATOR);
-        for (String element : elements) {
-            strings.add(element);
-        }
-        return strings;
-    }
-
     public Fraction create(String string) {
-        assert this.isValid(string);
-
-        String[] integers = string.split(SEPARATOR);
-        IntDialog intDialog = new IntDialog();
-        return new Fraction(intDialog.create(integers[0]), intDialog.create(integers[1]));
+        LinkedList<Integer> values = this.values(string);
+        return new Fraction(values.get(0), values.get(1));
     }
 
     public void addContent(Fraction fraction) {
@@ -68,8 +48,9 @@ public class FractionDialog extends Dialog<Fraction> {
         this.addLine("subtract 1/2: " + fraction.subtract(pivot));
         this.addLine("multiply 1/2: " + fraction.multiply(pivot));
         this.addLine("divide 1/2: " + fraction.divide(pivot));
+        this.addLine("divide 1/2: " + fraction.divide(new Fraction(0)));
         this.addLine("power 2: " + fraction.power(2));
-        this.addLine("value: " + fraction.valueOf());
+        this.addLine("value: " + fraction.valueOf());;
     }
 
 }

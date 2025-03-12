@@ -6,7 +6,7 @@ import util.view.dialog.primitive.Console;
 import util.collection.list.LinkedList;
 import util.values.Math;
 
-public class App {
+public class LinkedListApp {
 
     public static void main(String[] args) {
         IntegerLinkedListDialog intLinkedListDialog = new IntegerLinkedListDialog("Lista de Enteros");
@@ -17,17 +17,18 @@ public class App {
                 LinkedList.of(4, 5, 6),
                 LinkedList.of(),
                 LinkedList.empty(),
-                App.getRandomIntList(),
-                App.getRangeIntList(),
-                App.getRangeClosedIntList(),
+                LinkedListApp.getRandomIntList(),
+                LinkedListApp.getRangeIntList(),
+                LinkedListApp.getRangeClosedIntList(),
                 intLinkedListDialog.create("{}"),
                 intLinkedListDialog.create("{1,2,3}"),
                 intLinkedListDialog.create("{-3,-2,-1}"),
                 intLinkedListDialog.create("{100,150,200}"));
+
         LinkedList<LinkedList<Integer>>.Iterator<LinkedList<Integer>> integerLinkedListIterator = integerLinkedListLinkedList
                 .iterator();
         while (integerLinkedListIterator.hasNext()) {
-            intLinkedListDialog.writeDetails(integerLinkedListIterator.next().element());
+            intLinkedListDialog.writeDetails(integerLinkedListIterator.next());
         }
 
         DoubleLinkedListDialog doubleLinkedListDialog = new DoubleLinkedListDialog("Lista de Decimales");
@@ -37,7 +38,7 @@ public class App {
                 LinkedList.of(4.4, 5.5, 6.6),
                 LinkedList.of(),
                 LinkedList.empty(),
-                App.getRandomDoublelist(),
+                LinkedListApp.getRandomDoublelist(),
                 doubleLinkedListDialog.create("{}"),
                 doubleLinkedListDialog.create("{1.1,2.2,3.3}"),
                 doubleLinkedListDialog.create("{-3.3,-2.2,-1.1}"),
@@ -45,7 +46,7 @@ public class App {
         LinkedList<LinkedList<Double>>.Iterator<LinkedList<Double>> doubleLinkedListIterator = doubleLinkedListLinkedList
                 .iterator();
         while (doubleLinkedListIterator.hasNext()) {
-            doubleLinkedListDialog.writeDetails(doubleLinkedListIterator.next().element());
+            doubleLinkedListDialog.writeDetails(doubleLinkedListIterator.next());
         }
         Console.close("0");
     }

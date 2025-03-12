@@ -4,50 +4,49 @@ import util.view.dialog.primitive.DoubleDialog;
 import util.values.DoubleInterval;
 import util.collection.list.LinkedList;
 
-public class DoubleLinkedListDialog extends LinkedListDialog<Double> {
+public class DoubleLinkedListDialog extends LinkedListDialog<LinkedList<Double>> {
 
     public DoubleLinkedListDialog(String title) {
-        super(title);
+        super(title, new DoubleDialog().regExp());
     }
-
-    protected String regExp() {
-        return this.regExp(new DoubleDialog().regExp());
-    }
-
-    protected Double createElement(String elementString) {
-        return new DoubleDialog().create(elementString);
-    }
-
-    public void addContent(LinkedList<Double> doubleLinkedList) {
-        assert doubleLinkedList != null : "Element cannot be null";
-
-        this.addLine("toString: " + doubleLinkedList.toString());
-        double sum = 0;
-        LinkedList<Double>.Iterator<Double> iterator = doubleLinkedList.iterator();
+    
+    public LinkedList<Double> create(String string) {
+        LinkedList<Double> integers = new LinkedList<Double>();
+        LinkedList<String>.Iterator<String> iterator = this.strings(string).iterator();
         while (iterator.hasNext()) {
-            sum += iterator.next().element();
+            String elementString = iterator.next();
+            integers.add(new DoubleDialog().create(elementString));
+        }
+        return integers;
+    }
+
+    public void addContent(LinkedList<Double> linkedList) {
+        double sum = 0;
+        LinkedList<Double>.Iterator<Double> iterator = linkedList.iterator();
+        while (iterator.hasNext()) {
+            sum += iterator.next();
         }
         this.addLine("sum: " + sum);
 
         LinkedList<Double> mappedList = new LinkedList<Double>();
-        iterator = doubleLinkedList.iterator();
+        iterator = linkedList.iterator();
         while (iterator.hasNext()) {
-            mappedList.add(iterator.next().element() + 1);
+            mappedList.add(iterator.next() + 1);
         }
         this.addLine("map + 1: " + mappedList);
 
         LinkedList<DoubleInterval> intervalList = new LinkedList<DoubleInterval>();
-        iterator = doubleLinkedList.iterator();
+        iterator = linkedList.iterator();
         while (iterator.hasNext()) {
-            Double decimal = iterator.next().element();
-            intervalList.add(new DoubleInterval(-decimal, decimal));
+            Double integer = iterator.next();
+            intervalList.add(new DoubleInterval(-integer, integer));
         }
         this.addLine("mapToObj Interval: " + intervalList);
 
         LinkedList<Double> doubleList = new LinkedList<Double>();
-        iterator = doubleLinkedList.iterator();
+        iterator = linkedList.iterator();
         while (iterator.hasNext()) {
-            doubleList.add(iterator.next().element() * 2.0);
+            doubleList.add(iterator.next() * 2.0);
         }
         this.addLine("mapToDouble *2: " + doubleList);
 

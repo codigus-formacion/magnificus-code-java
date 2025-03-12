@@ -19,9 +19,8 @@ public class TimeApp {
                                 timeDialog.create("23:59:59"));
                 LinkedList<Time>.Iterator<Time> timeIterator = timeList.iterator();
                 while (timeIterator.hasNext()) {
-                        timeDialog.writeDetails(timeIterator.next().element());
+                        timeDialog.writeDetails(timeIterator.next());
                 }
-                
                 DateDialog dateDialog = new DateDialog("Fecha");
                 LinkedList<Date> dateList = LinkedList.of(
                                 dateDialog.read(),
@@ -31,7 +30,7 @@ public class TimeApp {
                                 dateDialog.create("2025/02/27"));
                 LinkedList<Date>.Iterator<Date> dateIterator = dateList.iterator();
                 while (dateIterator.hasNext()) {
-                        dateDialog.writeDetails(dateIterator.next().element());
+                        dateDialog.writeDetails(dateIterator.next());
                 }
                 Console.close("0");
         }

@@ -6,6 +6,10 @@ public class FractionInterval extends Interval<Fraction> {
         super(min, max);
     }
 
+    public FractionInterval(FractionInterval interval) {
+        this(interval.min(), interval.max());
+    }
+
     public FractionInterval(Fraction max) {
         this(new Fraction(), max);
     }
@@ -14,8 +18,8 @@ public class FractionInterval extends Interval<Fraction> {
         this(new Fraction());
     }
 
-    public FractionInterval(Interval<Fraction> interval) {
-        this(interval.min(), interval.max());
+    public FractionInterval(Interval<Fraction> element) {
+        super(element.min(), element.max());
     }
 
     public Fraction length() {
@@ -23,16 +27,16 @@ public class FractionInterval extends Interval<Fraction> {
     }
 
     public Fraction middlePoint() {
-        return this.min().add(this.length().divide(2));
+        return this.min().add(this.length().divide(2).get());
     }
 
     public FractionInterval shifted(Fraction shiftment) {
         return new FractionInterval(this.min().add(shiftment), this.max().add(shiftment));
     }
 
-    public FractionInterval scaled(Fraction scale) {
+    public FractionInterval scaled(int scale) {
         Fraction newMiddelPoint = this.middlePoint();
-        Fraction newHalfLength = this.length().multiply(scale.divide(2));
+        Fraction newHalfLength = this.length().multiply(scale / 2);
         return new FractionInterval(newMiddelPoint.subtract(newHalfLength), newMiddelPoint.add(newHalfLength));
     }
 
@@ -40,12 +44,11 @@ public class FractionInterval extends Interval<Fraction> {
         return new FractionInterval(this.max().opposite(), this.min().opposite());
     }
 
-    protected FractionInterval copyOf(Interval<Fraction> interval) {
-        return new FractionInterval(interval);
-    }
+    public boolean includes(FractionInterval interval) {
+        assert this != null;
 
-    protected Interval<Fraction> create(Fraction min, Fraction max) {
-        return new FractionInterval(min, max);
+        return this.includes(interval.min())
+                && this.includes(interval.max());
     }
 
     public boolean includes(Fraction point) {
@@ -55,7 +58,44 @@ public class FractionInterval extends Interval<Fraction> {
                 && point.compareTo(this.max()) <= 0;
     }
 
-    public FractionInterval superInterval(Interval<Fraction> interval) {
+    public boolean isIntersected(FractionInterval interval) {
+        assert interval != null;
+
+        return this.includes(interval.min())
+                || this.includes(interval.max())
+                || interval.includes(this);
+    }
+
+    public FractionInterval intersection(FractionInterval interval) {
+        assert this.isIntersected(interval);
+
+        if (this.includes(interval)) {
+            return new FractionInterval(interval);
+        }
+        if (interval.includes(this)) {
+            return new FractionInterval(this);
+        }
+        if (this.includes(interval.min())) {
+            return new FractionInterval(interval.min(), this.max());
+        }
+        return new FractionInterval(this.min(), interval.max());
+    }
+
+    public FractionInterval union(FractionInterval interval) {
+        assert this.isIntersected(interval);
+
+        if (this.includes(interval)) {
+            return new FractionInterval(this);
+        }
+        if (interval.includes(this)) {
+            return new FractionInterval(interval);
+        }
+        if (this.includes(interval.min())) {
+            return new FractionInterval(this.min(), interval.max());
+        }
+        return new FractionInterval(interval.min(), this.max());
+    }
+    public FractionInterval superInterval(FractionInterval interval) {
         assert interval != null;
 
         Fraction min = this.min().compareTo(interval.min()) < 0 ? this.min()
@@ -69,7 +109,7 @@ public class FractionInterval extends Interval<Fraction> {
         assert times > 0;
 
         FractionInterval[] intervals = new FractionInterval[times];
-        final Fraction length = this.length().divide(times);
+        final Fraction length = this.length().divide(times).get();
         intervals[0] = new FractionInterval(this.min(), this.min().add(length));
         for (int i = 1; i < intervals.length; i++) {
             intervals[i] = intervals[i - 1].shifted(length);

@@ -4,22 +4,29 @@ public abstract class Dialog<T> {
 
     private String title;
     private String content;
+    private String regExp;
 
-    protected Dialog() {
+    protected Dialog(String regExp) {
         this.title = "";
+        this.regExp = regExp;
     }
 
-    protected Dialog(String title) {
+    protected Dialog(String title, String regExp) {
         assert !title.isBlank();
 
         this.title = title;
+        this.regExp = regExp;
+    }
+
+    public String regExp(){
+        return this.regExp;
     }
 
     public T read() {
         String input;
         boolean valid;
         do {
-            Console.instance().write(this.title + " (" + regExp() + "): ");
+            Console.instance().write(this.title + " (" + this.regExp + "): ");
             input = Console.instance().readString();
             valid = this.isValid(input);
             if (!valid) {
@@ -29,27 +36,31 @@ public abstract class Dialog<T> {
         return this.create(input);
     }
 
-    protected abstract String regExp();
+    private String errorMsg() {
+        String errorSemanticMsg = this.errorSemanticMsg();
+        if (!errorSemanticMsg.isBlank()) {
+            errorSemanticMsg = " o ";
+        }
+        return "Al no respetar el formato \"" + this.regExp + "\""
+                + errorSemanticMsg;
+    }
 
-    protected boolean isValid(String string) {
+    protected String errorSemanticMsg() {
+        return "";
+    }
+
+    private boolean isValid(String string) {
         assert string != null;
 
-        return string.matches(this.regExp()) && this.isSemanticValid(string);
+        return string.matches(this.regExp) &&
+                this.isSemanticValid(string);
     }
 
     protected boolean isSemanticValid(String string) {
         return true;
     }
 
-    private String errorMsg() {
-        return "Al no respetar el formato \"" + this.regExp() + this.semanticError() + "\"";
-    }
-
-    private String semanticError() {
-        return "";
-    }
-
-    public abstract T create(String string);
+    public abstract T create(String input);
 
     public void write(T element) {
         assert this.title != null;
@@ -64,6 +75,7 @@ public abstract class Dialog<T> {
 
     public void writeDetails(T element) {
         assert this.title != null;
+        assert element != null;
 
         this.content = "===============";
         this.addLine("toString: " + element.toString());
@@ -71,7 +83,7 @@ public abstract class Dialog<T> {
         Console.instance().writeln(this.content);
     }
 
-    protected abstract void addContent(T integer);
+    protected abstract void addContent(T element);
 
     protected void addLine(String line) {
         this.content += "\n" + line;

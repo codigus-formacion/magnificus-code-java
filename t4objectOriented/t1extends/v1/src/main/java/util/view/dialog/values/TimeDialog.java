@@ -1,47 +1,46 @@
 package util.view.dialog.values;
 
+import util.collection.list.LinkedList;
 import util.values.Time;
-import util.view.dialog.primitive.Dialog;
 import util.view.dialog.primitive.IntDialog;
+import util.view.dialog.primitive.SecuenceDialog;
 
-public class TimeDialog extends Dialog<Time> {
+public class TimeDialog extends SecuenceDialog<Time> {
 
     private static String SEPARATOR = ":";
 
-    public TimeDialog(){
-        super();
-    }
-
     public TimeDialog(String title) {
-        super(title);
+        super(title, "", new IntDialog().regExp(), SEPARATOR, "");
     }
 
-    public String regExp() {
-        String regExp = new IntDialog().regExp();
-        return regExp + SEPARATOR + regExp + SEPARATOR + regExp;
+    public TimeDialog() {
+        this("");
     }
 
-    protected boolean isSemanticValid(String string) {
-        Integer[] integers = this.values(string);
-        return Time.isValidHour(integers[0])
-                && Time.isValidMinute(integers[1])
-                && Time.isValidSeconds(integers[2]);
+    public boolean isSemanticValid(String string) {
+        LinkedList<Integer> values = this.values(string);
+        return Time.isValidHour(values.get(0))
+                && Time.isValidMinute(values.get(1))
+                && Time.isValidSeconds(values.get(2))
+                && values.size() == 3;
     }
 
-    private Integer[] values(String string) {
-        assert new TimeDialog().isValid(string);
-
-        String[] strings = string.split(SEPARATOR);
-        Integer[] integers = new Integer[strings.length];
-        for (int i = 0; i < integers.length; i++) {
-            integers[i] = new IntDialog().create(strings[i]);
-        }
-        return integers;
+    public String errorSemanticMsg() {
+        return " no hay 3 valores o la hora, minuto o segundo están fuera de rango [0-23] y [0-59] respectivamente";
     }
 
     public Time create(String string) {
-        Integer[] values = values(string);
-        return new Time(values[0], values[1], values[2]);
+        LinkedList<Integer> values = this.values(string);
+        return new Time(values.get(0), values.get(1), values.get(2));
+    }
+
+    private LinkedList<Integer> values(String string) {        
+        LinkedList<Integer> intList = new LinkedList<Integer>();
+        LinkedList<String>.Iterator<String> iterator = this.strings(string).iterator();
+        while (iterator.hasNext()) {
+            intList.add(new IntDialog().create(iterator.next()));
+        }
+        return intList;
     }
 
     public void addContent(Time time) {

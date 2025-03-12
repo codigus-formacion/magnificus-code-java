@@ -1,42 +1,45 @@
 package util.view.dialog.values;
 
+import util.collection.list.LinkedList;
 import util.values.Date;
-import util.view.dialog.primitive.Dialog;
 import util.view.dialog.primitive.IntDialog;
+import util.view.dialog.primitive.SecuenceDialog;
 
-public class DateDialog extends Dialog<Date> {
+public class DateDialog extends SecuenceDialog<Date> {
 
     private static String SEPARATOR = "/";
-
+  
     public DateDialog(String title) {
-        super(title);
+        super(title, "", new IntDialog().regExp(),  SEPARATOR, "");
     }
 
-    public String regExp() {
-        String regExp = new IntDialog().regExp();
-        return regExp + SEPARATOR + regExp + SEPARATOR + regExp;
+    public DateDialog() {
+        this("");
     }
 
-    protected boolean isSemanticValid(String string) {
-        Integer[] integers = this.values(string);
-        return Date.isValidMonth(integers[1])
-            && Date.isValidDay(integers[2]);
+    public boolean isSemanticValid(String string) {
+        LinkedList<Integer> values = this.values(string);
+        return Date.isValidMonth(values.get(1))
+            && Date.isValidDay(values.get(2))
+            && values.size() == 3;
     }
 
-    private Integer[] values(String string) {
-        assert this.isValid(string);
-
-        String[] strings = string.split(SEPARATOR);
-        Integer[] integers = new Integer[strings.length];
-        for (int i = 0; i < integers.length; i++) {
-            integers[i] = new IntDialog().create(strings[i]);
+    private LinkedList<Integer> values(String string) {        
+        LinkedList<Integer> intList = new LinkedList<Integer>();
+        LinkedList<String>.Iterator<String> iterator = this.strings(string).iterator();
+        while (iterator.hasNext()) {
+            intList.add(new IntDialog().create(iterator.next()));
         }
-        return integers;
+        return intList;
+    }
+
+    public String errorSemanticMsg() {
+        return " el día y/o el mes están fuera de rango [1-30] y [1-12] respectivamente";
     }
 
     public Date create(String string) {
-        Integer[] integers = this.values(string);
-        return new Date(integers[0], integers[1], integers[2]);
+        LinkedList<Integer> values = this.values(string);
+        return new Date(values.get(0), values.get(1), values.get(2));
     }
 
     public void addContent(Date date) {

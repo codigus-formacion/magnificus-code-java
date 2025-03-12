@@ -15,7 +15,7 @@ public class PrimitiveApp {
                 -1);
         LinkedList<Integer>.Iterator<Integer> intIterator = intList.iterator();
         while (intIterator.hasNext()) {
-            intDialog.writeDetails(intIterator.next().element());
+            intDialog.writeDetails(intIterator.next());
         }
 
         DoubleDialog doubleDialog = new DoubleDialog("Decimal");
@@ -26,7 +26,7 @@ public class PrimitiveApp {
                 -1.2);
         LinkedList<Double>.Iterator<Double> doubleIterator = doubleList.iterator();
         while (doubleIterator.hasNext()) {
-            doubleDialog.writeDetails(doubleIterator.next().element());
+            doubleDialog.writeDetails(doubleIterator.next());
         }
     }
 

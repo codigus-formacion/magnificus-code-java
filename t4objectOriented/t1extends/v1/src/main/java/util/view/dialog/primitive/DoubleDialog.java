@@ -1,17 +1,13 @@
 package util.view.dialog.primitive;
 
-public class DoubleDialog extends Dialog<Double>{
-
-    public DoubleDialog() {
-        super();
-    }
+public class DoubleDialog extends Dialog<Double> {
 
     public DoubleDialog(String title) {
-        super(title);
+        super(title, Console.DOUBLE_regExp);
     }
 
-    public String regExp() {
-        return Console.DOUBLE_regExp;
+    public DoubleDialog() {
+        this("");
     }
 
     public Double create(String string) {

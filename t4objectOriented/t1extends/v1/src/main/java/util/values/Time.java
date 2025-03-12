@@ -32,7 +32,10 @@ public class Time {
         return new IntegerInterval(0, Time.SECONDS_MODULE - 1).includes(seconds);
     }
 
-    public boolean equals(Time time) {
+    public boolean equals(Object object) {
+        assert object instanceof Time;
+
+        Time time = (Time) object;
         return this.hours == time.hours
                 && this.minutes == time.minutes
                 && this.seconds == time.seconds;
@@ -91,6 +94,77 @@ public class Time {
 
     public String toString() {
         return "Time [" + this.hours + ":" + this.minutes + ":" + this.seconds + "]";
+    }
+
+    public Time add(Time time) {
+        int seconds = this.seconds + time.seconds;
+        int minutes = this.minutes + time.minutes;
+        int hours = this.hours + time.hours;
+        if (!Time.isValidSeconds(seconds)){
+            seconds %= Time.SECONDS_MODULE;
+            minutes++;
+        }
+        if (!Time.isValidMinute(minutes)){
+            minutes %= Time.MINUTES_MODULE;
+            hours++;
+        }
+        if (!Time.isValidHour(hours)){
+            hours %= Time.HOURS_MODULE;
+        }
+        return new Time(hours, minutes, seconds);
+    }
+
+    public Time subtract(Time time) {
+        int seconds = this.seconds - time.seconds;
+        int minutes = this.minutes - time.minutes;
+        int hours = this.hours - time.hours;
+        if (!Time.isValidSeconds(seconds)) {
+            seconds += Time.SECONDS_MODULE;
+            minutes--;
+        }
+        if (!Time.isValidMinute(minutes)) {
+            minutes += Time.MINUTES_MODULE;
+            hours--;
+        }
+        if (!Time.isValidHour(hours)) {
+            hours += Time.HOURS_MODULE;
+        }
+        return new Time(hours, minutes, seconds);
+    }
+
+    public Time opposite() {
+        return this.add(new Time(12, 0, 0));
+    }
+
+    public Time divide(int times) {
+        int totalSeconds = this.totalSeconds() / times;
+        int hours = totalSeconds / (Time.SECONDS_MODULE * Time.MINUTES_MODULE);
+        totalSeconds %= (Time.SECONDS_MODULE * Time.MINUTES_MODULE);
+        int minutes = totalSeconds / Time.SECONDS_MODULE;
+        int seconds = totalSeconds % Time.SECONDS_MODULE;
+        return new Time(hours, minutes, seconds);
+    }
+
+    private int totalSeconds() {
+        return (this.hours * Time.SECONDS_MODULE * Time.MINUTES_MODULE) + (this.minutes * Time.SECONDS_MODULE) + this.seconds;
+    }
+
+    public Time multiply(int times) {
+        int seconds = this.seconds * times;
+        int minutes = this.minutes * times;
+        int hours = this.hours * times;
+        if (!Time.isValidSeconds(seconds)) {
+            minutes += (seconds / Time.SECONDS_MODULE);
+            seconds %= Time.SECONDS_MODULE;
+        }
+        if (!Time.isValidMinute(minutes)) {
+            hours -= (minutes / Time.MINUTES_MODULE);
+            minutes %= Time.MINUTES_MODULE;
+        }
+        if (!Time.isValidHour(hours)) {
+            hours += (hours % Time.HOURS_MODULE);
+        }
+        return new Time(hours, minutes, seconds);
     }
 
 }

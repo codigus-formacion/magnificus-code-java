@@ -1,31 +1,32 @@
 package util.collection.list;
 
 import util.values.IntegerInterval;
+import util.values.Optional;
 
 public class LinkedList<T> {
 
-    public class Node<U> {
+    class Node<U> {
 
-        private Node<U> previous;
+        private Optional<Node<U>> previous;
         private U element;
-        private Node<U> next;
+        private Optional<Node<U>> next;
     
-        Node(Node<U> previous, U element, Node<U> next) {
+        private Node(Optional<Node<U>> previous, U element, Optional<Node<U>> next) {
             this.previous = previous;
             this.element = element;
             this.next = next;
         }
     
-        Node(U element, Node<U> next) {
-            this(null, element, next);
+        public Node(U element, Optional<Node<U>> next) {
+            this(Optional.empty(), element, next);
         }
     
-        Node(Node<U> previous, U element) {
-            this(previous, element, null);
+        public Node(Optional<Node<U>> previous, U element) {
+            this(previous, element, Optional.empty());
         }
         
-        void setNext(Node<U> next) {
-            assert next != null;
+        public void setNext(Optional<Node<U>> next) {
+            assert next != null && next.isPresent();
             
             this.next = next;
         }
@@ -35,49 +36,52 @@ public class LinkedList<T> {
         }
     
         public boolean isLast(){
-            return this.next == null;
+            return this.next.isEmpty();
         }
     
-        public Node<U> next(){
+        public Optional<Node<U>> next(){
             return this.next;
         }
     
-        public Node<U> previous(){
+        public Optional<Node<U>> previous(){
             return this.previous;
         }
     
     }
-    
-    private Node<T> head;
-    private Node<T> last;
+
+    protected Optional<Node<T>> head;
+    protected Optional<Node<T>> last;
 
     public LinkedList() {
-        this.head = null;
-        this.last = null;
+        this.head = Optional.empty();
+        this.last = Optional.empty();
+    }
+
+    public LinkedList(T... elements) {
+        this();
+        assert elements != null : "Elements cannot be null";
+
+        for (T element : elements) {
+            this.add(element);
+        }
     }
 
     public static <T> LinkedList<T> of(T... elements) {
-        assert elements != null : "Elements cannot be null";
-
-        LinkedList<T> dateLinkedList = LinkedList.empty();
-        for (T element : elements) {
-            dateLinkedList.add(element);
-        }
-        return dateLinkedList;
+        return new LinkedList<T>(elements);
     }
 
-    public static <T> LinkedList<T> empty(){
-        return new LinkedList<T>();
+    public static <T> LinkedList<T> empty() {
+        return new LinkedList<>();
     }
 
     public boolean add(T element) {
         assert element != null : "Element cannot be null";
 
-        Node<T> last = new Node<T>(this.last, element);
-        if (this.isEmpty()) {
+        Optional<Node<T>> last = Optional.of(new Node<>(this.last, element));
+        if (this.head.isEmpty()) {
             this.head = last;
         } else {
-            this.last.setNext(last);
+            this.last.get().setNext(last);
         }
         this.last = last;
         return true;
@@ -99,15 +103,20 @@ public class LinkedList<T> {
             return this.current != null;
         }
     
-        public Node<U> next(){
+        public U next(){
             assert this.hasNext();
     
-            Node<U> element = this.current;
-            this.current = this.current.next();
+            U element = this.current.element();
+            if (this.current.isLast()){
+                this.current = null;
+            } else {
+                this.current = this.current.next().get();
+            }
             return element;
         }
     
     }
+    
 
     public int size() {
         int size = 0;
@@ -120,31 +129,47 @@ public class LinkedList<T> {
     }
 
     public Iterator<T> iterator() {
-        return new Iterator<T>(this.head);
+        return new Iterator<T>(this.head());
+    }
+
+    public boolean contains(T element) {
+        Iterator<T> iterator = this.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next() == element) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public T get(int position) {
         assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
 
         Iterator<T> iterator = this.iterator();
-        T element = iterator.next().element();
         while (position > 0) {
-            element = iterator.next().element();
             position--;
+            iterator.next();
         }
-        return element;
+        return iterator.next();
+    }
+
+    protected Node<T> head() {
+        if (this.head.isEmpty()) {
+            return null;
+        }
+        return this.head.get();
     }
 
     public String toString() {
-        String toString = "";
+        String string = "";
         Iterator<T> iterator = this.iterator();
         while (iterator.hasNext()) {
-            toString += "," + iterator.next().element();
+            string += ", " + iterator.next();
         }
-        if (toString.length() > 0) {
-            toString = "\n" + toString.substring(1);
+        if (string.length() > 0) {
+            string = string.substring(1);
         }
-        return "LinkedList [" + toString + "]";
+        return "{" + string + "}";
     }
 
 }

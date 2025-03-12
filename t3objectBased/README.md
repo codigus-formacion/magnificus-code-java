@@ -172,6 +172,7 @@
                 - ... -> Principio de Unicidad!
 
 - Result EJERCICIO!!!!
+- Coordinate EJERCICIO!!!!
 - Intervalo: Optional (infinto) EJERCICIO!!!!
 - Map: composición EJERCICIO!!!! ---- hascode?!?!
 - EJERCICIO!!!! Lista de doubles Coeficientes: getGradient(), ...
@@ -187,7 +188,7 @@
     - FractionApp -> Principio de Unicidad!!
     - TntervalApp -> Principio de Unicidad!!
     - TimeApp -> Principio de Unicidad!!
-    - PrimitiveApp -> Principio de Unicidad!!
+    - PrimitiveApp -> Principio de Unicidad!! *
     - ... -> Principio de Unicidad!!
 - util
     - collection
@@ -220,15 +221,17 @@
                 - FractionDialog -> Principio de Unicidad 
                 - DateDialog -> Principio de Unicidad 
                 - TimeDialog -> Principio de Unicidad 
-                - IntervalDialog<T> *
+                - IntervalDialog<T> 
                 - DoubleIntervalDialog -> Principio de Unicidad 
                 - FractionIntervalDialog -> Principio de Unicidad 
                 - ...  -> Principio de Unicidad!
             - primitive
                 - Console
-                - Dialog<T> *
+                - Dialog<T> 
                 - IntDialgog -> Principio de Unicidad 
                 - DoubleDialog -> Principio de Unicidad 
                 - ... -> Principio de Unicidad!
 
-                
+- Coordinate: Dimension
+- Date: Month
+

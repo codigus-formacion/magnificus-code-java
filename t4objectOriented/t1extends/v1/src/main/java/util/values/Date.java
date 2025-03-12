@@ -5,6 +5,14 @@ public class Date {
     public static final int MONTHS_MODULE = 12;
     public static final int DYAS_MODULE = 30;
 
+    public static boolean isValidMonth(int month) {
+        return new IntegerInterval(1, Date.MONTHS_MODULE).includes(month);
+    }
+
+    public static boolean isValidDay(int day) {
+        return new IntegerInterval(1, Date.DYAS_MODULE).includes(day);
+    }
+
     private int year;
     private int month;
     private int day;
@@ -16,20 +24,6 @@ public class Date {
         this.year = year;
         this.month = month;
         this.day = day;
-    }
-
-    public static boolean isValidMonth(int month) {
-        return new IntegerInterval(1, Date.MONTHS_MODULE).includes(month);
-    }
-
-    public static boolean isValidDay(int day) {
-        return new IntegerInterval(1, Date.DYAS_MODULE).includes(day);
-    }
-
-    public boolean equals(Date date) {
-        return this.year == date.year
-                && this.month == date.month
-                && this.day == date.day;
     }
 
     public boolean before(Date date) {
@@ -78,6 +72,15 @@ public class Date {
             }
         }
         return new Date(year, month, day);
+    }
+
+    public boolean equals(Object object) {
+        assert object instanceof Date;
+
+        Date date = (Date) object;
+        return this.year == date.year
+                && this.month == date.month
+                && this.day == date.day;
     }
 
     public String toString() {
