@@ -19,7 +19,7 @@ public class IntervalApp {
                 DoubleIntervalDialog.create("[100,200]"));
         LinkedList<DoubleInterval>.Iterator<DoubleInterval> doubleIntervalIterator = doubleIntervalList.iterator();
         while (doubleIntervalIterator.hasNext()) {
-            doubleIntervalDialog.writeDetails(doubleIntervalIterator.next().element());
+            doubleIntervalDialog.writeDetails(doubleIntervalIterator.next());
         }
 
         FractionIntervalDialog fractionIntervalDialog = new FractionIntervalDialog("Intervalo de Fracciones");
@@ -32,7 +32,7 @@ public class IntervalApp {
         LinkedList<FractionInterval>.Iterator<FractionInterval> fractionIntervalIterator = fractionIntervalList
                 .iterator();
         while (fractionIntervalIterator.hasNext()) {
-            fractionIntervalDialog.writeDetails(fractionIntervalIterator.next().element());
+            fractionIntervalDialog.writeDetails(fractionIntervalIterator.next());
         }
         Console.close("0");
     }

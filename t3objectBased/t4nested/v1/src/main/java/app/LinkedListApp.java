@@ -28,7 +28,7 @@ public class LinkedListApp {
         LinkedList<LinkedList<Integer>>.Iterator<LinkedList<Integer>> integerLinkedListIterator = integerLinkedListLinkedList
                 .iterator();
         while (integerLinkedListIterator.hasNext()) {
-            intLinkedListDialog.writeDetails(integerLinkedListIterator.next().element());
+            intLinkedListDialog.writeDetails(integerLinkedListIterator.next());
         }
 
         DoubleLinkedListDialog doubleLinkedListDialog = new DoubleLinkedListDialog("Lista de Decimales");
@@ -46,7 +46,7 @@ public class LinkedListApp {
         LinkedList<LinkedList<Double>>.Iterator<LinkedList<Double>> doubleLinkedListIterator = doubleLinkedListLinkedList
                 .iterator();
         while (doubleLinkedListIterator.hasNext()) {
-            doubleLinkedListDialog.writeDetails(doubleLinkedListIterator.next().element());
+            doubleLinkedListDialog.writeDetails(doubleLinkedListIterator.next());
         }
         Console.close("0");
     }

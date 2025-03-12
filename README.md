@@ -39,8 +39,25 @@
         - Ejemplo: Plataforma educativa
         - Ejercicio: Gestor de Servicios con intervalos de horas y grado de satisfacción para distintos días o intervalos de días del año o periódicas por cada cliente: colisiones, informes, ...
 
+- Evolución a MVC
+    - BackEnd(CRUD): 
+        - Controlador gestión de *: 
+            - Trajinador (proxy/base acceso a BBDD, persitencia, ...)
+            - Colección CRUD, 
+            - Modelo,
+        - Vistas: Dialgos -> resources, controller, ..., dispatcher, ... 
+        - ... DTO, Error, ... Mapper, ... ResultSet, ...
+    - FrontEnd (CRUD):
+        - Controlador gestión de *: 
+            - Trajinador (proxy/base acceso a Backend, servicios, ...)
+            - Colección CRUD, 
+            - Modelo,
+        - Vistas: Dialgos -> form, frame, ..., window, ... 
+        - ... xxx, ... yyy, ...
+
 - Programación Funciónal?!?
     - Transparencia Referencial: Inmutabilidad
     - Orientada a Funciones o a Objetos
     - Programación Declarativa vs Imperativa
     - Compromiso: sencillez en soluciones particulares y complejidad del lenguaje
+    - Ambito: controladores pero modelo?, vistas?, modelos?!? DTO?!?, ...

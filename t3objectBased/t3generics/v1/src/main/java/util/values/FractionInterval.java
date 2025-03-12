@@ -91,7 +91,7 @@ public class FractionInterval {
     }
 
     public Fraction middlePoint() {
-        return this.min().add(this.length().divide(2));
+        return this.min().add(this.length().divide(2).get());
     }
 
     public FractionInterval shifted(Fraction shiftment) {
@@ -119,7 +119,7 @@ public class FractionInterval {
         assert times > 0;
 
         FractionInterval[] intervals = new FractionInterval[times];
-        final Fraction length = this.length().divide(times);
+        final Fraction length = this.length().divide(times).get();
         intervals[0] = new FractionInterval(this.min(), this.min().add(length));
         for (int i = 1; i < intervals.length; i++) {
             intervals[i] = intervals[i - 1].shifted(length);

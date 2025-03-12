@@ -15,7 +15,6 @@ class FractionIntervalLinkedListDialog {
     + wrteln(FractionIntervalLinkedList)
     + writelnDetails(FractionIntervalLinkedList)
 }
-FractionIntervalLinkedListDialog *-down-> LinkedListDialog : <<FractionInterval>>  delegated
 class LinkedListDialog<T> {
     - {static} PREFFIX
     - {static} SEPARATOR
@@ -64,7 +63,6 @@ class IntervalDialog<T> {
     + wrteln(FractionInterval)
     + writelnDetails(FractionInterval)
 }
-FractionIntervalDialog *-down-> IntervalDialog : <<Fraction>> delegated
 class FractionDialog {
     - title
     - content
@@ -97,7 +95,6 @@ class Dialog<T> {
     + wrteln(Fraction)
     + writelnDetails(Fraction)
 }
-FractionDialog *-down-> Dialog : <<Fraction>> delegated
 class Console{
     + readString(title) : String
     + write(String)
@@ -109,22 +106,16 @@ class Console{
 }
 
 class LinkedList<T> {
-    + add(FractionInterval)
+    + add(T)
     + size() : int
-    + get(positon) : FractionInterval
+    + get(positon) : T
     + ...()
-    + iterator() : FractionIntervalIterator
-    + {static} random(bound, limit) : FractionIntervalLinkedList
-}
-class Node<T> {
-    + setNext(FractionIntervalNode)
-    + isLast() : boolean
-    + previous() : FractionIntervalNode
-    + next() : FractionIntervalNode
+    + iterator() : Iterator<T>
+    + {static} random(bound, limit) : LinkedList<T>
 }
 class Iterator<T> {
     + hasNext() : Boolean
-    + next() : FractionIntervalNode
+    + next() : T
 }
 class FractionInterval {
     + includes(Fraction)
@@ -146,6 +137,12 @@ class Fraction {
     + ...()
 }
 
+FractionIntervalDialog *-down-> IntervalDialog : <<Fraction>> delegated
+FractionIntervalLinkedListDialog *-down-> LinkedListDialog : <<FractionInterval>>  delegated
+FractionDialog *-down-> Dialog : <<Fraction>> delegated
+LinkedListDialog *-down-> Dialog
+IntervalDialog *-down-> Dialog
+
 FractionIntervalLinkedListApp *-down-> FractionIntervalLinkedListDialog
 FractionIntervalLinkedListApp *-down-> "*" LinkedList : <<FractionInterval>>
 
@@ -154,16 +151,11 @@ FractionIntervalDialog .down.> "*" FractionDialog
 FractionIntervalLinkedListDialog .down.> Console
 FractionIntervalDialog .down.> Console
 FractionDialog .down.> Console
-
-LinkedList *-down-> Node : <<FractionInterval>> head
-Node *-down-> FractionInterval
+LinkedList *-down-> "*" FractionInterval
 FractionInterval *-down-> Fraction : min
 FractionInterval *-down-> Fraction : max
 LinkedList o-down-> "*" Iterator : <<FractionInterval>>
-Iterator .down.> Node : <<FractionInterval>>
-Node --> Node : previous
-Node --> Node : next
-
+Iterator .down.> FractionInterval
 FractionIntervalLinkedListDialog .down.> LinkedList
 FractionIntervalDialog .down.> FractionInterval
 FractionDialog .down.> Fraction

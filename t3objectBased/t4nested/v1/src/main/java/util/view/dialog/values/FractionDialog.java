@@ -46,7 +46,7 @@ public class FractionDialog {
         LinkedList<Integer> intList = new LinkedList<Integer>();
         LinkedList<String>.Iterator<String> iterator = FractionDialog.strings(string).iterator();
         while (iterator.hasNext()) {
-            intList.add(IntDialog.create(iterator.next().element()));
+            intList.add(IntDialog.create(iterator.next()));
         }
         return intList;
     }
@@ -95,6 +95,7 @@ public class FractionDialog {
         this.delegated.addLine("subtract 1/2: " + fraction.subtract(pivot));
         this.delegated.addLine("multiply 1/2: " + fraction.multiply(pivot));
         this.delegated.addLine("divide 1/2: " + fraction.divide(pivot));
+        this.delegated.addLine("divide 1/2: " + fraction.divide(new Fraction(0)));
         this.delegated.addLine("power 2: " + fraction.power(2));
         this.delegated.addLine("value: " + fraction.valueOf());;
     }

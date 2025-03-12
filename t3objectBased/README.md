@@ -3,7 +3,7 @@
 
 ## Miembros de Instancia
 
-[Miembros de Instancia](./instance.plantuml)
+[Miembros de Instancia](./u1instance.plantuml)
 
 - app
     - LinkedListApp -> Principio de Unicidad!!
@@ -21,7 +21,7 @@
             - IntegerLinkList -> Principio de Unicidad!!
             - FractionIntervalLinkedList -> Principio de Unicidad!!
             - FractionIntervalLinkedListLinkedList -> Principio de Unicidad!!
-            - ... -> Principio de Unicidad!!!
+            - ... -> Principio de Unicidad!!! ... -> Principio de Unicidad!!! ... -> Principio de Unicidad!!!
     - values
         - Math
         - Fraction
@@ -59,7 +59,7 @@
 ## Constructores
 ## Miembros Estáticos
 
-[Miembros Estáticos](./static.plantuml)
+[Miembros Estáticos](./u2static.plantuml)
 
 - app
     - LinkedListApp -> Principio de Unicidad!! *
@@ -77,7 +77,7 @@
             - IntegerLinkList -> Principio de Unicidad!! *
             - FractionIntervalLinkedList -> Principio de Unicidad!! *
             - FractionIntervalLinkedListLinkedList -> Principio de Unicidad!! *
-            - ... -> Principio de Unicidad!!
+            - ... -> Principio de Unicidad!! ... -> Principio de Unicidad!!! ... -> Principio de Unicidad!!!
     - values
         - Math *
         - Fraction
@@ -120,7 +120,7 @@
 ### Registros
 ## Clases Genéricas
 
-[Clases genéricas](./generic.plantuml)
+[Clases genéricas](./u3generic.plantuml)
 
 - app
     - LinkedListApp -> Principio de Unicidad!!
@@ -171,63 +171,64 @@
                 - DoubleDialog -> Principio de Unicidad *
                 - ... -> Principio de Unicidad!
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-- Nodo: Optional 1 ------------------
 - Result EJERCICIO!!!!
 - Intervalo: Optional (infinto) EJERCICIO!!!!
 - Map: composición EJERCICIO!!!! ---- hascode?!?!
+- EJERCICIO!!!! Lista de doubles Coeficientes: getGradient(), ...
 
 ## Clases Anidadas
 ### Clases Internas
 ### Clases Locales
+
+[Clases genéricas](./u4nested.plantuml)
 
 - app
     - LinkedListApp -> Principio de Unicidad!!
     - FractionApp -> Principio de Unicidad!!
     - TntervalApp -> Principio de Unicidad!!
     - TimeApp -> Principio de Unicidad!!
-    - PrimitiveApp -> Principio de Unicidad!! *
+    - PrimitiveApp -> Principio de Unicidad!!
     - ... -> Principio de Unicidad!!
 - util
     - collection
         - list
-            - LinkList<T>  *
+            - LinkedList<T>  *
                 - Node<T> *
                 - Iterator<T> *
+            - LinkedSet<T> 
     - values
-        - Pair<K,V>
-        - Optional<T>
-        - Fraction
+        - Pair<K,V> 
+        - Optional<T> 
+        - Fraction 
         - Date
         - Time
-        - Fraction
-        - Interval
-        - DoubleInterval -> Principio de Unicidad!
-        - FractionInterval -> Principio de Unicidad!
+        - Interval<T> 
+        - DoubleInterval -> Principio de Unicidad! 
+        - FractionInterval -> Principio de Unicidad! 
         - ... -> Principio de Unicidad!!
     - view
         - dialog
             - collection
                 - list
-                    - LinkedListDialog<T>
-                    - StringLinkedListDialog -> Principio de Unicidad!
-                    - IntegerLinkedListDialog -> Principio de Unicidad!
-                    - FractionIntervalLinkedListDialog -> Principio de Unicidad!
-                    - FractionIntervalLinkedListLinkedListDialog -> Principio de Unicidad!
+                    - LinkedListDialog<T> 
+                    - StringLinkedListDialog -> Principio de Unicidad! 
+                    - IntegerLinkedListDialog -> Principio de Unicidad! 
+                    - FractionIntervalLinkedListDialog -> Principio de Unicidad! 
+                    - FractionIntervalLinkedListLinkedListDialog -> Principio de Unicidad! 
                     - ...  -> Principio de Unicidad!!
             - values
-                - FractionDialog -> Principio de Unicidad
-                - DateDialog -> Principio de Unicidad
-                - TimeDialog -> Principio de Unicidad
-                - IntervalDialog<T>
-                - DoubleIntervalDialog -> Principio de Unicidad
-                - FractionIntervalDialog -> Principio de Unicidad
+                - FractionDialog -> Principio de Unicidad 
+                - DateDialog -> Principio de Unicidad 
+                - TimeDialog -> Principio de Unicidad 
+                - IntervalDialog<T> *
+                - DoubleIntervalDialog -> Principio de Unicidad 
+                - FractionIntervalDialog -> Principio de Unicidad 
                 - ...  -> Principio de Unicidad!
             - primitive
                 - Console
-                - Dialog<T>
-                - IntDialgog -> Principio de Unicidad
-                - DoubleDialog -> Principio de Unicidad
+                - Dialog<T> *
+                - IntDialgog -> Principio de Unicidad 
+                - DoubleDialog -> Principio de Unicidad 
                 - ... -> Principio de Unicidad!
 
                 
