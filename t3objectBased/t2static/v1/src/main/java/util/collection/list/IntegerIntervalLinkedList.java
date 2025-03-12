@@ -63,9 +63,9 @@ public class IntegerIntervalLinkedList {
         assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
 
         IntegerIntervalIterator iterator = this.iterator();
-        IntegerInterval intergerInterval = iterator.next().element();
+        IntegerInterval intergerInterval = iterator.next();
         while (position > 0) {
-            intergerInterval = iterator.next().element();
+            intergerInterval = iterator.next();
             position--;
         }
         return intergerInterval;
@@ -75,7 +75,7 @@ public class IntegerIntervalLinkedList {
         String toString = "";
         IntegerIntervalIterator iterator = this.iterator();
         while (iterator.hasNext()) {
-            toString += "," + iterator.next().element();
+            toString += "," + iterator.next();
         }
         if (toString.length() > 0) {
             toString = toString.substring(1);

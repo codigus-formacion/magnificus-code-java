@@ -57,7 +57,7 @@ public class FractionIntervalDialog {
         FractionLinkedList fractions = new FractionLinkedList();
         StringIterator iterator = this.strings(string).iterator();
         while (iterator.hasNext()) {
-            String fraction = iterator.next().element();
+            String fraction = iterator.next();
             System.out.println("+" + fraction);
             System.out.println("=" + new FractionDialog().create(fraction));
             fractions.add(new FractionDialog().create(fraction));

@@ -14,10 +14,10 @@ public class DoubleIterator {
         return this.current != null;
     }
 
-    public DoubleNode next(){
+    public Double next(){
         assert this.hasNext();
 
-        DoubleNode element = this.current;
+        Double element = this.current.element();
         this.current = this.current.next();
         return element;
     }

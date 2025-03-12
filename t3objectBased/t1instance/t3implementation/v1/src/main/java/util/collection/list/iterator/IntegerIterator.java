@@ -14,10 +14,10 @@ public class IntegerIterator {
         return this.current != null;
     }
 
-    public IntegerNode next(){
+    public Integer next(){
         assert this.hasNext();
 
-        IntegerNode element = this.current;
+        Integer element = this.current.element();
         this.current = this.current.next();
         return element;
     }

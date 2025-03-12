@@ -1,6 +1,7 @@
 package util.collection.list.iterator;
 
 import util.collection.list.node.DoubleIntervalNode;
+import util.values.DoubleInterval;
 
 public class DoubleIntervalIterator {
 
@@ -14,10 +15,10 @@ public class DoubleIntervalIterator {
         return this.current != null;
     }
 
-    public DoubleIntervalNode next(){
+    public DoubleInterval next(){
         assert this.hasNext();
 
-        DoubleIntervalNode element = this.current;
+        DoubleInterval element = this.current.element();
         this.current = this.current.next();
         return element;
     }

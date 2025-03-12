@@ -64,9 +64,9 @@ public class TimeLinkedList {
         assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
 
         TimeIterator iterator = this.iterator();
-        Time time = iterator.next().element();
+        Time time = iterator.next();
         while (position > 0) {
-            time = iterator.next().element();
+            time = iterator.next();
             position--;
         }
         return time;
@@ -76,7 +76,7 @@ public class TimeLinkedList {
         String toString = "";
         TimeIterator iterator = this.iterator();
         while (iterator.hasNext()) {
-            toString += "," + iterator.next().element();
+            toString += "," + iterator.next();
         }
         if (toString.length() > 0) {
             toString = toString.substring(1);

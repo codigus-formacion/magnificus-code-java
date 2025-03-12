@@ -59,9 +59,9 @@ public class FractionIntervalLinkedList {
         assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
 
         FractionIntervalIterator iterator = this.iterator();
-        FractionInterval fractionInterval = iterator.next().element();
+        FractionInterval fractionInterval = iterator.next();
         while (position > 0) {
-            fractionInterval = iterator.next().element();
+            fractionInterval = iterator.next();
             position--;
         }
         return fractionInterval;
@@ -71,7 +71,7 @@ public class FractionIntervalLinkedList {
         String toString = "";
         FractionIntervalIterator iterator = this.iterator();
         while (iterator.hasNext()) {
-            toString += "," + iterator.next().element();
+            toString += "," + iterator.next();
         }
         if (toString.length() > 0) {
             toString = toString.substring(1);

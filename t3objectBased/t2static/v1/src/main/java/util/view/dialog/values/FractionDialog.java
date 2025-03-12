@@ -57,7 +57,7 @@ public class FractionDialog {
         IntegerLinkedList intList = new IntegerLinkedList();
         StringIterator iterator = FractionDialog.strings(string).iterator();
         while (iterator.hasNext()) {
-            intList.add(IntDialog.create(iterator.next().element()));
+            intList.add(IntDialog.create(iterator.next()));
         }
         return intList;
     }

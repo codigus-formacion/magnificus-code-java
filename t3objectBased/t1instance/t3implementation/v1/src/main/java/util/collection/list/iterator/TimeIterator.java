@@ -1,6 +1,7 @@
 package util.collection.list.iterator;
 
 import util.collection.list.node.TimeNode;
+import util.values.Time;
 
 public class TimeIterator {
 
@@ -14,10 +15,10 @@ public class TimeIterator {
         return this.current != null;
     }
 
-    public TimeNode next(){
+    public Time next(){
         assert this.hasNext();
 
-        TimeNode element = this.current;
+        Time element = this.current.element();
         this.current = this.current.next();
         return element;
     }

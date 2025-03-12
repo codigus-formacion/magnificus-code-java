@@ -96,4 +96,22 @@ public class Time {
         return "Time [" + this.hours + ":" + this.minutes + ":" + this.seconds + "]";
     }
 
+    public Time plus(Time time) {
+        int seconds = this.seconds + time.seconds;
+        int minutes = this.minutes + time.minutes;
+        int hours = this.hours + time.hours;
+        if (!Time.isValidSeconds(seconds)){
+            seconds %= Time.SECONDS_MODULE;
+            minutes++;
+        }
+        if (!Time.isValidMinute(minutes)){
+            minutes %= Time.MINUTES_MODULE;
+            hours++;
+        }
+        if (!Time.isValidHour(hours)){
+            hours %= Time.HOURS_MODULE;
+        }
+        return new Time(hours, minutes, seconds);
+    }
+
 }

@@ -14,10 +14,10 @@ public class StringIterator {
         return this.current != null;
     }
 
-    public StringNode next(){
+    public String next(){
         assert this.hasNext();
 
-        StringNode element = this.current;
+        String element = this.current.element();
         this.current = this.current.next();
         return element;
     }

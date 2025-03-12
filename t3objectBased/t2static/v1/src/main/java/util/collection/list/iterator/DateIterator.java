@@ -1,6 +1,7 @@
 package util.collection.list.iterator;
 
 import util.collection.list.node.DateNode;
+import util.values.Date;
 
 public class DateIterator {
 
@@ -14,10 +15,10 @@ public class DateIterator {
         return this.current != null;
     }
 
-    public DateNode next(){
+    public Date next(){
         assert this.hasNext();
 
-        DateNode element = this.current;
+        Date element = this.current.element();
         this.current = this.current.next();
         return element;
     }

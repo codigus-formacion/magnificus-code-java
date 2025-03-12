@@ -26,7 +26,7 @@ public class DoubleIntervalDialog {
         LinkedList<Double> doubleList = new LinkedList<Double>();
         Iterator<String> iterator = IntervalDialog.strings(string).iterator();
         while (iterator.hasNext()) {
-            doubleList.add(DoubleDialog.create(iterator.next().element()));
+            doubleList.add(DoubleDialog.create(iterator.next()));
         }
         return doubleList;
     }

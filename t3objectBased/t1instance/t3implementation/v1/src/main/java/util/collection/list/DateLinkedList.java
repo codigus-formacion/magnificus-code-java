@@ -58,9 +58,9 @@ public class DateLinkedList {
         assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
 
         DateIterator iterator = this.iterator();
-        Date date = iterator.next().element();
+        Date date = iterator.next();
         while (position > 0) {
-            date = iterator.next().element();
+            date = iterator.next();
             position--;
         }
         return date;
@@ -70,7 +70,7 @@ public class DateLinkedList {
         String toString = "";
         DateIterator iterator = this.iterator();
         while (iterator.hasNext()) {
-            toString += "," + iterator.next().element();
+            toString += "," + iterator.next();
         }
         if (toString.length() > 0) {
             toString = toString.substring(1);

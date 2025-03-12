@@ -1,6 +1,7 @@
 package util.collection.list.iterator;
 
 import util.collection.list.node.IntegerIntervalNode;
+import util.values.IntegerInterval;
 
 public class IntegerIntervalIterator {
 
@@ -14,10 +15,10 @@ public class IntegerIntervalIterator {
         return this.current != null;
     }
 
-    public IntegerIntervalNode next(){
+    public IntegerInterval next(){
         assert this.hasNext();
 
-        IntegerIntervalNode element = this.current;
+        IntegerInterval element = this.current.element();
         this.current = this.current.next();
         return element;
     }

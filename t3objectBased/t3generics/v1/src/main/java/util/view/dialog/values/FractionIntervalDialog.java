@@ -26,7 +26,7 @@ public class FractionIntervalDialog {
         LinkedList<Fraction> fractions = new LinkedList<Fraction>();
         Iterator<String> iterator = IntervalDialog.strings(string).iterator();
         while (iterator.hasNext()) {
-            fractions.add(FractionDialog.create(iterator.next().element()));
+            fractions.add(FractionDialog.create(iterator.next()));
         }
         return fractions;
     }

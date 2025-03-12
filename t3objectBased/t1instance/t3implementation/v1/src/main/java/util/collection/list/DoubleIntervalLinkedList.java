@@ -59,9 +59,9 @@ public class DoubleIntervalLinkedList {
         assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
 
         DoubleIntervalIterator iterator = this.iterator();
-        DoubleInterval doubleInterval = iterator.next().element();
+        DoubleInterval doubleInterval = iterator.next();
         while (position > 0) {
-            doubleInterval = iterator.next().element();
+            doubleInterval = iterator.next();
             position--;
         }
         return doubleInterval;
@@ -71,7 +71,7 @@ public class DoubleIntervalLinkedList {
         String toString = "";
         DoubleIntervalIterator iterator = this.iterator();
         while (iterator.hasNext()) {
-            toString += "," + iterator.next().element();
+            toString += "," + iterator.next();
         }
         if (toString.length() > 0) {
             toString = toString.substring(1);

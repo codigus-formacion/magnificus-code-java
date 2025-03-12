@@ -1,5 +1,6 @@
 package util.collection.list.iterator;
 
+import util.collection.list.IntegerLinkedList;
 import util.collection.list.node.IntegerLinkedListNode;
 
 public class IntegerLinkedListIterator {
@@ -14,10 +15,10 @@ public class IntegerLinkedListIterator {
         return this.current != null;
     }
 
-    public IntegerLinkedListNode next(){
+    public IntegerLinkedList next(){
         assert this.hasNext();
 
-        IntegerLinkedListNode element = this.current;
+        IntegerLinkedList element = this.current.element();
         this.current = this.current.next();
         return element;
     }    

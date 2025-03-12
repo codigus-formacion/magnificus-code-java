@@ -1,6 +1,7 @@
 package util.collection.list.iterator;
 
 import util.collection.list.node.FractionNode;
+import util.values.Fraction;
 
 public class FractionIterator {
 
@@ -14,10 +15,10 @@ public class FractionIterator {
         return this.current != null;
     }
 
-    public FractionNode next(){
+    public Fraction next(){
         assert this.hasNext();
 
-        FractionNode element = this.current;
+        Fraction element = this.current.element();
         this.current = this.current.next();
         return element;
     }

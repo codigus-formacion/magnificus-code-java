@@ -25,7 +25,7 @@ public class DoubleLinkedListDialog {
         LinkedList<Double> intList = new LinkedList<Double>();
         Iterator<Double> iterator = DoubleLinkedListDialog.values(string).iterator();
         while (iterator.hasNext()) {
-            intList.add(iterator.next().element());
+            intList.add(iterator.next());
         }
         return intList;
     }
@@ -34,7 +34,7 @@ public class DoubleLinkedListDialog {
         LinkedList<Double> integers = new LinkedList<Double>();
         Iterator<String> iterator = LinkedListDialog.strings(string).iterator();
         while (iterator.hasNext()) {
-            String elementString = iterator.next().element();
+            String elementString = iterator.next();
             integers.add(DoubleDialog.create(elementString));
         }
         return integers;
@@ -58,21 +58,21 @@ public class DoubleLinkedListDialog {
         double sum = 0;
         Iterator<Double> iterator = linkedList.iterator();
         while (iterator.hasNext()) {
-            sum += iterator.next().element();
+            sum += iterator.next();
         }
         this.delegated.addLine("sum: " + sum);
 
         LinkedList<Double> mappedList = new LinkedList<Double>();
         iterator = linkedList.iterator();
         while (iterator.hasNext()) {
-            mappedList.add(iterator.next().element() + 1);
+            mappedList.add(iterator.next() + 1);
         }
         this.delegated.addLine("map + 1: " + mappedList);
 
         LinkedList<DoubleInterval> intervalList = new LinkedList<DoubleInterval>();
         iterator = linkedList.iterator();
         while (iterator.hasNext()) {
-            Double integer = iterator.next().element();
+            Double integer = iterator.next();
             intervalList.add(new DoubleInterval(-integer, integer));
         }
         this.delegated.addLine("mapToObj Interval: " + intervalList);
@@ -80,7 +80,7 @@ public class DoubleLinkedListDialog {
         LinkedList<Double> doubleList = new LinkedList<Double>();
         iterator = linkedList.iterator();
         while (iterator.hasNext()) {
-            doubleList.add(iterator.next().element() * 2.0);
+            doubleList.add(iterator.next() * 2.0);
         }
         this.delegated.addLine("mapToDouble *2: " + doubleList);
 

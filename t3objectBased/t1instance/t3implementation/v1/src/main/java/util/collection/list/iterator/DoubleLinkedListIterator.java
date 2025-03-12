@@ -1,5 +1,6 @@
 package util.collection.list.iterator;
 
+import util.collection.list.DoubleLinkedList;
 import util.collection.list.node.DoubleLinkedListNode;
 
 public class DoubleLinkedListIterator {
@@ -14,10 +15,10 @@ public class DoubleLinkedListIterator {
         return this.current != null;
     }
 
-    public DoubleLinkedListNode next(){
+    public DoubleLinkedList next(){
         assert this.hasNext();
 
-        DoubleLinkedListNode element = this.current;
+        DoubleLinkedList element = this.current.element();
         this.current = this.current.next();
         return element;
     }    

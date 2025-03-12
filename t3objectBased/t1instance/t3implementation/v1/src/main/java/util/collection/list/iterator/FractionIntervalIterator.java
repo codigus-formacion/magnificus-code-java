@@ -1,6 +1,7 @@
 package util.collection.list.iterator;
 
 import util.collection.list.node.FractionIntervalNode;
+import util.values.FractionInterval;
 
 public class FractionIntervalIterator {
 
@@ -14,10 +15,10 @@ public class FractionIntervalIterator {
         return this.current != null;
     }
 
-    public FractionIntervalNode next(){
+    public FractionInterval next(){
         assert this.hasNext();
 
-        FractionIntervalNode element = this.current;
+        FractionInterval element = this.current.element();
         this.current = this.current.next();
         return element;
     }

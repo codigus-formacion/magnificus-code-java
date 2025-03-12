@@ -132,14 +132,16 @@
 - util
     - collection
         - list
-            - Node<T> *
-            - Iterator<T> *
-            - LinkList<T>  *
+            - LinkedList<T>  *
+                - Node<T> *
+                - Iterator<T> *
+            - LinkedSet<T> *
     - values
-        - Fraction
+        - Pair<K,V> *
+        - Optional<T> *
+        - Fraction *
         - Date
         - Time
-        - Fraction
         - Interval<T> *
         - DoubleInterval -> Principio de Unicidad! *
         - FractionInterval -> Principio de Unicidad! *
@@ -170,12 +172,10 @@
                 - ... -> Principio de Unicidad!
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-- Pair
 - Nodo: Optional 1 ------------------
-- Intervalo: Optional (infinto) -----------
 - Result EJERCICIO!!!!
+- Intervalo: Optional (infinto) EJERCICIO!!!!
 - Map: composición EJERCICIO!!!! ---- hascode?!?!
-- Set: composición EJERCICIO!!!! -------------------------------------------------------
 
 ## Clases Anidadas
 ### Clases Internas
@@ -195,6 +195,8 @@
                 - Node<T> *
                 - Iterator<T> *
     - values
+        - Pair<K,V>
+        - Optional<T>
         - Fraction
         - Date
         - Time

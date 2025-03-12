@@ -12,11 +12,15 @@ public class Iterator<T> {
         return this.current != null;
     }
 
-    public Node<T> next(){
+    public T next(){
         assert this.hasNext();
 
-        Node<T> element = this.current;
-        this.current = this.current.next();
+        T element = this.current.element();
+        if (this.current.isLast()){
+            this.current = null;
+        } else {
+            this.current = this.current.next().get();
+        }
         return element;
     }
 

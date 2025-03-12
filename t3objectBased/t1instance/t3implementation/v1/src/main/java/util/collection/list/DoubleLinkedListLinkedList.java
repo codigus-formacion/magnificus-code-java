@@ -58,9 +58,9 @@ public class DoubleLinkedListLinkedList {
         assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
 
         DoubleLinkedListIterator iterator = this.iterator();
-        DoubleLinkedList doubleLinkedList = iterator.next().element();
+        DoubleLinkedList doubleLinkedList = iterator.next();
         while (position > 0) {
-            doubleLinkedList = iterator.next().element();
+            doubleLinkedList = iterator.next();
             position--;
         }
         return doubleLinkedList;
@@ -70,7 +70,7 @@ public class DoubleLinkedListLinkedList {
         String toString = "";
         DoubleLinkedListIterator iterator = this.iterator();
         while (iterator.hasNext()) {
-            toString += "," + iterator.next().element();
+            toString += "," + iterator.next();
         }
         if (toString.length() > 0) {
             toString = toString.substring(1);
