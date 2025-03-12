@@ -172,7 +172,7 @@
                 - ... -> Principio de Unicidad!
 
 - Result EJERCICIO!!!!
-- Coordinate EJERCICIO!!!!
+- Coordinate EJERCICIO!!!! de enteros, de intervalo de horas x fecha
 - Intervalo: Optional (infinto) EJERCICIO!!!!
 - Map: composición EJERCICIO!!!! ---- hascode?!?!
 - EJERCICIO!!!! Lista de doubles Coeficientes: getGradient(), ...
@@ -232,6 +232,6 @@
                 - DoubleDialog -> Principio de Unicidad 
                 - ... -> Principio de Unicidad!
 
-- Coordinate: Dimension
-- Date: Month
+- Coordinate: EJERCICIO!!!! enum Dimension
+- Date: EJERCICIO!!!! enums Month, WeekDay, 
 

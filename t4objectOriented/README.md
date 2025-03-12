@@ -51,11 +51,12 @@
                 - DoubleDialog *
                 - ... 
 
-- Nodo: herencia de T 
-- Lista: centinela 
+- sustituye composicion por herencia en dialogos e intervalos
+- Lista: centinela EJERCICIO!!!!!
+
 ## Polimorfismo
 
-- menu!!! -----------------
+- Menú: Option<T>
 - Intervalo: Optional (abierto/cerrado) EJERCICIO
 
 ## Herencia por Implementación

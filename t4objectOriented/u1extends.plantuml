@@ -154,15 +154,15 @@ class Fraction {
 FractionIntervalLinkedListApp .down.> FractionIntervalLinkedListDialog
 FractionIntervalLinkedListApp .down.> "*" LinkedList : <<FractionInterval>>
 
-FractionIntervalDialog  <|-down- IntervalDialog : <<Fraction>> delegated
-LinkedListDialog  <|-down- FractionIntervalLinkedListDialog : <<FractionInterval>>  delegated
-Dialog  <|-down- LinkedListDialog
-Dialog  <|-down- FractionDialog : <<Fraction>> delegated
-Dialog <|-down-  IntervalDialog
+FractionIntervalDialog  *-down-> IntervalDialog : <<Fraction>> delegated
+FractionIntervalLinkedListDialog *-down-> LinkedListDialog : <<FractionInterval>>  delegated
+LinkedListDialog *-down-> Dialog
+FractionDialog *-down-> Dialog : <<Fraction>> delegated
+IntervalDialog *-down-> Dialog
 
 FractionIntervalLinkedListDialog .down.> LinkedList
 FractionIntervalLinkedListDialog .down.> "*" FractionIntervalDialog
-FractionIntervalDialog <|-down- FractionInterval
+FractionIntervalDialog .down.> FractionInterval
 FractionIntervalDialog .down.> "*" FractionDialog
 FractionDialog .down.> Fraction
 FractionDialog .down.> IntDialog 
