@@ -1,0 +1,54 @@
+@startuml
+
+note as codigo #FFB6C1
+TodoB<T,P> left;
+TodoA<U,Q> right;
+end note 
+
+abstract class Todo<T> #FFB6C1
+class TodoA<T> #FFB6C1 extends Todo 
+class TodoB<T> #FFB6C1 extends Todo 
+
+abstract class Parte<T> #FFB6C1
+class ParteX<T> #FFB6C1 extends Parte 
+class ParteY<T> #FFB6C1 extends Parte 
+
+abstract class TodoT
+class TodoAT extends TodoT
+class TodoBT extends TodoT
+
+abstract class ParteP
+class ParteXP extends ParteP
+class ParteYP extends ParteP
+
+abstract class TodoU
+class TodoAU extends TodoU
+class TodoBU extends TodoU
+
+abstract class ParteQ
+class ParteXQ extends ParteQ
+class ParteYQ extends ParteQ
+
+class T #FFB6C1
+class P #FFB6C1
+class U #FFB6C1
+class Q #FFB6C1
+
+Todo *-down-> Parte
+TodoT *-down-> ParteP
+TodoU *-down-> ParteQ
+
+TodoT .down.> Todo : <<T>>
+TodoU .down.> Todo : <<U>>
+
+ParteP .down.> Parte : <<P>>
+ParteQ .down.> Parte : <<Q>>
+
+TodoT .down.> T
+TodoU .down.> U
+
+ParteP .down.> P
+ParteQ .down.> Q
+
+
+@enduml
