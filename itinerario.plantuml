@@ -1,0 +1,45 @@
+@startuml
+
+state Magnificus {
+
+    state Fundamentos {
+        [*] --> Complejidad
+        Complejidad --> Lenguajes
+        Lenguajes --> Modelado
+        Modelado --> Software
+        Software --> [*]
+
+    }
+    state Calidad {
+        state Programación {
+            [*] --> Lenguajes
+            Lenguajes --> Java
+            Java --> JavaScript
+            JavaScript --> 
+        }
+        state Diseño {
+            [*] --> Principios
+            Principios --> Patrones
+            Patrones --> ArquitecturaSoftware
+            ArquitecturaSoftware --> ArquitecturaSistema
+            ArquitecturaSistema --> [*]
+        }
+        [*] --> Programación
+        Programación --> Diseño
+        Diseño --> Pruebas
+        Pruebas --> [*]
+    }
+    state Proceso {
+        [*] --> RUP
+        RUP --> Safe
+        Safe --> XP
+        XP --> Scrum
+        Scrum --> [*]
+    }
+
+    [*] --> Fundamentos
+    Fundamentos --> Calidad
+    Calidad --> Proceso
+    Proceso --> [*]
+}
+@enduml

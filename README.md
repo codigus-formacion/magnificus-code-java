@@ -55,7 +55,7 @@ CONCLUSIONES
             - reusa código "rigido/estático"
             - 20%, habitual pero muy sencilla 
             - si se complica ... por composición+herencia con código "flexible/dinámico"!
-        - Compisicón/Agregación/Jeraquía 
+        - Compisición/Agregación/Jeraquía 
             - reusa código "flexible/dinámico"
             - 75% de modelo del dominio y por Patrón Adapter
             - ... no se complica, tritura y jerarquiza hasta encontrar el orden!!! Principios!!!
