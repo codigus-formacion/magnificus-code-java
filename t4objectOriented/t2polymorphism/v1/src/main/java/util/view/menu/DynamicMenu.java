@@ -1,4 +1,4 @@
-package util.menus;
+package util.view.menu;
 
 public abstract class DynamicMenu<T> extends IterativeMenu<T> {
 
@@ -11,7 +11,7 @@ public abstract class DynamicMenu<T> extends IterativeMenu<T> {
             this.removeOptions();
             this.addOptions();
             this.interact_();
-        } while (!this.isExecutedquitOption());
+        } while (!this.isExecutedQuitOption());
     }
 
 }

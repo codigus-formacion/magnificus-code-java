@@ -1,4 +1,4 @@
-package util;
+package util.view.dialog.primitive;
 
 import java.io.File;
 import java.io.BufferedReader;
@@ -11,42 +11,36 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import java.util.Arrays; // quitar
-import java.util.List;
 import java.util.regex.Pattern;
-import java.util.stream.IntStream;
 
 public class Console {
 
-	private static Console instance;
+	private static Console console;
 
 	public static Console instance() {
-		if (Console.instance == null) {
-			Console.instance = new Console();
+		if (Console.console == null){
+			Console.console = new Console();
 		}
-		return Console.instance;
+		return Console.console;
 	}
 
-	private String data;
+	static final String CHAR_regExp = "c";
+	public static final String INTEGER_regExp = "-?\\d+";
+	public static final String DOUBLE_regExp = "-?(\\d+(\\.\\d+)?([eE][+-]?\\d+)?|\\.\\d+([eE][+-]?\\d+)?)";
+	
+	private static final String EXTENSION = ".log";
+	private static final String HEAD_PATH = "src/main/resources/logs/";
+	private static String TAIL_PATH = "-"
+			+ LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "-"
+			+ LocalTime.now().format(DateTimeFormatter.ofPattern("HH-mm-ss")) + EXTENSION;
+	private static String INPUT_PATH = HEAD_PATH + "input" + TAIL_PATH;
+	private static String INPUT_OUTPUT_PATH = HEAD_PATH + "inputOutput" + TAIL_PATH;
+
 	private static BufferedReader input;
 	private static PrintStream output;
 	private static PrintWriter inputLog;
 	private static PrintWriter inputOutputLog;
-
-	private static final String EXTENSION = ".log";
-	private static final String HEAD_PATH = "./src/main/resources/logs/";
-	private static final String TAIL_PATH = "-"
-	+ LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "-"
-	+ LocalTime.now().format(DateTimeFormatter.ofPattern("HH-mm-ss")) + EXTENSION;
-	private static final String INPUT_PATH = HEAD_PATH + "input" + TAIL_PATH;
-	private static final String INPUT_OUTPUT_PATH = HEAD_PATH + "inputOutput" + TAIL_PATH;
-
-	private static final Pattern charPattern = Pattern.compile("^c$");
-	private static final Pattern intPattern = Pattern.compile("^-?\\d+$");
-	private static final Pattern doublePattern = Pattern
-			.compile("^-?(\\d+(\\.\\d+)?([eE][+-]?\\d+)?|\\.\\d+([eE][+-]?\\d+)?)$");
-
-	private Console() {
+	static {
 		Console.input = new BufferedReader(new InputStreamReader(System.in));
 		Console.output = System.out;
 		try {
@@ -57,33 +51,36 @@ public class Console {
 		}
 	}
 
-	public static void close() {
+	public static void close(){
+		Console.close("0");
+	}
+
+	public static void close(String suffix) {
 		try {
 			if (Console.inputLog != null) {
 				Console.inputLog.close();
 			}
-			if (Console.inputOutputLog != null){
+			if (Console.inputOutputLog != null) {
 				Console.inputOutputLog.close();
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
+		String inputLogPath = HEAD_PATH + "input-scenario-" + suffix + EXTENSION;
+		String inputOutputLogPath = HEAD_PATH + "inputOutput-scenario-" + suffix + EXTENSION;
+		File oldInputLog = new File(inputLogPath);
+		File oldInputOutputLog = new File(inputOutputLogPath);
+		if (oldInputLog.exists()) {
+			oldInputLog.delete();
+		}
+		if (oldInputOutputLog.exists()){
+			oldInputOutputLog.delete();
+		}
+		new File(INPUT_PATH).renameTo(oldInputLog);
+		new File(INPUT_OUTPUT_PATH).renameTo(oldInputOutputLog);
 	}
 
-	public static void close(String name) {
-		Console.close();
-		List<String> namePaths = Arrays.asList(
-				HEAD_PATH + "input-" + name + EXTENSION,
-				HEAD_PATH + "inputOutput-"+ name + EXTENSION);
-		List<String> generatedPaths = Arrays.asList(INPUT_PATH, INPUT_OUTPUT_PATH);
-		IntStream.range(0, 2)
-				.forEach(i -> {
-					File input = new File(namePaths.get(i));
-					if (input.exists()) {
-						input.delete();
-					}
-					new File(generatedPaths.get(i)).renameTo(input);
-				});
+	private Console(){
 	}
 
 	public String readString() {
@@ -93,15 +90,16 @@ public class Console {
 	public String readString(String title) {
 		assert title != null;
 
+		String string = "";
 		this.write(title);
 		try {
-			this.data = Console.input.readLine();
-			Console.inputLog.println(this.data);
-			Console.inputOutputLog.println(this.data);
+			string = Console.input.readLine();
+			Console.inputLog.println(string);
+			Console.inputOutputLog.println(string);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		return this.data;
+		return string;
 	}
 
 	public void write(String string) {
@@ -115,7 +113,7 @@ public class Console {
 		this.write(string + "\n");
 	}
 
-	public void writeln(){
+	public void writeln() {
 		this.writeln("");
 	}
 
@@ -126,13 +124,15 @@ public class Console {
 	public char readChar(String title) {
 		assert title != null;
 
+		String string = "";
+		final Pattern charPattern = Pattern.compile(CHAR_regExp);
 		char characterInput = ' ';
 		boolean ok;
 		do {
-			this.data = this.readString(title);
-			ok = charPattern.matcher(this.data).find();
+			string = this.readString(title);
+			ok = charPattern.matcher(string).find();
 			if (ok) {
-				characterInput = this.data.charAt(0);
+				characterInput = string.charAt(0);
 			} else {
 				this.writeError(charPattern.toString());
 			}
@@ -156,13 +156,15 @@ public class Console {
 	public int readInt(String title) {
 		assert title != null;
 
+		String string = "";
+		final Pattern intPattern = Pattern.compile(INTEGER_regExp);
 		int intInput = ' ';
 		boolean ok;
 		do {
-			this.data = this.readString(title);
-			ok = intPattern.matcher(this.data.trim()).find();
+			string = this.readString(title);
+			ok = intPattern.matcher(string.trim()).find();
 			if (ok) {
-				intInput = Integer.parseInt(this.data);
+				intInput = Integer.parseInt(string);
 			} else {
 				this.writeError(intPattern.toString());
 			}
@@ -186,13 +188,16 @@ public class Console {
 	public double readDouble(String title) {
 		assert title != null;
 
+		String string = "";
+		final Pattern doublePattern = Pattern
+				.compile(DOUBLE_regExp);
 		double doubleInput = ' ';
 		boolean ok;
 		do {
-			this.data = this.readString(title);
-			ok = doublePattern.matcher(this.data.trim()).find();
+			string = this.readString(title);
+			ok = doublePattern.matcher(string.trim()).find();
 			if (ok) {
-				doubleInput = Integer.parseInt(this.data);
+				doubleInput = Integer.parseInt(string);
 			} else {
 				this.writeError(doublePattern.toString());
 			}
@@ -209,20 +214,19 @@ public class Console {
 		this.write(value + "\n");
 	}
 
-	private void writeError(String message) {
-		message = "Fallo!!! Por tu error al aplicar defectuasamente esta regla: " + message;
-		Console.output.println(message);
-		Console.inputOutputLog.println(message);
+	private void writeError(String regExp) {
+		regExp = "Fallo!!! Por tu error al aplicar defectuasamente el formato " + regExp;
+		Console.output.println(regExp);
+		Console.inputOutputLog.println(regExp);
 	}
 
-	public static void main(String[] args) {
-		for (int i = 0; i < 3; i++) {
-			Console.instance().writeln(Console.instance().readString());
-			Console.instance().writeln(Console.instance().readChar());
-			Console.instance().writeln(Console.instance().readInt());
-		}
-		Console.close("test");
+	public void write(Object object) {
+		Console.output.print(object);
+		Console.inputOutputLog.print(object);
 	}
 
+	public void writeln(Object object) {
+		this.write(object + "\n");
+	}
 
 }

@@ -1,4 +1,4 @@
-package util.menus;
+package util.view.menu;
 
 public abstract class IterativeMenu<T> extends QuitMenu<T> {
 
@@ -10,7 +10,7 @@ public abstract class IterativeMenu<T> extends QuitMenu<T> {
         this.addOptions();
         do {
             this.interact_();
-        } while (!this.isExecutedquitOption());
+        } while (!this.isExecutedQuitOption());
     }
 
 }
