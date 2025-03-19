@@ -5,12 +5,9 @@ import util.values.DoubleInterval;
 import util.values.Fraction;
 import util.values.FractionInterval;
 import util.values.Interval;
-import util.values.Time;
-import util.values.TimeInterval;
 import util.view.dialog.primitive.Console;
 import util.view.dialog.values.DoubleIntervalDialog;
 import util.view.dialog.values.FractionIntervalDialog;
-import util.view.dialog.values.TimeIntervalDialog;
 
 public class IntervalApp {
 
@@ -40,5 +37,5 @@ public class IntervalApp {
         }
         Console.close("0");
     }
-    
+
 }

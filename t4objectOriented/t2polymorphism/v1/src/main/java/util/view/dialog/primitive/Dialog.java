@@ -80,7 +80,9 @@ public abstract class Dialog<T> {
         Console.instance().writeln(this.content);
     }
 
-    protected abstract void addContent(T element);
+    protected void addContent(T element) {
+
+    }
 
     protected void addLine(String line) {
         this.content += "\n" + line;

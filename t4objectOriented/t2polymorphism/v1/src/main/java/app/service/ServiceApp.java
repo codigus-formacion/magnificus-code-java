@@ -13,7 +13,7 @@ public class ServiceApp {
     LinkedList<Service> services = LinkedList.of(
         // (Service) serviceDialog.read(),
         (Service) serviceDialog.create("<1/1/1|[2:2:2,3:3:3]>"),
-        new Service(new Date(2, 2, 3),
+        new Service(new Date(2, 2, 2),
             new Interval<Time>(
                 new Time(3, 3, 3),
                 new Time(4, 4, 4))));

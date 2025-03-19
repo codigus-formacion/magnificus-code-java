@@ -17,8 +17,6 @@ public class ServiceDialog extends PairDialog<Date, Interval<Time>> {
 
     public Pair<Date, Interval<Time>> create(String input) {
         LinkedList<String> strings = this.strings(input);
-        System.out.println("1:"+strings.get(0));
-        System.out.println("2:"+strings.get(1));
         return new Service(
             new DateDialog().create(strings.get(0)),
             new TimeIntervalDialog().create(strings.get(1)));
@@ -26,7 +24,8 @@ public class ServiceDialog extends PairDialog<Date, Interval<Time>> {
     
     protected void addContent(Pair<Date, Interval<Time>> element) {
         Service service = (Service) element;
-        this.addLine(service.toString());
+        this.addLine("Fecha: " + service.getKey());
+        this.addLine("Intervalo de Horas: " + service.getValue());
     }
 
 }

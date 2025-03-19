@@ -24,26 +24,25 @@ public class LinkedMap<K,V> {
         this.pairs.add(new Pair<>(key, value));
     }
 
-    public void remove(K key){
+    public void remove(K key) {
         LinkedList<Pair<K,V>>.Iterator<Pair<K,V>> iterator = this.pairs.iterator();
-        Pair<K,V> pair = null;
-        while (iterator.hasNext() && !pair.getKey().equals(key)){
-            pair = iterator.next();
-        }
-        if (pair != null){
-            this.pairs.remove(pair);
+        while (iterator.hasNext()) {
+            Pair<K,V> pair = iterator.next();
+            if (pair.getKey().equals(key)) {
+                this.pairs.remove(pair);
+                return;
+            }
         }
     }
 
-    public V get(K key){
+    public V get(K key) {
         LinkedList<Pair<K,V>>.Iterator<Pair<K,V>> iterator = this.pairs.iterator();
-        Pair<K,V> pair = null;
-        while (iterator.hasNext() && !pair.getKey().equals(key)){
-            pair = iterator.next();
+        while (iterator.hasNext()){
+            Pair<K,V> pair = iterator.next();
+            if (pair.getKey().equals(key)) {
+                return pair.getValue();
+            }
         }
-        if (pair != null){
-            return pair.getValue();
-        } 
         return null;
     }
 

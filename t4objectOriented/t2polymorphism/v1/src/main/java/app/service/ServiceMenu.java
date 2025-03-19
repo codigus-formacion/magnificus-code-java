@@ -1,7 +1,5 @@
 package app.service;
 
-import util.view.dialog.values.DateDialog;
-import util.view.dialog.values.TimeIntervalDialog;
 import util.view.menu.IterativeMenu;
 import util.view.menu.Option;
 import util.values.Date;
@@ -28,6 +26,15 @@ public class ServiceMenu extends IterativeMenu<LinkedMap<Date,Interval<Time>>> {
           new ServiceDialog("Fecha").write(
             new Service(date, this.getTarget().get(date)));
         }
+      }
+      
+    });
+    this.add(new Option<LinkedMap<Date, Interval<Time>>>("Añadir", this.getTarget()){
+
+      public void interact() {
+        ServiceDialog serviceDialog = new ServiceDialog("Servicio");
+        Service service = (Service) serviceDialog.read();
+        this.getTarget().put(service.getKey(), service.getValue());
       }
       
     });

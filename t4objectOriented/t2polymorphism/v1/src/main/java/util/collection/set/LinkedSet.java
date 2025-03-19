@@ -33,7 +33,7 @@ public class LinkedSet<T> {
         return false;
     }
 
-    public T remove(T element){
+    public boolean remove(T element){
         return this.elements.remove(element);
     }
 

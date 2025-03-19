@@ -26,14 +26,18 @@ public class LinkedList<T> {
         }
 
         public void setNext(Optional<Node<U>> next) {
-            assert next != null && next.isPresent();
-
             this.next = next;
-            next.get().previous = Optional.of(this);
+            if (next.isPresent()){
+                next.get().previous = Optional.of(this);
+            }
         }
 
         public U element() {
             return this.element;
+        }
+
+        public boolean isFirst() {
+            return this.previous.isEmpty();
         }
 
         public boolean isLast() {
@@ -85,17 +89,22 @@ public class LinkedList<T> {
         return true;
     }
 
-    public T remove(T element) {
+    public boolean remove(T element) {
         Node<T> removed = this.find(element);
         if (removed == null){
-            return null;
+            return false;
         }
-        removed.previous.get().setNext(removed.next);
-        return removed.element();
+        if (removed.isFirst()){
+            this.head = Optional.empty();
+            this.last = Optional.empty();
+        } else {
+            removed.previous.get().setNext(removed.next);
+        }
+        return true;
     }
 
     public void clear(){
-        while (this.isEmpty()){
+        while (!this.isEmpty()){
             this.remove(this.get(0));
         }
     }
@@ -115,7 +124,7 @@ public class LinkedList<T> {
     }
 
     public boolean isEmpty() {
-        return this.head == null;
+        return this.head.isEmpty();
     }
 
     public class Iterator<U> {
@@ -169,7 +178,7 @@ public class LinkedList<T> {
     }
 
     public T get(int position) {
-        assert new IntegerInterval(0, this.size() - 1).includes(position) : "Position out of bounds";
+        assert new IntegerInterval(0, this.size() - 1).includes(position) : "[" + 0 + " - " + (this.size()-1) + "] with" + position;
 
         Iterator<T> iterator = this.iterator();
         while (position > 0) {

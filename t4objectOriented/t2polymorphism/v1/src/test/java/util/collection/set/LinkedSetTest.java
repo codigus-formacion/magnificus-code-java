@@ -18,8 +18,13 @@ class LinkedSetTest {
     void testRemoveElement() {
         LinkedSet<String> set = new LinkedSet<>();
         set.add("Element1");
-        assertNotNull(set.remove("Element1"));
-        assertNull(set.remove("Element1")); // Element already removed
+        set.add("Element2");
+        set.add("Element3");
+        assertTrue(set.remove("Element3")); // Ensure element is removed
+        assertFalse(set.remove("Element4")); // Ensure element is removed
+        assertFalse(set.remove("Element3")); // Ensure element is removed
+        assertTrue(set.remove("Element2")); // Ensure element is removed
+        assertTrue(set.remove("Element1")); // Element already removed
     }
 
     @Test
