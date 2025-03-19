@@ -42,15 +42,15 @@ public class TimeIntervalDialog extends IntervalDialog<Time> {
         this.addLine("toString: " + interval.toString());
         this.addLine("getMin: " + interval.min());
         this.addLine("getMax: " + interval.max());
-        this.addLine("includes 0: " + interval.includes(initial));
-        this.addLine("includes [-1,1]: " + interval.includes(pivot));
-        this.addLine("equals [-1,1]: " + interval.equals(pivot));
-        this.addLine("isIntersected [-1,1]: " + interval.isIntersected(pivot));
+        this.addLine("includes 0:0:0: " + interval.includes(initial));
+        this.addLine("includes [1:2:3,3:4:5]: " + interval.includes(pivot));
+        this.addLine("equals [1:2:3,3:4:5]: " + interval.equals(pivot));
+        this.addLine("isIntersected [1:2:3,3:4:5]: " + interval.isIntersected(pivot));
         if (interval.isIntersected(pivot)) {
-            this.addLine("intersection [-1,1]: " + interval.intersection(pivot));
-            this.addLine("union [-1,1]: " + interval.union(pivot));
+            this.addLine("intersection [1:2:3,3:4:5]: " + interval.intersection(pivot));
+            this.addLine("union [1:2:3,3:4:5]: " + interval.union(pivot));
         }
-        this.addLine("superInterval [-1,1]: " + interval.superInterval(pivot));
+        this.addLine("superInterval [1:2:3,3:4:5]: " + interval.superInterval(pivot));
         this.addLine("length: " + interval.length());
         this.addLine("middlePoint: " + interval.middlePoint());
         this.addLine("shifted 1,1,1: " + interval.shifted(new Time(1,1,1)));

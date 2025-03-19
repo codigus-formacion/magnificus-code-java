@@ -12,16 +12,16 @@ public class LinkedMap<K,V> {
         this.pairs = new LinkedList<>();
     }
 
-    public void put(K key, V value){  
+    public void put(K key, V value) {
         LinkedList<Pair<K,V>>.Iterator<Pair<K,V>> iterator = this.pairs.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Pair<K,V> pair = iterator.next();
             if (pair.getKey().equals(key)) {
-                pair.setValue(value);
+                pair.setValue(value); // Update value if key exists
+                return;
             }
-            return;
         }
-        this.pairs.add(new Pair<>(key, value));
+        this.pairs.add(new Pair<>(key, value)); // Add new pair if key does not exist
     }
 
     public void remove(K key) {

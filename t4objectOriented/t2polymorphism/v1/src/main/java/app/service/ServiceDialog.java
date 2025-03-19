@@ -11,8 +11,12 @@ import util.view.dialog.values.TimeIntervalDialog;
 
 public class ServiceDialog extends PairDialog<Date, Interval<Time>> {
 
-    protected ServiceDialog(String title) {
+    public ServiceDialog(String title) {
         super(title, new DateDialog().regExp(), new TimeIntervalDialog().regExp());
+    }
+
+    public ServiceDialog(){
+        this("");
     }
 
     public Pair<Date, Interval<Time>> create(String input) {

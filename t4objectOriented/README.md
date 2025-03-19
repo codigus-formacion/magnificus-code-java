@@ -61,12 +61,15 @@
 
 ## Herencia por Implementación
 
-- Colección: polimorfismo en app
+- Colección: interfaz y polimorfimos en App?!?!
 - Fraction: Comparable
+
 ## Clases Genéricas y Herencia
 
 - Intervalo: T extends Comparable 2
-- Menú: Option<T extends Option>
+- Menú/Option: <T extends !?!??!>
+- Dialog: <T extends !?!??!>
+
 ## Clases Anidadas y Herencia
 ### Clases Anónimas
 
