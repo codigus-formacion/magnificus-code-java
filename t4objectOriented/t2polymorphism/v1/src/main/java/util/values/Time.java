@@ -32,13 +32,30 @@ public class Time {
         return new IntegerInterval(0, Time.SECONDS_MODULE - 1).includes(seconds);
     }
 
-    public boolean equals(Object object) {
-        assert object instanceof Time;
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + hours;
+        result = prime * result + minutes;
+        result = prime * result + seconds;
+        return result;
+    }
 
-        Time time = (Time) object;
-        return this.hours == time.hours
-                && this.minutes == time.minutes
-                && this.seconds == time.seconds;
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Time))
+            return false;
+        Time other = (Time) obj;
+        if (hours != other.hours)
+            return false;
+        if (minutes != other.minutes)
+            return false;
+        if (seconds != other.seconds)
+            return false;
+        return true;
     }
 
     public boolean before(Time time) {
@@ -166,5 +183,7 @@ public class Time {
         }
         return new Time(hours, minutes, seconds);
     }
+
+
 
 }

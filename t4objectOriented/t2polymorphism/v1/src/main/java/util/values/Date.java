@@ -74,13 +74,32 @@ public class Date {
         return new Date(year, month, day);
     }
 
-    public boolean equals(Object object) {
-        assert object instanceof Date;
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + year;
+        result = prime * result + month;
+        result = prime * result + day;
+        return result;
+    }
 
-        Date date = (Date) object;
-        return this.year == date.year
-                && this.month == date.month
-                && this.day == date.day;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Date))
+            return false;
+        Date other = (Date) obj;
+        if (year != other.year)
+            return false;
+        if (month != other.month)
+            return false;
+        if (day != other.day)
+            return false;
+        return true;
     }
 
     public String toString() {

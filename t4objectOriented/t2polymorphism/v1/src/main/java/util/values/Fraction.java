@@ -106,14 +106,28 @@ public class Fraction {
     return this.numerator() * fraction.denominator() > fraction.numerator() * this.denominator();
   }
 
-  public boolean equals(Fraction fraction) {
-    if (this == fraction)
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + numerator;
+    result = prime * result + denominator;
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
       return true;
-    if (fraction == null)
+    if (obj == null)
       return false;
-    if (this.numerator != fraction.numerator)
+    if (!(obj instanceof Fraction))
       return false;
-    if (this.denominator != fraction.denominator)
+    Fraction other = (Fraction) obj;
+    if (numerator != other.numerator)
+      return false;
+    if (denominator != other.denominator)
       return false;
     return true;
   }

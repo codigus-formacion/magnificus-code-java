@@ -4,11 +4,11 @@ import util.collection.list.LinkedList;
 import util.collection.set.LinkedSet;
 import util.values.Pair;
 
-public class Map<K,V> {
+public class LinkedMap<K,V> {
     
     private LinkedList<Pair<K,V>> pairs;
 
-    protected Map(){
+    public LinkedMap(){
         this.pairs = new LinkedList<>();
     }
 

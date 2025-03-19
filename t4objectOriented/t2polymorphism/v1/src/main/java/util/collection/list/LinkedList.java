@@ -94,6 +94,12 @@ public class LinkedList<T> {
         return removed.element();
     }
 
+    public void clear(){
+        while (this.isEmpty()){
+            this.remove(this.get(0));
+        }
+    }
+
     private Node<T> find(T element) {
         if (this.head.isEmpty()) {
             return null;

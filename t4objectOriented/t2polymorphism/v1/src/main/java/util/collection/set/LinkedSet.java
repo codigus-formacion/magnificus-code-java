@@ -1,7 +1,5 @@
 package util.collection.set;
 
-import java.util.Map;
-
 import util.collection.list.LinkedList;
 
 public class LinkedSet<T> {
@@ -35,6 +33,10 @@ public class LinkedSet<T> {
         return false;
     }
 
+    public T remove(T element){
+        return this.elements.remove(element);
+    }
+
     public boolean isEmpty() {
         return this.elements.isEmpty();
     }
@@ -43,12 +45,20 @@ public class LinkedSet<T> {
         return this.elements.size();
     }
 
+    public boolean contains(T element){
+        return this.elements.contains(element);
+    }
+
     public LinkedList<T>.Iterator<T> iterator() {
         return this.elements.iterator();
     }
 
     public T get(int position) {
         return this.elements.get(position);
+    }
+
+    public void clear(){
+        this.elements.clear();
     }
 
     public String toString() {

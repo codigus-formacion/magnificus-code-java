@@ -111,4 +111,6 @@ public class DoubleInterval extends Interval<Double> {
         return intervals;
     }
 
+    
+
 }
