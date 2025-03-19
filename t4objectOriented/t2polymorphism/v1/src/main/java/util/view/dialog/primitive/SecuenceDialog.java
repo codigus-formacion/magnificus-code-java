@@ -15,16 +15,16 @@ public abstract class SecuenceDialog<T> extends Dialog<T> {
 
     protected LinkedList<String> strings(String string) {
         LinkedList<String> strings = new LinkedList<String>();
-        String withoutBrackets = string.replaceAll(this.FIXES, "");
-        if (withoutBrackets.isBlank()) {
+        if (!this.FIXES.equals("[]")){
+            string = string.replaceAll(this.FIXES, "");
+        }
+        if (string.isBlank()) {
             return strings;
         }
-        String[] elements = withoutBrackets.split(this.SEPARATOR);
-        for (String element : elements) {
+        for (String element : string.split(this.SEPARATOR)) {
             strings.add(element);
         }
         return strings;
     }
     
-
 }

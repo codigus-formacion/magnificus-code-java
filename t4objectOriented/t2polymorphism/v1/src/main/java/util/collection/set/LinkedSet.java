@@ -1,5 +1,7 @@
 package util.collection.set;
 
+import java.util.Map;
+
 import util.collection.list.LinkedList;
 
 public class LinkedSet<T> {
@@ -12,7 +14,6 @@ public class LinkedSet<T> {
 
     public static <T> LinkedSet<T> of(T... elements) {
         assert elements != null : "Elements cannot be null";
-
         LinkedSet<T> set = new LinkedSet<T>();
         for (T element : elements) {
             set.elements.add(element);

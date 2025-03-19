@@ -12,8 +12,6 @@ public abstract class Dialog<T> {
     }
 
     protected Dialog(String title, String regExp) {
-        assert !title.isBlank();
-
         this.title = title;
         this.regExp = regExp;
     }
@@ -52,8 +50,7 @@ public abstract class Dialog<T> {
     private boolean isValid(String string) {
         assert string != null;
 
-        return string.matches(this.regExp) &&
-                this.isSemanticValid(string);
+        return string.matches(this.regExp) &&  this.isSemanticValid(string);
     }
 
     protected boolean isSemanticValid(String string) {

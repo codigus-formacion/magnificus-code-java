@@ -10,43 +10,44 @@ public class LinkedList<T> {
         private Optional<Node<U>> previous;
         private U element;
         private Optional<Node<U>> next;
-    
+
         private Node(Optional<Node<U>> previous, U element, Optional<Node<U>> next) {
             this.previous = previous;
             this.element = element;
             this.next = next;
         }
-    
+
         public Node(U element, Optional<Node<U>> next) {
             this(Optional.empty(), element, next);
         }
-    
+
         public Node(Optional<Node<U>> previous, U element) {
             this(previous, element, Optional.empty());
         }
-        
+
         public void setNext(Optional<Node<U>> next) {
             assert next != null && next.isPresent();
-            
+
             this.next = next;
+            next.get().previous = Optional.of(this);
         }
-    
-        public U element(){
+
+        public U element() {
             return this.element;
         }
-    
-        public boolean isLast(){
+
+        public boolean isLast() {
             return this.next.isEmpty();
         }
-    
-        public Optional<Node<U>> next(){
+
+        public Optional<Node<U>> next() {
             return this.next;
         }
-    
-        public Optional<Node<U>> previous(){
+
+        public Optional<Node<U>> previous() {
             return this.previous;
         }
-    
+
     }
 
     protected Optional<Node<T>> head;
@@ -57,17 +58,14 @@ public class LinkedList<T> {
         this.last = Optional.empty();
     }
 
-    public LinkedList(T... elements) {
-        this();
-        assert elements != null : "Elements cannot be null";
-
-        for (T element : elements) {
-            this.add(element);
-        }
-    }
-
     public static <T> LinkedList<T> of(T... elements) {
-        return new LinkedList<T>(elements);
+        assert elements != null : "Elements cannot be null";
+        
+        LinkedList<T> list = new LinkedList<T>();
+        for (T element : elements) {
+            list.add(element);
+        }
+        return list;
     }
 
     public static <T> LinkedList<T> empty() {
@@ -87,6 +85,29 @@ public class LinkedList<T> {
         return true;
     }
 
+    public T remove(T element) {
+        Node<T> removed = this.find(element);
+        if (removed == null){
+            return null;
+        }
+        removed.previous.get().setNext(removed.next);
+        return removed.element();
+    }
+
+    private Node<T> find(T element) {
+        if (this.head.isEmpty()) {
+            return null;
+        }
+        Optional<Node<T>> current = this.head;
+        while (!current.get().element().equals(element) && !current.get().isLast()) {
+            current = current.get().next();
+        }
+        if (current.get().element().equals(element)){
+            return current.get();
+        }
+        return null;
+    }
+
     public boolean isEmpty() {
         return this.head == null;
     }
@@ -94,29 +115,28 @@ public class LinkedList<T> {
     public class Iterator<U> {
 
         private Node<U> current;
-    
+
         public Iterator(Node<U> head) {
             this.current = head;
         }
-    
+
         public boolean hasNext() {
             return this.current != null;
         }
-    
-        public U next(){
+
+        public U next() {
             assert this.hasNext();
-    
+
             U element = this.current.element();
-            if (this.current.isLast()){
+            if (this.current.isLast()) {
                 this.current = null;
             } else {
                 this.current = this.current.next().get();
             }
             return element;
         }
-    
+
     }
-    
 
     public int size() {
         int size = 0;
