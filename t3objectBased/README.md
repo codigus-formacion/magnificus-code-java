@@ -174,8 +174,6 @@
 - Result EJERCICIO!!!!
 - Coordinate EJERCICIO!!!! de enteros, de intervalo de horas x fecha
 - Intervalo: Optional (infinto) EJERCICIO!!!!
-- Map: composición EJERCICIO!!!! ---- hascode?!?!
-- EJERCICIO!!!! Lista de doubles Coeficientes: getGradient(), ...
 
 ## Clases Anidadas
 ### Clases Internas
