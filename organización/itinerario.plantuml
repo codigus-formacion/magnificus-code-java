@@ -43,3 +43,61 @@ state Magnificus {
     Proceso --> [*]
 }
 @enduml
+
+F-Ingeniería del Software
+F-Complejidad
+
+F-Lenguajes
+F-Lógica
+
+F-Modelado
+F-Matemática
+
+F-Aplicaciones
+L-Datos
+
+F-Proyectos
+L-Consulta
+
+I-Programacion
+L-Publicación
+
+I-Programación Imperativa
+D-Principios de Legibilidad
+
+I-Programación Basada en Objetos
+D-Principios de Modularidad
+
+I-Programación Orientada a Objetos
+D-Principios de Extensibilidad
+
+I-Programación Modular
+D-Arquitectura del Software
+
+I-Programación con Excepciones
+D-Patrones de Diseño (Continuación)
+
+I-Programación orientada a Aspectos
+T-Pruebas Unitarias
+
+I-Programación Concurrente
+D-Frameworks
+
+I-Programación Funcional
+T-Pruebas Funcionales
+
+T-Pruebas No Funcionales
+P-Test First Development
+
+P-RUP. Analisis
+P-RUP. Requisitos
+
+P-RUP. Diseño-Pruebas
+P-RUP. Gestión
+
+D-Refactoring
+P-Test Drive Development
+
+P-Scrum
+P-ExtremePrograming
+

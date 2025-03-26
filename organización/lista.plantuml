@@ -1,0 +1,62 @@
+@startuml
+object Ana {
+}
+object Bernardo {
+}
+object Carlos {
+}
+object Diana {
+}
+object Eduardo {
+}
+object Fernando {
+}
+object Gabriela {
+}
+object Hugo {
+}
+object Isabel {
+}
+object Javier {
+}
+object Karla {
+}
+object Luis {
+}
+object María {
+}
+object Nicolás {
+}
+object Octavio {
+}
+object Patricia {
+}
+object Quintero {
+}
+object Rosa {
+}
+object Santiago {
+}
+object Teresa {
+}
+
+Ana -down-> Bernardo : next
+Bernardo -down-> Carlos : next
+Carlos -down-> Diana : next
+Diana -down-> Eduardo : next
+Eduardo -down-> Fernando : next
+Fernando -down-> Gabriela : next
+Gabriela -up-> Hugo : next
+Hugo -up-> Isabel : next
+Isabel -up-> Javier : next
+Javier -up-> Karla : next
+Karla -up-> Luis : next
+Luis -up-> María : next
+María -up-> Nicolás : next
+Nicolás -down-> Octavio : next
+Octavio -down-> Patricia : next
+Patricia -down-> Quintero : next
+Quintero -down-> Rosa : next
+Rosa -down-> Santiago : next
+Santiago -down-> Teresa : next
+@enduml
