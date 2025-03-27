@@ -1,8 +1,8 @@
 package app.service;
 
-import util.view.dialog.primitive.Console;
-import util.view.dialog.values.DateDialog;
-import util.view.dialog.values.TimeIntervalDialog;
+// import util.view.dialog.primitive.Console;
+// import util.view.dialog.values.DateDialog;
+// import util.view.dialog.values.TimeIntervalDialog;
 import util.view.menu.IterativeMenu;
 import util.view.menu.Option;
 import util.values.Date;
@@ -15,7 +15,7 @@ import util.collection.set.LinkedSet;
 public class ServiceMenu extends IterativeMenu<LinkedMap<Date, Interval<Time>>> {
 
   public ServiceMenu(LinkedMap<Date, Interval<Time>> target) {
-    super("", target);
+    super("Menú de Servicio", target);
   }
 
   class ListOption extends Option<LinkedMap<Date, Interval<Time>>> {
@@ -56,17 +56,19 @@ public class ServiceMenu extends IterativeMenu<LinkedMap<Date, Interval<Time>>> 
     }
 
     public void interact() {
-      DateDialog dateDialog = new DateDialog("Fecha");
-      Date date = dateDialog.read();
-      Interval<Time> interval = this.getTarget().get(date);
-      if (interval == null) {
-        Console.instance().writeln("No existe");
-      } else {
-        this.getTarget().remove(date);
-        dateDialog.writeDetails(date);
-        TimeIntervalDialog timeIntervalDialog = new TimeIntervalDialog("Eliminado");
-        timeIntervalDialog.writeDetails(interval);
-      }
+      RemovingServiceMenu menu = new RemovingServiceMenu(getTarget());
+      menu.interact();
+      // DateDialog dateDialog = new DateDialog("Fecha");
+      // Date date = dateDialog.read();
+      // Interval<Time> interval = this.getTarget().get(date);
+      // if (interval == null) {
+      //   Console.instance().writeln("No existe");
+      // } else {
+      //   this.getTarget().remove(date);
+      //   dateDialog.writeDetails(date);
+      //   TimeIntervalDialog timeIntervalDialog = new TimeIntervalDialog("Eliminado");
+      //   timeIntervalDialog.writeDetails(interval);
+      // }
     }
   }
 
