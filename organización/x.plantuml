@@ -1,0 +1,41 @@
+@startuml
+start
+:Leer expresión;
+
+if (¿Es número o variable?) then (Sí)
+  :Apilar número o variable;
+  -> Validar siguiente;
+else (No)
+  if (¿Es operador aritmético?) then (Sí)
+    :Apilar operador;
+    -> Validar siguiente;
+  else (No)
+    if (¿Es paréntesis de apertura?) then (Sí)
+      :Apilar "(";
+      -> Validar siguiente;
+    else (No)
+      if (¿Es paréntesis de cierre?) then (Sí)
+        :Evaluar subexpresión;
+        -> Validar siguiente;
+      else (No)
+        if (¿Es operador relacional?) then (Sí)
+          :Procesar relación;
+          -> Validar siguiente;
+        else (No)
+          :Error de gramática;
+          stop
+        endif
+      endif
+    endif
+  endif
+endif
+
+:¿Quedan más tokens?;
+if (Sí) then (Sí)
+  :Leer siguiente token;
+  -> ¿Es número o variable?;
+else (No)
+  :Validar expresión completa;
+endif
+stop
+@enduml
