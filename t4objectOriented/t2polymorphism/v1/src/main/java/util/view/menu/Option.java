@@ -15,14 +15,14 @@ public abstract class Option<T> {
     public abstract void interact();
 
     public void showTitle(int index) {
-        Console.instance().writeln(index + ". " + this.title);
+        Console.instance().writeln(index + ". " + this.getTitle());
     }
 
     protected T getTarget() {
         return this.target;
     }
 
-    protected String getTitle(){
+    public String getTitle(){
         return this.title;
     }
 

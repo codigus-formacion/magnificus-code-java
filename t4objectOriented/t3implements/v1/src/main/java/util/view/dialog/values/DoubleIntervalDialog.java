@@ -1,37 +1,36 @@
 package util.view.dialog.values;
 
+import util.collection.Iterator;
 import util.collection.list.LinkedList;
 import util.values.DoubleInterval;
-import util.values.IntInterval;
 import util.values.Interval;
 import util.view.dialog.primitive.DoubleDialog;
-import util.view.dialog.primitive.IntDialog;
 
-public class IntIntervalDialog extends IntervalDialog<Integer> {
+public class DoubleIntervalDialog extends IntervalDialog<Double> {
 
-    public IntIntervalDialog(String title) {
+    public DoubleIntervalDialog(String title) {
         super(title, new DoubleDialog().regExp());
     }
-
-    public IntIntervalDialog() {
+    
+    public DoubleIntervalDialog() {
         this("");
     }
 
-    public boolean isSemanticValid(String string) {
-        LinkedList<Integer> values = this.values(string);
-        return values.get(0) <= values.get(1);
+    public boolean isSemanticValid(String string){
+        LinkedList<Double> values = this.values(string);
+        return values.get(0)<=values.get(1);
     }
 
-    public IntInterval create(String string) {
-        LinkedList<Integer> values = this.values(string);
-        return new IntInterval(values.get(0), values.get(1));
+    public DoubleInterval create(String string) {
+        LinkedList<Double> values = this.values(string);
+        return new DoubleInterval(values.get(0), values.get(1));
     }
 
-    protected LinkedList<Integer> values(String string) {
-        LinkedList<Integer> doubleList = new LinkedList<Integer>();
-        LinkedList<String>.Iterator<String> iterator = this.strings(string).iterator();
+    protected LinkedList<Double> values(String string) {
+        LinkedList<Double> doubleList = new LinkedList<Double>();
+        Iterator<String> iterator = this.strings(string).iterator();
         while (iterator.hasNext()) {
-            doubleList.add(new IntDialog().create(iterator.next()));
+            doubleList.add(new DoubleDialog().create(iterator.next()));
         }
         return doubleList;
     }

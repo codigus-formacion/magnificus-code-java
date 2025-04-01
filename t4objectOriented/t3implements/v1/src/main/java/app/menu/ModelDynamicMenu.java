@@ -1,7 +1,6 @@
 package app.menu;
 
 import util.view.menu.DynamicMenu;
-import util.view.menu.Option;
 
 class ModelDynamicMenu extends DynamicMenu<Model> {
 
@@ -10,12 +9,12 @@ class ModelDynamicMenu extends DynamicMenu<Model> {
         this.addOptions();
     }
 
-    class RemoveModelOption extends Option<Model> {
+    class RemoveModelOption extends ModelOption {
 
         private int index;
 
         public RemoveModelOption(Model model, int index) {
-            super("Eliminar ", model);
+            super("Eliminar", model);
             this.index = index;
         }
 

@@ -51,7 +51,7 @@
                 - DoubleDialog *
                 - ... 
 
-- sustituye composicion por herencia en dialogos e intervalos
+- sustituye composicion por herencia en dialogos e intervalos EJERCICIO!!!!!
 - Lista: centinela EJERCICIO!!!!!
 - Lista: ordenada EJERCICIO!!!!!
 
@@ -76,7 +76,10 @@
             - LinkedList<T>  
                 - Node<T> 
                 - Iterator<T> 
+        - set
             - LinkedSet<T> 
+        - map
+            - LinkedMap<K,V>
     - values
         - Pair<K,V> 
         - Optional<T> 
@@ -117,6 +120,8 @@
             - QuitMenu<T> *
             - IterativeMenu<T> *
             - DynamicMenu<T> *
+            - Option<T> *
+            - QuitOption<T> *
 
 
 - Menú: Option<T>
@@ -124,15 +129,82 @@
 
 ## Herencia por Implementación
 
-- Colección: interfaz y polimorfimos en App?!?!
-- Lista: array EJERCICIO!!!!!
-- Fraction: Comparable
+- app
+    - collection
+        - LinkedListApp -> Principio de Unicidad!! *
+        - FractionApp -> Principio de Unicidad!!
+        - TntervalApp -> Principio de Unicidad!!
+        - TimeApp -> Principio de Unicidad!!
+        - PrimitiveApp -> Principio de Unicidad!!
+        - ... -> Principio de Unicidad!!
+    - service
+        - Service *
+        - ServiceDialog *
+        - ServiceApp *
+        - ServiceMenu *
+- util
+    - collection
+        - list
+            - LinkedList<T>  
+        - set
+            - LinkedSet<T> 
+        - map
+            - LinkedMap<K,V>
+        - Colection<T>
+        - Node<T> 
+        - Iterator<T> 
+    - values
+        - Pair<K,V> 
+        - Optional<T> 
+        - Fraction 
+        - Date
+        - Time
+        - Interval<T> 
+        - DoubleInterval -> Principio de Unicidad 
+        - FractionInterval -> Principio de Unicidad 
+        - ... -> Principio de Unicidad!
+    - view
+        - dialog
+            - collection
+                - list
+                    - LinkedListDialog<T> 
+                    - StringLinkedListDialog 
+                    - IntegerLinkedListDialog 
+                    - FractionIntervalLinkedListDialog 
+                    - FractionIntervalLinkedListLinkedListDialog 
+                    - ... 
+            - values
+                - FractionDialog 
+                - DateDialog 
+                - TimeDialog 
+                - IntervalDialog<T extends> *
+                - DoubleIntervalDialog *
+                - FractionIntervalDialog *
+                - ...  
+            - primitive
+                - Console
+                - Dialog<T extends> * 
+                - SecuenceDialog<T extends>
+                - IntDialgog 
+                - DoubleDialog 
+                - ... 
+        - menu
+            - Menu<T> *
+            - QuitMenu<T> *
+            - IterativeMenu<T> *
+            - DynamicMenu<T> *
+            - Option *
+            - QuitOption *
+
+- Menú y options por composición con polimorfismo por implementación!!!!
+- Lista: array en clase con interfaz EJERCICIO!!!!!
 
 ## Clases Genéricas y Herencia
 
 - Intervalo: T extends Comparable 2
-- Menú/Option: <T extends !?!??!>
-- Dialog: <T extends !?!??!>
+- Dialog: checker, ... <T extends !?!??!>
+- Form: Composite Dialog configurable, menu alternativo, iterativo, ... EJERCICIO!!!!!
+
 
 ## Clases Anidadas y Herencia
 ### Clases Anónimas
