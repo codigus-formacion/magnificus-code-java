@@ -3,6 +3,7 @@ package app.dialog;
 import util.view.dialog.collection.list.DoubleLinkedListDialog;
 import util.view.dialog.collection.list.IntegerLinkedListDialog;
 import util.view.dialog.primitive.Console;
+import util.view.dialog.primitive.Dialog;
 import util.collection.Collection;
 import util.collection.Iterator;
 import util.collection.list.LinkedList;
@@ -11,46 +12,44 @@ import util.values.Math;
 public class LinkedListApp {
 
     public static void main(String[] args) {
-        IntegerLinkedListDialog intLinkedListDialog = new IntegerLinkedListDialog("Lista de Enteros");
-        LinkedList<LinkedList<Integer>> integerLinkedListLinkedList = LinkedList.of(
-                // intLinkedListDialog.read(),
-                LinkedList.of(new Integer[] { 1, 2, 3 }),
-                LinkedList.of(4, 5, 6),
-                LinkedList.of(4, 5, 6),
-                LinkedList.of(),
-                LinkedList.empty(),
-                LinkedListApp.getRandomIntList(),
-                LinkedListApp.getRangeIntList(),
-                LinkedListApp.getRangeClosedIntList(),
-                intLinkedListDialog.create("{}"),
-                intLinkedListDialog.create("{1,2,3}"),
-                intLinkedListDialog.create("{-3,-2,-1}"),
-                intLinkedListDialog.create("{100,150,200}"));
+        LinkedListApp.writeDetails(
+                new IntegerLinkedListDialog("Lista de Enteros"),
+                LinkedList.of(
+                        // new IntegerLinkedListDialog().read(),
+                        LinkedList.of(new Integer[] { 1, 2, 3 }),
+                        LinkedList.of(4, 5, 6),
+                        LinkedList.of(4, 5, 6),
+                        LinkedList.of(),
+                        LinkedList.empty(),
+                        LinkedListApp.getRandomIntList(),
+                        LinkedListApp.getRangeIntList(),
+                        LinkedListApp.getRangeClosedIntList(),
+                        new IntegerLinkedListDialog().create("{}"),
+                        new IntegerLinkedListDialog().create("{1,2,3}"),
+                        new IntegerLinkedListDialog().create("{-3,-2,-1}"),
+                        new IntegerLinkedListDialog().create("{100,150,200}")));
 
-        Iterator<LinkedList<Integer>> integerLinkedListIterator = integerLinkedListLinkedList
-                .iterator();
-        while (integerLinkedListIterator.hasNext()) {
-            intLinkedListDialog.writeDetails(integerLinkedListIterator.next());
-        }
-
-        DoubleLinkedListDialog doubleLinkedListDialog = new DoubleLinkedListDialog("Lista de Decimales");
-        Collection<LinkedList<Double>> doubleLinkedListLinkedList = LinkedList.of(
-                // doubleLinkedListDialog.read(),
-                LinkedList.of(new Double[] { 1.1, 2.2, 3.3 }),
-                LinkedList.of(4.4, 5.5, 6.6),
-                LinkedList.of(),
-                LinkedList.empty(),
-                LinkedListApp.getRandomDoublelist(),
-                doubleLinkedListDialog.create("{}"),
-                doubleLinkedListDialog.create("{1.1,2.2,3.3}"),
-                doubleLinkedListDialog.create("{-3.3,-2.2,-1.1}"),
-                doubleLinkedListDialog.create("{100.0,150.0,200.0}"));
-        Iterator<LinkedList<Double>> doubleLinkedListIterator = doubleLinkedListLinkedList
-                .iterator();
-        while (doubleLinkedListIterator.hasNext()) {
-            doubleLinkedListDialog.writeDetails(doubleLinkedListIterator.next());
-        }
+        LinkedListApp.writeDetails(
+                new DoubleLinkedListDialog("Lista de Decimales"),
+                LinkedList.of(
+                        // new DoubleLinkedListDialog().read(),
+                        LinkedList.of(new Double[] { 1.1, 2.2, 3.3 }),
+                        LinkedList.of(4.4, 5.5, 6.6),
+                        LinkedList.of(),
+                        LinkedList.empty(),
+                        LinkedListApp.getRandomDoublelist(),
+                        new DoubleLinkedListDialog().create("{}"),
+                        new DoubleLinkedListDialog().create("{1.1,2.2,3.3}"),
+                        new DoubleLinkedListDialog().create("{-3.3,-2.2,-1.1}"),
+                        new DoubleLinkedListDialog().create("{100.0,150.0,200.0}")));
         Console.close("0");
+    }
+
+    private static <T> void writeDetails(Dialog<T> dialog, Collection<T> collection) {
+        Iterator<T> iterator = collection.iterator();
+        while (iterator.hasNext()) {
+            dialog.writeDetails(iterator.next());
+        }
     }
 
     private static LinkedList<Integer> getRandomIntList() {

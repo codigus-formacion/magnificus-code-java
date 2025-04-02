@@ -3,12 +3,17 @@ package util.view.dialog.collection.list;
 import util.view.dialog.primitive.IntDialog;
 import util.collection.Iterator;
 import util.collection.list.LinkedList;
+import util.functional.Predicate;
 import util.values.IntegerInterval;
 
 public class IntegerLinkedListDialog extends LinkedListDialog<LinkedList<Integer>> {
 
     public IntegerLinkedListDialog(String title) {
         super(title, new IntDialog().regExp());
+    }
+
+    public IntegerLinkedListDialog() {
+        super("", new IntDialog().regExp());
     }
 
     public LinkedList<Integer> create(String string) {
@@ -52,6 +57,13 @@ public class IntegerLinkedListDialog extends LinkedListDialog<LinkedList<Integer
         this.addLine("mapToDouble *2: " + doubleList);
 
         this.addLine("asDoubleList: " + doubleList.toString());
+
+        class PositiveIntegerPredicate implements Predicate<Integer> {
+            public boolean test(Integer value) {
+                return value >= 0.0;
+            }
+        }
+        this.addLine("filter: " + doubleList.filter(new PositiveIntegerPredicate()).toString());
     }
 
 }

@@ -215,14 +215,16 @@
         - ServiceApp 
         - ServiceMenu 
 - util
+    - functional
+        - Predicate<T> *
     - collection
         - list
-            - LinkedList<T> 
+            - LinkedList<T> *
         - set
-            - LinkedSet<T> 
+            - LinkedSet<T> *
         - map
             - LinkedMap<K,V>
-        - Colection<T> 
+        - Colection<T> *
         - Node<T> 
         - Iterator<T> 
     - values
@@ -241,7 +243,8 @@
                 - list
                     - LinkedListDialog<T> 
                     - StringLinkedListDialog 
-                    - IntegerLinkedListDialog 
+                    - DoubleLinkedListDialog *
+                    - IntegerLinkedListDialog *
                     - FractionIntervalLinkedListDialog 
                     - FractionIntervalLinkedListLinkedListDialog 
                     - ... 
@@ -269,7 +272,7 @@
             - QuitOption 
 
 - Intervalo: T extends Comparable
-- Collection: Conjunto y Lista
+- Collection con filter Predicate: Conjunto y Lista
 
 - Form: Composite Dialog configurable, menu alternativo, iterativo, ... EJERCICIO!!!!!
 - Dialog: checker, ... <T extends !?!??!>

@@ -3,12 +3,13 @@ package util.collection.set;
 import util.collection.Collection;
 import util.collection.Iterator;
 import util.collection.list.LinkedList;
+import util.functional.Predicate;
 
-public class LinkedSet<T> implements Collection<T>{
-    
+public class LinkedSet<T> implements Collection<T> {
+
     private LinkedList<T> elements;
 
-    public LinkedSet(){
+    public LinkedSet() {
         this.elements = new LinkedList<T>();
     }
 
@@ -21,21 +22,21 @@ public class LinkedSet<T> implements Collection<T>{
         return set;
     }
 
-    public static <T> LinkedSet<T> empty(){
+    public static <T> LinkedSet<T> empty() {
         return new LinkedSet<T>();
     }
 
     public boolean add(T element) {
         assert element != null : "Element cannot be null";
 
-        if (!this.elements.contains(element)){
+        if (!this.elements.contains(element)) {
             this.elements.add(element);
             return true;
         }
         return false;
     }
 
-    public boolean remove(T element){
+    public boolean remove(T element) {
         return this.elements.remove(element);
     }
 
@@ -47,7 +48,11 @@ public class LinkedSet<T> implements Collection<T>{
         return this.elements.size();
     }
 
-    public boolean contains(T element){
+    public Collection<T> filter(Predicate<T> predicate) {
+        return this.elements.filter(predicate);
+    }
+
+    public boolean contains(T element) {
         return this.elements.contains(element);
     }
 
@@ -59,7 +64,7 @@ public class LinkedSet<T> implements Collection<T>{
         return this.elements.get(position);
     }
 
-    public void clear(){
+    public void clear() {
         this.elements.clear();
     }
 
