@@ -203,12 +203,12 @@
 
 - app
     - collection
-        - LinkedListApp -> Principio de Unicidad!! 
-        - FractionApp -> Principio de Unicidad!!
-        - TntervalApp -> Principio de Unicidad!!
-        - TimeApp -> Principio de Unicidad!!
-        - PrimitiveApp -> Principio de Unicidad!!
-        - ... -> Principio de Unicidad!!
+        - LinkedListApp *
+        - FractionApp *
+        - TntervalApp *
+        - TimeApp *
+        - PrimitiveApp *
+        - ... 
     - service
         - Service 
         - ServiceDialog 
@@ -231,10 +231,10 @@
         - Fraction 
         - Date
         - Time
-        - Interval<T> 
-        - DoubleInterval -> Principio de Unicidad 
-        - FractionInterval -> Principio de Unicidad 
-        - ... -> Principio de Unicidad!
+        - Interval<T> *
+        - DoubleInterval *
+        - FractionInterval *
+        - ... 
     - view
         - dialog
             - collection
@@ -250,13 +250,13 @@
                 - DateDialog 
                 - TimeDialog 
                 - IntervalDialog<T> *
-                - DoubleIntervalDialog *
-                - FractionIntervalDialog  *
+                - DoubleIntervalDialog 
+                - FractionIntervalDialog  
                 - ...  
             - primitive
                 - Console
-                - Dialog<T extends> * 
-                - SecuenceDialog<T extends>
+                - Dialog<T> 
+                - SecuenceDialog<T>
                 - IntDialgog 
                 - DoubleDialog 
                 - ... 
@@ -267,9 +267,11 @@
             - DynamicMenu<T> 
             - Option 
             - QuitOption 
-- Intervalo: T extends Comparable 2
-- Form: Composite Dialog configurable, menu alternativo, iterativo, ... EJERCICIO!!!!!
 
+- Intervalo: T extends Comparable
+- Collection: Conjunto y Lista
+
+- Form: Composite Dialog configurable, menu alternativo, iterativo, ... EJERCICIO!!!!!
 - Dialog: checker, ... <T extends !?!??!>
 
 
