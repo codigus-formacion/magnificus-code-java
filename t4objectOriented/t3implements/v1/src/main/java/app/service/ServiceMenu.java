@@ -1,7 +1,6 @@
 package app.service;
 
 import util.view.menu.IterativeMenu;
-import util.view.menu.Option;
 import util.values.Date;
 import util.values.Interval;
 import util.values.Time;
@@ -18,7 +17,7 @@ public class ServiceMenu extends IterativeMenu<LinkedMap<Date, Interval<Time>>> 
     this.add(new RemoveOption(this.getTarget()));
   }
 
-  class ListOption extends Option<LinkedMap<Date, Interval<Time>>> {
+  class ListOption extends ServiceOption {
 
     public ListOption(LinkedMap<Date, Interval<Time>> target) {
       super("Listar", target);
@@ -35,7 +34,7 @@ public class ServiceMenu extends IterativeMenu<LinkedMap<Date, Interval<Time>>> 
 
   }
 
-  class AddOption extends Option<LinkedMap<Date, Interval<Time>>> {
+  class AddOption extends ServiceOption {
 
     public AddOption(LinkedMap<Date, Interval<Time>> target) {
       super("Añadir", target);
@@ -49,7 +48,7 @@ public class ServiceMenu extends IterativeMenu<LinkedMap<Date, Interval<Time>>> 
 
   }
 
-  class RemoveOption extends Option<LinkedMap<Date, Interval<Time>>> {
+  class RemoveOption extends ServiceOption {
 
     public RemoveOption(LinkedMap<Date, Interval<Time>> target) {
       super("Borrar", target);

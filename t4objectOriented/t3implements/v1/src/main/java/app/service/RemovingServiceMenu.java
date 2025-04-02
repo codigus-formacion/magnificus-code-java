@@ -7,7 +7,6 @@ import util.values.Date;
 import util.values.Interval;
 import util.values.Time;
 import util.view.menu.DynamicMenu;
-import util.view.menu.Option;
 
 public class RemovingServiceMenu extends DynamicMenu<LinkedMap<Date, Interval<Time>>> {
 
@@ -16,7 +15,7 @@ public class RemovingServiceMenu extends DynamicMenu<LinkedMap<Date, Interval<Ti
       this.addOptions();
   }
 
-  class RemoveModelOption extends Option<LinkedMap<Date, Interval<Time>>> {
+  class RemoveModelOption extends ServiceOption {
 
       private Date date;
 

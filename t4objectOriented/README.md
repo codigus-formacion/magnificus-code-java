@@ -145,12 +145,84 @@
 - util
     - collection
         - list
-            - LinkedList<T>  
+            - LinkedList<T> *
+        - set
+            - LinkedSet<T> *
+        - map
+            - LinkedMap<K,V>
+        - Colection<T> *
+        - Node<T> *
+        - Iterator<T> *
+    - values
+        - Pair<K,V> 
+        - Optional<T> 
+        - Fraction 
+        - Date
+        - Time
+        - Interval<T> 
+        - DoubleInterval -> Principio de Unicidad 
+        - FractionInterval -> Principio de Unicidad 
+        - ... -> Principio de Unicidad!
+    - view
+        - dialog
+            - collection
+                - list
+                    - LinkedListDialog<T> 
+                    - StringLinkedListDialog 
+                    - IntegerLinkedListDialog 
+                    - FractionIntervalLinkedListDialog 
+                    - FractionIntervalLinkedListLinkedListDialog 
+                    - ... 
+            - values
+                - FractionDialog 
+                - DateDialog 
+                - TimeDialog 
+                - IntervalDialog<T> 
+                - DoubleIntervalDialog 
+                - FractionIntervalDialog 
+                - ...  
+            - primitive
+                - Console
+                - Dialog<T extends> * 
+                - SecuenceDialog<T extends>
+                - IntDialgog 
+                - DoubleDialog 
+                - ... 
+        - menu
+            - Menu<T> *
+            - QuitMenu<T> *
+            - IterativeMenu<T> *
+            - DynamicMenu<T> *
+            - Option *
+            - QuitOption *
+
+- Menú y options por composición con polimorfismo por implementación!!!!
+- Lista: array en clase con interfaz EJERCICIO!!!!!
+
+## Clases Genéricas y Herencia
+
+- app
+    - collection
+        - LinkedListApp -> Principio de Unicidad!! 
+        - FractionApp -> Principio de Unicidad!!
+        - TntervalApp -> Principio de Unicidad!!
+        - TimeApp -> Principio de Unicidad!!
+        - PrimitiveApp -> Principio de Unicidad!!
+        - ... -> Principio de Unicidad!!
+    - service
+        - Service 
+        - ServiceDialog 
+        - ServiceApp 
+        - ServiceMenu 
+- util
+    - collection
+        - list
+            - LinkedList<T> 
         - set
             - LinkedSet<T> 
         - map
             - LinkedMap<K,V>
-        - Colection<T>
+        - Colection<T> 
         - Node<T> 
         - Iterator<T> 
     - values
@@ -177,9 +249,9 @@
                 - FractionDialog 
                 - DateDialog 
                 - TimeDialog 
-                - IntervalDialog<T extends> *
+                - IntervalDialog<T> *
                 - DoubleIntervalDialog *
-                - FractionIntervalDialog *
+                - FractionIntervalDialog  *
                 - ...  
             - primitive
                 - Console
@@ -189,21 +261,16 @@
                 - DoubleDialog 
                 - ... 
         - menu
-            - Menu<T> *
-            - QuitMenu<T> *
-            - IterativeMenu<T> *
-            - DynamicMenu<T> *
-            - Option *
-            - QuitOption *
-
-- Menú y options por composición con polimorfismo por implementación!!!!
-- Lista: array en clase con interfaz EJERCICIO!!!!!
-
-## Clases Genéricas y Herencia
-
+            - Menu<T> 
+            - QuitMenu<T> 
+            - IterativeMenu<T> 
+            - DynamicMenu<T> 
+            - Option 
+            - QuitOption 
 - Intervalo: T extends Comparable 2
-- Dialog: checker, ... <T extends !?!??!>
 - Form: Composite Dialog configurable, menu alternativo, iterativo, ... EJERCICIO!!!!!
+
+- Dialog: checker, ... <T extends !?!??!>
 
 
 ## Clases Anidadas y Herencia
