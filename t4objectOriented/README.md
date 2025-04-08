@@ -281,6 +281,76 @@
 ## Clases Anidadas y Herencia
 ### Clases Anónimas
 
+- app
+    - collection
+        - LinkedListApp 
+        - FractionApp 
+        - TntervalApp 
+        - TimeApp 
+        - PrimitiveApp 
+        - ... 
+    - service
+        - Service 
+        - ServiceDialog 
+        - ServiceApp 
+        - ServiceMenu 
+- util
+    - functional
+        - Predicate<T> 
+    - collection
+        - list
+            - LinkedList<T> 
+        - set
+            - LinkedSet<T> 
+        - map
+            - LinkedMap<K,V>
+        - Colection<T> 
+        - Node<T> 
+        - Iterator<T> 
+    - values
+        - Pair<K,V> 
+        - Optional<T> 
+        - Fraction 
+        - Date
+        - Time
+        - Interval<T> 
+        - DoubleInterval 
+        - FractionInterval 
+        - ... 
+    - view
+        - dialog
+            - collection
+                - list
+                    - LinkedListDialog<T> 
+                    - StringLinkedListDialog 
+                    - DoubleLinkedListDialog 
+                    - IntegerLinkedListDialog 
+                    - FractionIntervalLinkedListDialog 
+                    - FractionIntervalLinkedListLinkedListDialog 
+                    - ... 
+            - values
+                - FractionDialog 
+                - DateDialog 
+                - TimeDialog 
+                - IntervalDialog<T> 
+                - DoubleIntervalDialog 
+                - FractionIntervalDialog  
+                - ...  
+            - primitive
+                - Console
+                - Dialog<T> 
+                - SecuenceDialog<T>
+                - IntDialgog 
+                - DoubleDialog 
+                - ... 
+        - menu
+            - Menu<T> 
+            - QuitMenu<T> 
+            - IterativeMenu<T> 
+            - DynamicMenu<T> 
+            - Option 
+            - QuitOption 
+
 - Menú: derivadas anónimas y locales
 - LinkedList: mapper, confusion, ...
 ### Funciones Lambda

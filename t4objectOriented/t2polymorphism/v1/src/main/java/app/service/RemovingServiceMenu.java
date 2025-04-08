@@ -2,7 +2,6 @@ package app.service;
 
 import util.collection.list.LinkedList;
 import util.collection.map.LinkedMap;
-import util.collection.set.LinkedSet;
 import util.values.Date;
 import util.values.Interval;
 import util.values.Time;
@@ -26,7 +25,7 @@ public class RemovingServiceMenu extends DynamicMenu<LinkedMap<Date, Interval<Ti
       }
 
       public String getTitle() {
-          return super.getTitle() + ": " + this.date + ":" + 
+          return super.getTitle() + ": " + this.date + ": " + 
             this.getTarget().get(this.date);
       }
 
@@ -37,13 +36,11 @@ public class RemovingServiceMenu extends DynamicMenu<LinkedMap<Date, Interval<Ti
   }
 
   protected void addOptions() {
-    LinkedSet<Date> dates =  this.getTarget().keySet();
-    LinkedList<Date>.Iterator<Date> iterator = dates.iterator();
+    LinkedList<Date>.Iterator<Date> iterator = this.getTarget().keySet().iterator();
     while (iterator.hasNext()){
       this.add(new RemoveModelOption(this.getTarget(), iterator.next()));
     }
   }
-// edmundo parra n2, placa Marina Modista 1ºJ
 
 
 }

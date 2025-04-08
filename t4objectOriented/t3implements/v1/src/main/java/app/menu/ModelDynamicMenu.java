@@ -1,11 +1,12 @@
 package app.menu;
 
 import util.view.menu.DynamicMenu;
+import util.view.menu.Option;
 
-class ModelDynamicMenu extends DynamicMenu<Model> {
+class ModelDynamicMenu extends DynamicMenu<Model> implements Option {
 
     public ModelDynamicMenu(Model model) {
-        super("Model Dynamic Menu", model);
+        super("Eliminar", model);
         this.addOptions();
     }
 
@@ -32,6 +33,10 @@ class ModelDynamicMenu extends DynamicMenu<Model> {
         for (int i = 0; i < this.getTarget().size(); i++) {
             this.add(new RemoveModelOption(this.getTarget(), i));
         }
+    }
+    
+    public String getTitle() {
+        return "Eliminar";
     }
 
 }

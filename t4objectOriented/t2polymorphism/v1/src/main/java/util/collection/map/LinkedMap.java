@@ -17,11 +17,11 @@ public class LinkedMap<K,V> {
         while (iterator.hasNext()) {
             Pair<K,V> pair = iterator.next();
             if (pair.getKey().equals(key)) {
-                pair.setValue(value); // Update value if key exists
+                pair.setValue(value); 
                 return;
             }
         }
-        this.pairs.add(new Pair<>(key, value)); // Add new pair if key does not exist
+        this.pairs.add(new Pair<>(key, value)); 
     }
 
     public void remove(K key) {

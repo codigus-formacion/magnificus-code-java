@@ -7,8 +7,9 @@ import util.values.Date;
 import util.values.Interval;
 import util.values.Time;
 import util.view.menu.DynamicMenu;
+import util.view.menu.Option;
 
-public class RemovingServiceMenu extends DynamicMenu<LinkedMap<Date, Interval<Time>>> {
+public class RemovingServiceMenu extends DynamicMenu<LinkedMap<Date, Interval<Time>>> implements Option {
 
   public RemovingServiceMenu(LinkedMap<Date, Interval<Time>> services) {
       super("Menu de Borrado de Servicio", services);
@@ -41,6 +42,11 @@ public class RemovingServiceMenu extends DynamicMenu<LinkedMap<Date, Interval<Ti
     while (iterator.hasNext()){
       this.add(new RemoveModelOption(this.getTarget(), iterator.next()));
     }
+  }
+
+  @Override
+  public String getTitle() {
+    return "Borrar";
   }
 
 }

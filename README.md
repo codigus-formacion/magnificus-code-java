@@ -42,7 +42,7 @@
 CONCLUSIONES
 
 - Programación
-    - Aplicación: Colecciónes y flujos!!!
+    - Jerarquía (expresiones, sentencias, clases por composición/herencia en paquetes) de Vistas (Menu, Formularios, Dialogos) "paralela" a Jerarquía de Colecciónes y flujos de entidades/valores!!!
     - Mecanismos de Ocultación: modulo, paquete, clase, interna, local, anónima, función!! azucar sintáctico!!!
     - Mecanismos de Reusabilidad: comparativa
         - Genericidad/Parametrización
@@ -84,15 +84,15 @@ CONCLUSIONES
                 > Especialización
                 > Sustitución
     - Patrones de Diseño
-        - Patrón Builder*
-        - Patrón Composite
-        - Patrón Singleton
-        - Patrón Adapter
-        - Patrón Bridge
-        - Patrón Command
-        - Patrón Iterator
-        - Patrón Strategy
-        - Patrón Template Method
+        - Patrón Facade (Console)
+        - Patrón Singleton (Console)
+        - Patrón Bridge (jerarquía de vistas y modelos)
+        - Patrón Template Method (100 casos en dialogo, interval, collections, ...)
+        - Patrón Iterator (cada colección)
+        - Patrón Decorator (especialización por colaboración, Dialogo delegado)
+        - Patrón Composite (Opción y Menú)
+        - Patrón Command (Opción)
+        - Patrón Strategy (Cada Predicado, Consumer, ...)
         - ... 
     - Arquitectura del Software: Capas MVC con Jerarquía de Composición de Jerarquías de Clasificación de Clases Encarnables
         - Arquitectura Documento-Vista: "expuesta"
