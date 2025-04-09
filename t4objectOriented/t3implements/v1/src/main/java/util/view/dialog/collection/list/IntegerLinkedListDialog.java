@@ -3,6 +3,8 @@ package util.view.dialog.collection.list;
 import util.view.dialog.primitive.IntDialog;
 import util.collection.Iterator;
 import util.collection.list.LinkedList;
+import util.functional.Consumer;
+import util.functional.Predicate;
 import util.values.IntegerInterval;
 
 public class IntegerLinkedListDialog extends LinkedListDialog<LinkedList<Integer>> {
@@ -29,6 +31,10 @@ public class IntegerLinkedListDialog extends LinkedListDialog<LinkedList<Integer
         }
         this.addLine("sum: " + sum);
 
+        AccConsumer accConsumer = new AccConsumer();
+        linkedList.forEach(accConsumer);
+        this.addLine("sum: " + accConsumer.getSum());
+        
         LinkedList<Integer> mappedList = new LinkedList<Integer>();
         iterator = linkedList.iterator();
         while (iterator.hasNext()) {
@@ -52,6 +58,35 @@ public class IntegerLinkedListDialog extends LinkedListDialog<LinkedList<Integer
         this.addLine("mapToDouble *2: " + doubleList);
 
         this.addLine("asDoubleList: " + doubleList.toString());
+        this.addLine("filter PositivePredicate: " + linkedList.filter(new PrimePredicate()).toString());
+    
+    }
+    
+    class PrimePredicate implements Predicate<Integer> {
+        
+        public boolean test(Integer element) {
+            if (element < 2) {
+                return false;
+            }
+            for (int i = 2; i <= Math.sqrt(element); i++) {
+                if (element % i == 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
+    class AccConsumer implements Consumer<Integer> {
+        private int sum = 0;
+
+        public void accept(Integer element) {
+            this.sum += element;
+        }
+
+        public int getSum() {
+            return this.sum;
+        }
     }
 
 }

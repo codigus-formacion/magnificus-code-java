@@ -3,6 +3,7 @@ package util.collection.list;
 import util.collection.Collection;
 import util.collection.Iterator;
 import util.collection.Node;
+import util.functional.Predicate;
 import util.values.IntegerInterval;
 import util.values.Optional;
 
@@ -134,5 +135,18 @@ public class LinkedList<T> implements Collection<T>{
         }
         return "{" + string + "}";
     }
+
+    public Collection<T> filter(Predicate<T> predicate) {
+        LinkedList<T> filtered = new LinkedList<>();
+        Iterator<T> iterator = this.iterator();
+        while (iterator.hasNext()) {
+            T element = iterator.next();
+            if (predicate.test(element)) {
+                filtered.add(element);
+            }
+        }
+        return filtered;
+    }
+
 
 }

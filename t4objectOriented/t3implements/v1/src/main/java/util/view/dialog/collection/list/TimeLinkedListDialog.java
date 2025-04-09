@@ -2,6 +2,7 @@ package util.view.dialog.collection.list;
 
 import util.collection.Iterator;
 import util.collection.list.LinkedList;
+import util.functional.Predicate;
 import util.values.Time;
 import util.view.dialog.values.TimeDialog;
 
@@ -28,6 +29,14 @@ public class TimeLinkedListDialog extends LinkedListDialog<LinkedList<Time>> {
             sum = sum.add(iterator.next());
         }
         this.addLine("sum: " + sum);
+        this.addLine("filter PositivePredicate: " + linkedList.filter(new PostMeridianPredicate()).toString());
+    }
+
+    class PostMeridianPredicate implements Predicate<Time> {
+        
+        public boolean test(Time element) {
+            return element.after(new Time(12,0,0));
+        }
     }
 
 }

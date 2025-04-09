@@ -4,16 +4,11 @@ import util.view.dialog.primitive.DoubleDialog;
 import util.values.DoubleInterval;
 import util.collection.Iterator;
 import util.collection.list.LinkedList;
-import util.functional.Predicate;
 
 public class DoubleLinkedListDialog extends LinkedListDialog<LinkedList<Double>> {
 
     public DoubleLinkedListDialog(String title) {
         super(title, new DoubleDialog().regExp());
-    }
-
-    public DoubleLinkedListDialog() {
-        super("", new DoubleDialog().regExp());
     }
     
     public LinkedList<Double> create(String string) {
@@ -57,13 +52,6 @@ public class DoubleLinkedListDialog extends LinkedListDialog<LinkedList<Double>>
         this.addLine("mapToDouble *2: " + doubleList);
 
         this.addLine("asDoubleList: " + doubleList.toString());
-
-        class PositiveDoublePredicate implements Predicate<Double> {
-            public boolean test(Double value) {
-                return value >= 0.0;
-            }
-        }
-        this.addLine("filter: " + doubleList.filter(new PositiveDoublePredicate()).toString());
     }
 
 }

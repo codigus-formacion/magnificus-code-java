@@ -56,7 +56,6 @@ public class FractionIntervalDialog extends IntervalDialog<Fraction> {
         this.addLine("middlePoint: " + interval.middlePoint());
         this.addLine("shifted 1: " + interval.shifted(new Fraction(1)));
         this.addLine("scaled 2: " + interval.scaled(2));
-        this.addLine("symetric: " + interval.symetric());
         for (FractionInterval splitedInterval : interval.split(3)) {
             this.addLine("split: " + splitedInterval);
         }

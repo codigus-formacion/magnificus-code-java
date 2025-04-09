@@ -11,7 +11,7 @@ class ModelIterativeMenu extends IterativeMenu<Model> {
         this.add(new InverseListModelOption(this.getTarget()));
         this.add(new FindModelOption(this.getTarget()));
         this.add(new AddModelOption(this.getTarget()));
-        this.add(new RemoveModelsOption(this.getTarget()));
+        this.add(new ModelDynamicMenu(this.getTarget()));
     }
 
     class ListModelOption extends ModelOption {
@@ -79,17 +79,6 @@ class ModelIterativeMenu extends IterativeMenu<Model> {
             this.getTarget().add(string.trim());
         }
     
-    }
-
-    class RemoveModelsOption extends ModelOption {
-
-        public RemoveModelsOption(Model model) {
-            super("Eliminar", model);
-        }
-
-        public void interact() {
-            new ModelDynamicMenu(this.getTarget()).interact();
-        }
     }
 
 }

@@ -3,6 +3,7 @@ package util.collection.set;
 import util.collection.Collection;
 import util.collection.Iterator;
 import util.collection.list.LinkedList;
+import util.functional.Predicate;
 
 public class LinkedSet<T> implements Collection<T>{
     
@@ -65,6 +66,18 @@ public class LinkedSet<T> implements Collection<T>{
 
     public String toString() {
         return this.elements.toString();
+    }
+
+    public Collection<T> filter(Predicate<T> predicate) {
+        LinkedSet<T> filtered = new LinkedSet<>();
+        Iterator<T> iterator = this.iterator();
+        while (iterator.hasNext()) {
+            T element = iterator.next();
+            if (predicate.test(element)) {
+                filtered.add(element);
+            }
+        }
+        return filtered;
     }
 
 }

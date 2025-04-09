@@ -14,7 +14,7 @@ public class ServiceMenu extends IterativeMenu<LinkedMap<Date, Interval<Time>>> 
     super("Menú de Servicio", target);
     this.add(new ListOption(this.getTarget()));
     this.add(new AddOption(this.getTarget()));
-    this.add(new RemoveOption(this.getTarget()));
+    this.add(new RemovingServiceMenu(this.getTarget()));
   }
 
   class ListOption extends ServiceOption {
@@ -46,29 +46,6 @@ public class ServiceMenu extends IterativeMenu<LinkedMap<Date, Interval<Time>>> 
       this.getTarget().put(service.getKey(), service.getValue());
     }
 
-  }
-
-  class RemoveOption extends ServiceOption {
-
-    public RemoveOption(LinkedMap<Date, Interval<Time>> target) {
-      super("Borrar", target);
-    }
-
-    public void interact() {
-      RemovingServiceMenu menu = new RemovingServiceMenu(getTarget());
-      menu.interact();
-      // DateDialog dateDialog = new DateDialog("Fecha");
-      // Date date = dateDialog.read();
-      // Interval<Time> interval = this.getTarget().get(date);
-      // if (interval == null) {
-      //   Console.instance().writeln("No existe");
-      // } else {
-      //   this.getTarget().remove(date);
-      //   dateDialog.writeDetails(date);
-      //   TimeIntervalDialog timeIntervalDialog = new TimeIntervalDialog("Eliminado");
-      //   timeIntervalDialog.writeDetails(interval);
-      // }
-    }
   }
 
 }

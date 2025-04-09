@@ -14,11 +14,24 @@ public class Interval<T extends Comparable<T>> {
         this(interval.min(), interval.max());
     }
 
-    public boolean includes(T point) {
-        assert point != null;
-        return this.min().compareTo(point) <= 0 && point.compareTo(this.max()) <= 0;
+    public String toString() {
+        return "Interval [min=" + this.min + ", max=" + this.max + "]";
     }
 
+    public T min() {
+        return this.min;
+    }
+
+    public T max() {
+        return this.max;
+    }
+
+    public boolean includes(T point) {
+        assert point != null;
+
+        return this.min().compareTo(point) <= 0 && point.compareTo(this.max()) <= 0;
+    }
+    
     public boolean includes(Interval<T> interval) {
         assert this != null;
 
@@ -67,21 +80,9 @@ public class Interval<T extends Comparable<T>> {
     public Interval<T> superInterval(Interval<T> interval) {
         assert interval != null;
 
-        T min = this.min().compareTo(interval.min()) == -1 ? this.min() : interval.min();
-        T max = this.max().compareTo(interval.max()) == 1 ? this.max() : interval.max();
+        T min = this.min().compareTo(interval.min()) < 0 ? this.min() : interval.min();
+        T max = this.max().compareTo(interval.max()) > 0 ? this.max() : interval.max();
         return new Interval<T>(min, max);
-    }
-
-    public String toString() {
-        return "Interval [min=" + this.min + ", max=" + this.max + "]";
-    }
-
-    public T min() {
-        return this.min;
-    }
-
-    public T max() {
-        return this.max;
     }
 
     @Override
@@ -114,5 +115,7 @@ public class Interval<T extends Comparable<T>> {
             return false;
         return true;
     }
+
+    
 
 }

@@ -40,10 +40,6 @@ public class FractionInterval extends Interval<Fraction> {
         return new FractionInterval(newMiddelPoint.subtract(newHalfLength), newMiddelPoint.add(newHalfLength));
     }
 
-    public FractionInterval symetric() {
-        return new FractionInterval(this.max().opposite(), this.min().opposite());
-    }
-
     public FractionInterval[] split(int times) {
         assert times > 0;
 

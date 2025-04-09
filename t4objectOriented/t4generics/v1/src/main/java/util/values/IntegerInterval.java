@@ -14,10 +14,6 @@ public class IntegerInterval extends Interval<Integer> {
         this(interval.min(), interval.max());
     }
 
-    public boolean includes(int point) {
-        return this.min() <= point && point <= this.max();
-    }
-
     public IntegerInterval() {
         this(0);
     }
@@ -42,59 +38,6 @@ public class IntegerInterval extends Interval<Integer> {
 
     public IntegerInterval symetric() {
         return new IntegerInterval(-this.max(), -this.min());
-    }
-
-    public boolean includes(IntegerInterval interval) {
-        assert this != null;
-
-        return this.includes(interval.min())
-                && this.includes(interval.max());
-    }
-
-    public boolean isIntersected(IntegerInterval interval) {
-        assert interval != null;
-
-        return this.includes(interval.min())
-                || this.includes(interval.max())
-                || interval.includes(this);
-    }
-
-    public IntegerInterval intersection(IntegerInterval interval) {
-        assert this.isIntersected(interval);
-
-        if (this.includes(interval)) {
-            return new IntegerInterval(interval);
-        }
-        if (interval.includes(this)) {
-            return new IntegerInterval(this);
-        }
-        if (this.includes(interval.min())) {
-            return new IntegerInterval(interval.min(), this.max());
-        }
-        return new IntegerInterval(this.min(), interval.max());
-    }
-
-    public IntegerInterval union(IntegerInterval interval) {
-        assert this.isIntersected(interval);
-
-        if (this.includes(interval)) {
-            return new IntegerInterval(this);
-        }
-        if (interval.includes(this)) {
-            return new IntegerInterval(interval);
-        }
-        if (this.includes(interval.min())) {
-            return new IntegerInterval(this.min(), interval.max());
-        }
-        return new IntegerInterval(interval.min(), this.max());
-    }
-
-    public IntegerInterval superInterval(IntegerInterval interval) {
-        assert interval != null;
-
-        Integer min = this.min() < interval.min() ? this.min() : interval.min();
-        Integer max = this.max() > interval.max() ? this.max() : interval.max();
-        return new IntegerInterval(min, max);
     }
 
     public IntegerInterval[] split(int times) {

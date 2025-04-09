@@ -4,6 +4,8 @@ import util.view.dialog.primitive.DoubleDialog;
 import util.values.DoubleInterval;
 import util.collection.Iterator;
 import util.collection.list.LinkedList;
+import util.functional.Consumer;
+import util.functional.Predicate;
 
 public class DoubleLinkedListDialog extends LinkedListDialog<LinkedList<Double>> {
 
@@ -52,6 +54,32 @@ public class DoubleLinkedListDialog extends LinkedListDialog<LinkedList<Double>>
         this.addLine("mapToDouble *2: " + doubleList);
 
         this.addLine("asDoubleList: " + doubleList.toString());
+        this.addLine("filter PositivePredicate: " + linkedList.filter(new PositivePredicate()).toString());
+    
+        WriterConsumer accConsumer = new WriterConsumer(this);
+        linkedList.forEach(accConsumer);
+    }
+
+    class PositivePredicate implements Predicate<Double> {
+        
+        public boolean test(Double element) {
+            return element > 0.0;
+        }
+    }
+
+    class WriterConsumer implements Consumer<Double> {
+
+        private DoubleLinkedListDialog dialog;
+
+        public WriterConsumer(DoubleLinkedListDialog doubleLinkedListDialog) {
+            this.dialog = doubleLinkedListDialog;
+        }
+
+        public void accept(Double element) {
+            dialog.addLine(": " + element);
+        }
+
     }
 
 }
+
