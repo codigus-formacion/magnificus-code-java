@@ -34,7 +34,7 @@ public class IntegerLinkedListDialog extends LinkedListDialog<LinkedList<Integer
         AccConsumer accConsumer = new AccConsumer();
         linkedList.forEach(accConsumer);
         this.addLine("sum: " + accConsumer.getSum());
-        
+
         LinkedList<Integer> mappedList = new LinkedList<Integer>();
         iterator = linkedList.iterator();
         while (iterator.hasNext()) {
@@ -58,23 +58,21 @@ public class IntegerLinkedListDialog extends LinkedListDialog<LinkedList<Integer
         this.addLine("mapToDouble *2: " + doubleList);
 
         this.addLine("asDoubleList: " + doubleList.toString());
-        this.addLine("filter PositivePredicate: " + linkedList.filter(new PrimePredicate()).toString());
-    
-    }
-    
-    class PrimePredicate implements Predicate<Integer> {
-        
-        public boolean test(Integer element) {
-            if (element < 2) {
-                return false;
-            }
-            for (int i = 2; i <= Math.sqrt(element); i++) {
-                if (element % i == 0) {
+        this.addLine("filter PositivePredicate: " + linkedList.filter(new Predicate<Integer>() {
+
+            public boolean test(Integer element) {
+                if (element < 2) {
                     return false;
                 }
+                for (int i = 2; i <= Math.sqrt(element); i++) {
+                    if (element % i == 0) {
+                        return false;
+                    }
+                }
+                return true;
             }
-            return true;
-        }
+        }).toString());
+
     }
 
     class AccConsumer implements Consumer<Integer> {

@@ -12,7 +12,7 @@ public class DoubleLinkedListDialog extends LinkedListDialog<LinkedList<Double>>
     public DoubleLinkedListDialog(String title) {
         super(title, new DoubleDialog().regExp());
     }
-    
+
     public LinkedList<Double> create(String string) {
         LinkedList<Double> integers = new LinkedList<Double>();
         Iterator<String> iterator = this.strings(string).iterator();
@@ -54,32 +54,20 @@ public class DoubleLinkedListDialog extends LinkedListDialog<LinkedList<Double>>
         this.addLine("mapToDouble *2: " + doubleList);
 
         this.addLine("asDoubleList: " + doubleList.toString());
-        this.addLine("filter PositivePredicate: " + linkedList.filter(new PositivePredicate()).toString());
-    
-        WriterConsumer accConsumer = new WriterConsumer(this);
-        linkedList.forEach(accConsumer);
-    }
+        this.addLine("filter PositivePredicate: " + linkedList.filter(new Predicate<Double>() {
 
-    class PositivePredicate implements Predicate<Double> {
-        
-        public boolean test(Double element) {
-            return element > 0.0;
-        }
-    }
+            public boolean test(Double element) {
+                return element > 0.0;
+            }
+            
+        }).toString());
 
-    class WriterConsumer implements Consumer<Double> {
+        linkedList.forEach(new Consumer<Double>() {
+            public void accept(Double element) {
+                addLine(": " + element);
+            }
 
-        private DoubleLinkedListDialog dialog;
-
-        public WriterConsumer(DoubleLinkedListDialog doubleLinkedListDialog) {
-            this.dialog = doubleLinkedListDialog;
-        }
-
-        public void accept(Double element) {
-            dialog.addLine(": " + element);
-        }
-
+        });
     }
 
 }
-

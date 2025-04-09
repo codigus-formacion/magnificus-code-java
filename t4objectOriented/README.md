@@ -134,11 +134,11 @@
 
 - app
     - collection
-        - LinkedListApp -> Principio de Unicidad!! *
+        - PrimitiveApp -> Principio de Unicidad!!
+        - TimeApp -> Principio de Unicidad!!
         - FractionApp -> Principio de Unicidad!!
         - TntervalApp -> Principio de Unicidad!!
-        - TimeApp -> Principio de Unicidad!!
-        - PrimitiveApp -> Principio de Unicidad!!
+        - LinkedListApp -> Principio de Unicidad!! 
         - ... -> Principio de Unicidad!!
     - service
         - Service *
@@ -154,8 +154,8 @@
         - map
             - LinkedMap<K,V>
         - Colection<T> *
-        - Node<T> *
-        - Iterator<T> *
+        - Node<T> 
+        - Iterator<T> 
     - values
         - Pair<K,V> 
         - Optional<T> 
@@ -223,12 +223,12 @@
 - util
     - collection
         - list
-            - LinkedList<T> *
+            - LinkedList<T> 
         - set
-            - LinkedSet<T> *
+            - LinkedSet<T> 
         - map
             - LinkedMap<K,V>
-        - Colection<T> *
+        - Colection<T> 
         - Node<T> 
         - Iterator<T> 
     - values
@@ -277,6 +277,7 @@
 - Intervalo: Interval<T extends Comparable>
 
 - Distribuidor: <T extends Pesable> ... EJERCICIO!!!!!
+- Intervalo: Interval<T extends Aritmético> con sum, substract, ...
 
 
 ## Clases Anidadas y Herencia
