@@ -283,12 +283,153 @@
 ## Clases Anidadas y Herencia
 ### Clases Anónimas
 
-- Menú: derivadas anónimas y locales
-- LinkedList: mapper, confusion, ...
+- app
+    - collection
+        - LinkedListApp -> Principio de Unicidad!! 
+        - FractionApp -> Principio de Unicidad!!
+        - TntervalApp -> Principio de Unicidad!!
+        - TimeApp -> Principio de Unicidad!!
+        - PrimitiveApp -> Principio de Unicidad!!
+        - ... -> Principio de Unicidad!!
+    - service
+        - Service 
+        - ServiceDialog 
+        - ServiceApp 
+        - ServiceMenu *
+- util
+    - collection
+        - list
+            - LinkedList<T> 
+        - set
+            - LinkedSet<T> 
+        - map
+            - LinkedMap<K,V>
+        - Colection<T> 
+        - Node<T> 
+        - Iterator<T> 
+    - values
+        - Pair<K,V> 
+        - Optional<T> 
+        - Fraction 
+        - Date
+        - Time
+        - Interval<T extends Comparable<T>> 
+        - DoubleInterval 
+        - FractionInterval 
+        - ... 
+    - view
+        - dialog
+            - collection
+                - list
+                    - LinkedListDialog<T> 
+                    - StringLinkedListDialog *
+                    - IntegerLinkedListDialog *
+                    - FractionIntervalLinkedListDialog * 
+                    - FractionIntervalLinkedListLinkedListDialog *
+                    - ... 
+            - values
+                - FractionDialog 
+                - DateDialog 
+                - TimeDialog 
+                - IntervalDialog<T> 
+                - DoubleIntervalDialog 
+                - FractionIntervalDialog 
+                - ...  
+            - primitive
+                - Console
+                - Dialog<T> 
+                - SecuenceDialog<T>
+                - IntDialgog 
+                - DoubleDialog 
+                - ... 
+        - menu
+            - Menu<T> 
+            - QuitMenu<T> 
+            - IterativeMenu<T> 
+            - DynamicMenu<T> 
+            - Option 
+            - QuitOption 
+
+- CollectionList: filter, forEach, ... con anónimas
+- Menú: objetos derivadas Option  con anónimas
+
+- Mapper, Reduce, ... EJERCICIO!!!!
+- Dialog con semántica configurable ... EJERCICIO!!!!
+
 ### Funciones Lambda
 
+- app
+    - collection
+        - LinkedListApp *
+        - FractionApp *
+        - TntervalApp *
+        - TimeApp *
+        - PrimitiveApp * 
+        - ... 
+    - service
+        - Service 
+        - ServiceDialog 
+        - ServiceApp 
+        - ServiceMenu *
+        - RemovingServiceMenu *
+- util
+    - collection
+        - list
+            - LinkedList<T> 
+        - set
+            - LinkedSet<T> 
+        - map
+            - LinkedMap<K,V>
+        - Colection<T> *
+        - Node<T> 
+        - Iterator<T> 
+    - values
+        - Pair<K,V> 
+        - Optional<T> 
+        - Fraction 
+        - Date
+        - Time
+        - Interval<T extends Comparable<T>> 
+        - DoubleInterval 
+        - FractionInterval 
+        - ... 
+    - view
+        - dialog
+            - collection
+                - list
+                    - LinkedListDialog<T> 
+                    - StringLinkedListDialog *
+                    - IntegerLinkedListDialog *
+                    - FractionIntervalLinkedListDialog * 
+                    - FractionIntervalLinkedListLinkedListDialog *
+                    - ... 
+            - values
+                - FractionDialog 
+                - DateDialog 
+                - TimeDialog 
+                - IntervalDialog<T> 
+                - DoubleIntervalDialog 
+                - FractionIntervalDialog 
+                - ...  
+            - primitive
+                - Console
+                - Dialog<T> 
+                - SecuenceDialog<T>
+                - IntDialgog 
+                - DoubleDialog 
+                - ... 
+        - menu
+            - Menu<T> *
+            - QuitMenu<T> * 
+            - IterativeMenu<T> * 
+            - DynamicMenu<T> *
+            - Option *
+            - QuitOption * 
 
-- Menú: derivadas flecha
-- LinkedList: mapper, confusion, ...
+- CollectionList: filter, forEach, ... con ->
+- App: con ->
+- Menú: objetos derivadas Option con ->
 
+- Mapper, Reduce, ... EJERCICIO!!!!
+- Dialog con semántica configurable ... EJERCICIO!!!!
 
