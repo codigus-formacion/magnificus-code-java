@@ -33,20 +33,20 @@ public class LinkedListApp {
                         intLinkedListDialog.create("{100,150,200}")),
                 intLinkedListDialog);
 
-        // DoubleLinkedListDialog doubleLinkedListDialog = new DoubleLinkedListDialog("Lista de Decimales");
-        // PrimitiveApp.writeDetails(
-        //     Stream.of(
-        //         // doubleLinkedListDialog.read(),
-        //         Arrays.asList(new Double[] { 1.1, 2.2, 3.3 }),
-        //         List.of(4.4, 5.5, 6.6),
-        //         List.of(),
-        //         Stream.generate(() -> new Random().nextDouble(10)).limit(10)
-        //                 .collect(Collectors.toList()),
-        //         doubleLinkedListDialog.create("{}"),
-        //         doubleLinkedListDialog.create("{1.1,2.2,3.3}"),
-        //         doubleLinkedListDialog.create("{-3.3,-2.2,-1.1}"),
-        //         doubleLinkedListDialog.create("{100.0,150.0,200.0}")),
-        //     doubleLinkedListDialog);
+        DoubleLinkedListDialog doubleLinkedListDialog = new DoubleLinkedListDialog("Lista de Decimales");
+        PrimitiveApp.writeDetails(
+            Stream.of(
+                // doubleLinkedListDialog.read(),
+                Arrays.asList(new Double[] { 1.1, 2.2, 3.3 }),
+                List.of(4.4, 5.5, 6.6),
+                List.of(),
+                Stream.generate(() -> new Random().nextDouble(10)).limit(10)
+                        .collect(Collectors.toList()),
+                doubleLinkedListDialog.create("{}"),
+                doubleLinkedListDialog.create("{1.1,2.2,3.3}"),
+                doubleLinkedListDialog.create("{-3.3,-2.2,-1.1}"),
+                doubleLinkedListDialog.create("{100.0,150.0,200.0}")),
+            doubleLinkedListDialog);
         Console.close("0");
     }
 

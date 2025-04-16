@@ -162,7 +162,7 @@ public class Time implements Comparable<Time> {
         return new Time(hours, minutes, seconds);
     }
 
-    private int totalSeconds() {
+    public int totalSeconds() {
         return (this.hours * Time.SECONDS_MODULE * Time.MINUTES_MODULE) + (this.minutes * Time.SECONDS_MODULE) + this.seconds;
     }
 
@@ -183,7 +183,5 @@ public class Time implements Comparable<Time> {
         }
         return new Time(hours, minutes, seconds);
     }
-
-
 
 }

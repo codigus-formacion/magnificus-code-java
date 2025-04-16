@@ -1,7 +1,7 @@
 package util.view.dialog.values;
 
-import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 import util.values.DoubleInterval;
 import util.values.IntInterval;
@@ -30,12 +30,9 @@ public class IntIntervalDialog extends IntervalDialog<Integer> {
     }
 
     protected LinkedList<Integer> values(String string) {
-        LinkedList<Integer> doubleList = new LinkedList<Integer>();
-        Iterator<String> iterator = this.strings(string).iterator();
-        while (iterator.hasNext()) {
-            doubleList.add(new IntDialog().create(iterator.next()));
-        }
-        return doubleList;
+        return this.strings(string).stream()
+                .map(value -> new IntDialog().create(value))
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     public void addContent(Interval<Double> element) {

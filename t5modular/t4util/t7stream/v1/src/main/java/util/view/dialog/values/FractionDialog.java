@@ -1,7 +1,7 @@
 package util.view.dialog.values;
 
-import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 import util.values.Fraction;
 import util.view.dialog.primitive.IntDialog;
@@ -24,13 +24,10 @@ public class FractionDialog extends SecuenceDialog<Fraction> {
         return values.size() == 2 && values.get(1) != 0;
     }
 
-    private LinkedList<Integer> values(String string) {        
-        LinkedList<Integer> intList = new LinkedList<Integer>();
-        Iterator<String> iterator = this.strings(string).iterator();
-        while (iterator.hasNext()) {
-            intList.add(new IntDialog().create(iterator.next()));
-        }
-        return intList;
+    private LinkedList<Integer> values(String string) {
+        return this.strings(string).stream()
+                .map(s -> new IntDialog().create(s))
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     public Fraction create(String string) {

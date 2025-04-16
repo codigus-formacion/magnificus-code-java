@@ -2,9 +2,7 @@ package app.service;
 
 import util.view.menu.IterativeMenu;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.Set;
 
 import util.values.Date;
 import util.values.Interval;
@@ -15,12 +13,9 @@ public class ServiceMenu extends IterativeMenu {
   public ServiceMenu(LinkedHashMap<Date, Interval<Time>> target) {
     super("Menú de Servicio");
     this.add("Listar", () -> {
-      Set<Date> set = target.keySet();
-      Iterator<Date> iterator = set.iterator();
-      while (iterator.hasNext()) {
-        Date date = iterator.next();
-        new ServiceDialog().writeln(new Service(date, target.get(date)));
-      }
+      target.forEach((date, interval) -> 
+        new ServiceDialog().writeln(new Service(date, interval))
+      );
     });
     this.add("Añadir", () -> {
       ServiceDialog serviceDialog = new ServiceDialog("Servicio");

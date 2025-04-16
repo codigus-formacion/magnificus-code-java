@@ -1,7 +1,7 @@
 package util.view.dialog.values;
 
-import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 import util.values.Interval;
 import util.values.Time;
@@ -28,15 +28,12 @@ public class TimeIntervalDialog extends IntervalDialog<Time> {
     }
 
     protected LinkedList<Time> values(String string) {
-        LinkedList<Time> fractions = new LinkedList<Time>();
-        Iterator<String> iterator = this.strings(string).iterator();
-        while (iterator.hasNext()) {
-            fractions.add(new TimeDialog().create(iterator.next()));
-        }
-        return fractions;
+        return this.strings(string).stream()
+                .map(s -> new TimeDialog().create(s))
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
-    protected void addContent(Interval<Time> element) {
+    public void addContent(Interval<Time> element) {
         TimeInterval interval = new TimeInterval(element);
         Time initial = new Time(0,0,0);
         TimeInterval pivot = new TimeInterval(new Time(1,2,3), new Time(3,4,5));

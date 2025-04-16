@@ -80,7 +80,7 @@ public abstract class Dialog<T> {
         Console.instance().writeln(this.content);
     }
 
-    protected void addContent(T element) {
+    public void addContent(T element) {
 
     }
 

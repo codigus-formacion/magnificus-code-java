@@ -27,7 +27,7 @@ public class ServiceDialog extends PairDialog<Date, Interval<Time>> {
             new TimeIntervalDialog().create(strings.get(1)));
     }
     
-    protected void addContent(Pair<Date, Interval<Time>> element) {
+    public void addContent(Pair<Date, Interval<Time>> element) {
         Service service = (Service) element;
         this.addLine("Fecha: " + service.getKey());
         this.addLine("Intervalo de Horas: " + service.getValue());

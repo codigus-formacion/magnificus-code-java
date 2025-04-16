@@ -1,9 +1,7 @@
 package util.view.dialog.collection.list;
 
-import util.view.dialog.primitive.Console;
 import util.view.dialog.primitive.IntDialog;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,16 +15,12 @@ public class IntegerLinkedListDialog extends LinkedListDialog<List<Integer>> {
     }
 
     public List<Integer> create(String string) {
-        LinkedList<Integer> integers = new LinkedList<Integer>();
-        Iterator<String> iterator = this.strings(string).iterator();
-        while (iterator.hasNext()) {
-            String elementString = iterator.next();
-            integers.add(new IntDialog().create(elementString));
-        }
-        return integers;
+        return this.strings(string).stream()
+                .map(elementString -> new IntDialog().create(elementString))
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
-    public void addContent(LinkedList<Integer> linkedList) {
+    public void addContent(List<Integer> linkedList) {
         this.addTerminalLines(linkedList);
         this.addIntermediateLines(linkedList);
     }
@@ -36,11 +30,11 @@ public class IntegerLinkedListDialog extends LinkedListDialog<List<Integer>> {
         this.addLine("elementos: ", toIntStream(list));
         this.addLine("- terminalTest");
         this.addToNumberLines(list);
-        addToBooleanLines(list);
-        addToCollectionLines(list);
-        addVoidLines(list);
+        this.addToBooleanLines(list);
+        this.addToCollectionLines(list);
+        this.addVoidLines(list);
     }
-    
+
     private IntStream toIntStream(List<Integer> list) {
         return list.stream().mapToInt(integer -> integer.intValue());
     }
@@ -70,10 +64,9 @@ public class IntegerLinkedListDialog extends LinkedListDialog<List<Integer>> {
     }
 
     private void addToCollectionLines(List<Integer> list) {
-        Console.instance().writeln("- toCollectionTest");
-        Console.instance().writeln("collect toList: " + toIntStream(list).boxed().collect(Collectors.toList()));
-        Console.instance().writeln("collect toSet: " + toIntStream(list).boxed().collect(Collectors.toSet()));
-        // más de collectors desde Stream<T>!!!
+        this.addLine("- toCollectionTest");
+        this.addLine("collect toList: " + toIntStream(list).boxed().collect(Collectors.toList()));
+        this.addLine("collect toSet: " + toIntStream(list).boxed().collect(Collectors.toSet()));
         String string = "array: [";
         for (Integer integer : toIntStream(list).toArray()) {
             string += integer + ", ";
@@ -83,60 +76,57 @@ public class IntegerLinkedListDialog extends LinkedListDialog<List<Integer>> {
 
     private void addVoidLines(List<Integer> list) {
         this.addLine("-- voidTest");
-        toIntStream(list).forEach(integer -> {
-            Console.instance().writeln(integer);
+        this.toIntStream(list).forEach(integer -> {
+            this.addLine("" + integer);
         });
-        toIntStream(list).forEachOrdered(integer -> {
-            Console.instance().writeln(integer);
+        this.toIntStream(list).forEachOrdered(integer -> {
+            this.addLine("" + integer);
         });
     }
 
     private void addIntermediateLines(List<Integer> list) {
         this.addLine("- intermediateTest");
-        addSubstreamLines(list);
-        addConverterLines(list);
+        this.addSubstreamLines(list);
+        this.addConverterLines(list);
+        this.addToStringLines(list);
     }
 
     private void addSubstreamLines(List<Integer> list) {
         this.addLine("-- substreamTest");
-        this.addLine("filter %2==0: ", toIntStream(list).filter(integer -> integer % 2 == 0));
-        this.addLine("takeWhile < 5: ", toIntStream(list).takeWhile(integer -> integer < 5));
-        this.addLine("limit 5: ", toIntStream(list).limit(5));
-        this.addLine("dropWhile < 5: ", toIntStream(list).dropWhile(integer -> integer < 5));
-        this.addLine("skip 5: ", toIntStream(list).skip(5));
-        this.addLine("distinct: ", toIntStream(list).distinct());
-        this.addLine("sorted: ", toIntStream(list).sorted());
-        this.addLine("unordered: ", toIntStream(list).unordered());
+        this.addLine("filter %2==0: ", this.toIntStream(list).filter(integer -> integer % 2 == 0));
+        this.addLine("takeWhile < 5: ", this.toIntStream(list).takeWhile(integer -> integer < 5));
+        this.addLine("limit 5: ", this.toIntStream(list).limit(5));
+        this.addLine("dropWhile < 5: ", this.toIntStream(list).dropWhile(integer -> integer < 5));
+        this.addLine("skip 5: ", this.toIntStream(list).skip(5));
+        this.addLine("distinct: ", this.toIntStream(list).distinct());
+        this.addLine("sorted: ", this.toIntStream(list).sorted());
+        this.addLine("unordered: ", this.toIntStream(list).unordered());
     }
 
     private void addConverterLines(List<Integer> list) {
         this.addLine("-- converterTest");
 
-        this.addLine("boxed: ", toIntStream(list));
+        this.addLine("boxed: ", this.toIntStream(list));
 
-        this.addLine("map + 1: ", toIntStream(list).map(integer -> integer + 1));
-        Console.instance()
-                .writeln("mapToDouble + 1, sum: " + toIntStream(list).mapToDouble(integer -> (double) integer).sum());
-        Console.instance().writeln("asDoubleStream + 1, sum: " + toIntStream(list).asDoubleStream().sum());
-        Console.instance()
-                .writeln("mapToLong + 1, sum: " + toIntStream(list).mapToLong(integer -> (long) integer).sum());
-        Console.instance().writeln("asLongStream + 1, sum: " + toIntStream(list).asLongStream().sum());
-        Console.instance().writeln(
-                "mapToObj Interval: "
-                        + toIntStream(list).mapToObj(integer -> new Interval(-integer, integer)).toString());
-        // Console.instance().writeln("map + 1: " + intStream.flatMap(integer -> integer
+        this.addLine("map + 1: ", this.toIntStream(list).map(integer -> integer + 1));
+        this.addLine("mapToDouble + 1, sum: " + this.toIntStream(list).mapToDouble(integer -> (double) integer).sum());
+        this.addLine("asDoubleStream + 1, sum: " + this.toIntStream(list).asDoubleStream().sum());
+        this.addLine("mapToLong + 1, sum: " + this.toIntStream(list).mapToLong(integer -> (long) integer).sum());
+        this.addLine("asLongStream + 1, sum: " + this.toIntStream(list).asLongStream().sum());
+        this.addLine("mapToObj Interval: " + this.toIntStream(list).mapToObj(integer -> new Interval(-integer, integer)).toString());
+        // this.addLine("map + 1: " + intStream.flatMap(integer -> integer
         // + 1));
-        // Console.instance().writeln("map + 1: " + intStream.mapMulti(integer ->
+        // this.addLine("map + 1: " + intStream.mapMulti(integer ->
         // integer + 1));
     }
 
     private void addToStringLines(List<Integer> list) {
-        this.addLine("toString: " + toIntStream(list).toString());
-        this.addLine("joining - : " + toIntStream(list)
+        this.addLine("toString: " + this.toIntStream(list).toString());
+        this.addLine("joining - : " + this.toIntStream(list)
                 .boxed()
                 .map(element -> element.toString())
                 .collect(Collectors.joining(" - ")));
-                this.addLine("joining - [ ] : ", toIntStream(list));
+        this.addLine("joining - [ ] : ", this.toIntStream(list));
     }
 
     private <T> void addLine(String title, IntStream stream) {
@@ -145,5 +135,5 @@ public class IntegerLinkedListDialog extends LinkedListDialog<List<Integer>> {
                 .map(element -> element.toString())
                 .collect(Collectors.joining(", ", "[", "]")));
     }
-    
+
 }

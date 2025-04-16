@@ -1,8 +1,6 @@
 package app.service;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.Set;
 
 import util.values.Date;
 import util.values.Interval;
@@ -21,15 +19,10 @@ public class RemovingServiceMenu extends DynamicMenu implements Option {
   }
 
   protected void addOptions() {
-    Set<Date> dates = this.services.keySet();
-    Iterator<Date> iterator = dates.iterator();
-    while (iterator.hasNext()) {
-      Date date = iterator.next();
-      this.add("Eliminar : " + date + ":" + this.services.get(date),
-          () -> {
-            services.remove(date);
-          });
-    }
+    this.services.forEach((date, interval) -> 
+      this.add("Eliminar : " + date + ":" + interval, 
+          () -> services.remove(date))
+    );
   }
 
 }

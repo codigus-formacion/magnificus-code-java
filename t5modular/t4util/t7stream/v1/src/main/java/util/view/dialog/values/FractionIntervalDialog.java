@@ -1,7 +1,7 @@
 package util.view.dialog.values;
 
-import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 import util.values.Fraction;
 import util.values.FractionInterval;
@@ -28,15 +28,12 @@ public class FractionIntervalDialog extends IntervalDialog<Fraction> {
     }
 
     protected LinkedList<Fraction> values(String string) {
-        LinkedList<Fraction> fractions = new LinkedList<Fraction>();
-        Iterator<String> iterator = this.strings(string).iterator();
-        while (iterator.hasNext()) {
-            fractions.add(new FractionDialog().create(iterator.next()));
-        }
-        return fractions;
+        return this.strings(string).stream()
+            .map(s -> new FractionDialog().create(s))
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
-    protected void addContent(Interval<Fraction> element) {
+    public void addContent(Interval<Fraction> element) {
         FractionInterval interval = new FractionInterval(element);
         Fraction initial = new Fraction();
         FractionInterval pivot = new FractionInterval(new Fraction(1,2), new Fraction(3,4));
