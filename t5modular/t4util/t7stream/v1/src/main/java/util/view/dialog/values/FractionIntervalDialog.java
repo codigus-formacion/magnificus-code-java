@@ -1,5 +1,6 @@
 package util.view.dialog.values;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
@@ -54,9 +55,9 @@ public class FractionIntervalDialog extends IntervalDialog<Fraction> {
         this.addLine("middlePoint: " + interval.middlePoint());
         this.addLine("shifted 1: " + interval.shifted(new Fraction(1)));
         this.addLine("scaled 2: " + interval.scaled(2));
-        for (FractionInterval splitedInterval : interval.split(3)) {
-            this.addLine("split: " + splitedInterval);
-        }
+        Arrays.stream(interval.split(3))
+            .map(splitedInterval -> "split: " + splitedInterval)
+            .forEach(this::addLine);
     }
     
 }

@@ -43,13 +43,10 @@ public class FractionInterval extends Interval<Fraction> {
     public FractionInterval[] split(int times) {
         assert times > 0;
 
-        FractionInterval[] intervals = new FractionInterval[times];
         final Fraction length = this.length().divide(times).get();
-        intervals[0] = new FractionInterval(this.min(), this.min().add(length));
-        for (int i = 1; i < intervals.length; i++) {
-            intervals[i] = intervals[i - 1].shifted(length);
-        }
-        return intervals;
+        return java.util.stream.IntStream.range(0, times)
+            .mapToObj(i -> new FractionInterval(this.min().add(length.multiply(i)), this.min().add(length.multiply(i + 1))))
+            .toArray(FractionInterval[]::new);
     }
     
 }

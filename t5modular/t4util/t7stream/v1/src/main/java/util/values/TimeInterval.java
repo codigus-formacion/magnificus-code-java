@@ -46,10 +46,9 @@ public class TimeInterval extends Interval<Time> {
         assert times > 0;
 
         final Time length = this.length().divide(times);
-
         return IntStream.range(0, times)
-                        .mapToObj(i -> new TimeInterval(this.min().add(length.multiply(i)), 
-                                                        this.min().add(length.multiply(i + 1))))
+                        .mapToObj(time -> new TimeInterval(this.min().add(length.multiply(time)), 
+                                                        this.min().add(length.multiply(time + 1))))
                         .toArray(TimeInterval[]::new);
     }
 

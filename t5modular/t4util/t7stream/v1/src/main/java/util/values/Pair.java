@@ -1,11 +1,5 @@
 package util.values;
 
-import java.util.LinkedList;
-
-import util.view.dialog.collection.list.TimeLinkedListDialog;
-import util.view.dialog.values.DoubleIntervalDialog;
-import util.view.dialog.values.TimeDialog;
-
 public class Pair<K, V> {
 
     private K key;

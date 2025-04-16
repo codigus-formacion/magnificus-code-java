@@ -1,5 +1,6 @@
 package util.view.dialog.values;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
@@ -55,9 +56,9 @@ public class TimeIntervalDialog extends IntervalDialog<Time> {
         this.addLine("shifted 1,1,1: " + interval.shifted(new Time(1,1,1)));
         this.addLine("scaled 2: " + interval.scaled(2));
         this.addLine("symetric: " + interval.symetric());
-        for (TimeInterval splitedInterval : interval.split(3)) {
-            this.addLine("split: " + splitedInterval);
-        }
+        Arrays.stream(interval.split(3))
+            .map(splitedInterval -> "split: " + splitedInterval)
+            .forEach(this::addLine);
     }
     
 }

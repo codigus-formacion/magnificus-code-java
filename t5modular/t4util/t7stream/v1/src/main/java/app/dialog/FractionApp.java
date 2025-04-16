@@ -10,9 +10,9 @@ public class FractionApp {
 
     public static void main(String[] args) {
         FractionDialog fractionDialog = new FractionDialog("Fracción");
-        PrimitiveApp.writeDetails(
+        App.writeDetails(
             Stream.of(
-                // fractionDialog.read(),
+                fractionDialog.read(),
                 new Fraction(2, 3),
                 new Fraction(-1),
                 new Fraction(),

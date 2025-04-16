@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import util.values.Interval;
 
-public class IntegerLinkedListDialog extends LinkedListDialog<List<Integer>> {
+public class IntegerListDialog extends ListDialog<List<Integer>> {
 
-    public IntegerLinkedListDialog(String title) {
+    public IntegerListDialog(String title) {
         super(title, new IntDialog().regExp());
     }
 
@@ -113,7 +113,7 @@ public class IntegerLinkedListDialog extends LinkedListDialog<List<Integer>> {
         this.addLine("asDoubleStream + 1, sum: " + this.toIntStream(list).asDoubleStream().sum());
         this.addLine("mapToLong + 1, sum: " + this.toIntStream(list).mapToLong(integer -> (long) integer).sum());
         this.addLine("asLongStream + 1, sum: " + this.toIntStream(list).asLongStream().sum());
-        this.addLine("mapToObj Interval: " + this.toIntStream(list).mapToObj(integer -> new Interval(-integer, integer)).toString());
+        this.addLine("mapToObj Interval: " + this.toIntStream(list).mapToObj(integer -> new Interval<Integer>(-integer, integer)).toString());
         // this.addLine("map + 1: " + intStream.flatMap(integer -> integer
         // + 1));
         // this.addLine("map + 1: " + intStream.mapMulti(integer ->

@@ -12,7 +12,7 @@ public class TimeApp {
 
         public static void main(String[] args) {
                 TimeDialog timeDialog = new TimeDialog("Hora");
-                PrimitiveApp.writeDetails(
+                App.writeDetails(
                         Stream.of(
                                 // timeDialog.read(),
                                 new Time(0, 0, 0),
@@ -21,9 +21,9 @@ public class TimeApp {
                                 timeDialog.create("23:59:59")),
                         timeDialog);
                 DateDialog dateDialog = new DateDialog("Fecha");
-                PrimitiveApp.writeDetails(
+                App.writeDetails(
                         Stream.of(
-                                dateDialog.read(),
+                                // dateDialog.read(),
                                 new Date(2025, 1, 1),
                                 new Date(2025, 12, 30),
                                 dateDialog.create("2025/1/1"),

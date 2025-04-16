@@ -1,10 +1,11 @@
 package util.view.dialog.values;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 import util.values.DoubleInterval;
-import util.values.IntInterval;
+import util.values.IntegerInterval;
 import util.values.Interval;
 import util.view.dialog.primitive.DoubleDialog;
 import util.view.dialog.primitive.IntDialog;
@@ -24,9 +25,9 @@ public class IntIntervalDialog extends IntervalDialog<Integer> {
         return values.get(0) <= values.get(1);
     }
 
-    public IntInterval create(String string) {
+    public IntegerInterval create(String string) {
         LinkedList<Integer> values = this.values(string);
-        return new IntInterval(values.get(0), values.get(1));
+        return new IntegerInterval(values.get(0), values.get(1));
     }
 
     protected LinkedList<Integer> values(String string) {
@@ -55,9 +56,9 @@ public class IntIntervalDialog extends IntervalDialog<Integer> {
         this.addLine("shifted 1: " + interval.shifted(1));
         this.addLine("scaled 2: " + interval.scaled(2));
         this.addLine("symetric: " + interval.symetric());
-        for (DoubleInterval splitedInterval : interval.split(3)) {
-            this.addLine("split: " + splitedInterval);
-        }
+        Arrays.stream(interval.split(3))
+            .map(splitedInterval -> "split: " + splitedInterval)
+            .forEach(this::addLine);
     }
 
 }

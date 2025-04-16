@@ -1,6 +1,7 @@
 package util.values;
 
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 public class Fraction implements Comparable<Fraction> {
 
@@ -72,11 +73,9 @@ public class Fraction implements Comparable<Fraction> {
   public Fraction power(int exponent) {
     assert exponent >= 0;
 
-    Fraction power = new Fraction(1);
-    for (int i = 0; i < exponent; i++) {
-      power = power.multiply(this);
-    }
-    return power;
+    return IntStream.range(0, exponent)
+      .mapToObj(i -> this)
+      .reduce(new Fraction(1), Fraction::multiply);
   }
 
   public Optional<Fraction> divide(Fraction fraction) {

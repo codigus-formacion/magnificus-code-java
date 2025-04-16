@@ -13,7 +13,7 @@ public class IntervalApp {
 
     public static void main(String[] args) {
         DoubleIntervalDialog doubleIntervalDialog = new DoubleIntervalDialog("Intervalo de Doubles");
-        PrimitiveApp.writeDetails(
+        App.writeDetails(
                 Stream.of(
                         // doubleIntervalDialog.read(),
                         new DoubleInterval(-1, 1),
@@ -22,7 +22,7 @@ public class IntervalApp {
                 doubleIntervalDialog);
 
         FractionIntervalDialog fractionIntervalDialog = new FractionIntervalDialog("Intervalo de Fracciones");
-        PrimitiveApp.writeDetails(
+        App.writeDetails(
                 Stream.of(
                         // fractionIntervalDialog.read(),
                         new FractionInterval(new Fraction(-1), new Fraction(1)),

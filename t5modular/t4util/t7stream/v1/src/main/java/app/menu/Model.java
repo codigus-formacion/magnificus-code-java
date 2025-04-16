@@ -20,7 +20,7 @@ public class Model {
     public void remove(int index) {
         assert 0 <= index && index < this.size();
 
-        this.remove(index);
+        this.strings.remove(index);
     }
 
     public String get(int index) {

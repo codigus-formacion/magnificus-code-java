@@ -1,5 +1,7 @@
 package util.view.dialog.primitive;
 
+import java.util.stream.Stream;
+
 public abstract class Dialog<T> {
 
     private String title;
@@ -21,17 +23,20 @@ public abstract class Dialog<T> {
     }
 
     public T read() {
-        String input;
-        boolean valid;
-        do {
-            Console.instance().write(this.title + " (" + this.regExp + "): ");
-            input = Console.instance().readString();
-            valid = this.isValid(input);
-            if (!valid) {
-                Console.instance().writeln("Fallo!!!" + this.errorMsg());
-            }
-        } while (!valid);
-        return this.create(input);
+        return Stream.generate(() -> {
+                Console.instance().write(this.title + " (" + this.regExp + "): ");
+                return Console.instance().readString();
+            })
+            .filter(input -> {
+                boolean valid = this.isValid(input);
+                if (!valid) {
+                    Console.instance().writeln("Fallo!!!" + this.errorMsg());
+                }
+                return valid;
+            })
+            .findFirst()
+            .map(this::create)
+            .get();
     }
 
     private String errorMsg() {

@@ -20,6 +20,6 @@ public class Math {
             return false;
         }
         return IntStream.rangeClosed(2, (int) java.lang.Math.sqrt(number))
-                .noneMatch(i -> number % i == 0);
+                .noneMatch(divisor -> number % divisor == 0);
     }
 }

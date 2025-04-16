@@ -1,5 +1,6 @@
 package util.view.dialog.values;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
@@ -53,9 +54,9 @@ public class DoubleIntervalDialog extends IntervalDialog<Double> {
         this.addLine("shifted 1: " + interval.shifted(1));
         this.addLine("scaled 2: " + interval.scaled(2));
         this.addLine("symetric: " + interval.symetric());
-        for (DoubleInterval splitedInterval : interval.split(3)) {
-            this.addLine("split: " + splitedInterval);
-        }
+        Arrays.stream(interval.split(3))
+            .map(splitedInterval -> "split: " + splitedInterval)
+            .forEach(this::addLine);
     }
 
 }

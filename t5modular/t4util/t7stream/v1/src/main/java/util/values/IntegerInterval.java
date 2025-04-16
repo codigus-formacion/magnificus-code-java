@@ -43,13 +43,10 @@ public class IntegerInterval extends Interval<Integer> {
     public IntegerInterval[] split(int times) {
         assert times > 0;
 
-        IntegerInterval[] intervals = new IntegerInterval[times];
         final Integer length = this.length() / times;
-        intervals[0] = new IntegerInterval(this.min(), this.min() + length);
-        for (int i = 1; i < intervals.length; i++) {
-            intervals[i] = intervals[i - 1].shifted(length);
-        }
-        return intervals;
+        return java.util.stream.IntStream.range(0, times)
+            .mapToObj(i -> new IntegerInterval(this.min() + i * length, this.min() + (i + 1) * length))
+            .toArray(IntegerInterval[]::new);
     }
 
 }

@@ -20,6 +20,13 @@ public class ServiceDialog extends PairDialog<Date, Interval<Time>> {
         this("");
     }
 
+    protected boolean isSemanticValid(String string) {
+        LinkedList<String> values = this.strings(string);
+        return values.size() == 2 
+            && new DateDialog().isSemanticValid(values.get(0))
+            && new TimeIntervalDialog().isSemanticValid(values.get(1));
+      }
+
     public Pair<Date, Interval<Time>> create(String input) {
         LinkedList<String> strings = this.strings(input);
         return new Service(

@@ -9,9 +9,9 @@ import util.values.Interval;
 import util.values.Time;
 import util.view.dialog.values.TimeDialog;
 
-public class TimeLinkedListDialog extends LinkedListDialog<List<Time>> {
+public class TimeListDialog extends ListDialog<List<Time>> {
 
-    public TimeLinkedListDialog(String title) {
+    public TimeListDialog(String title) {
         super(title, new TimeDialog().regExp());
     }
     
@@ -96,7 +96,7 @@ public class TimeLinkedListDialog extends LinkedListDialog<List<Time>> {
         this.addLine("boxed: ", list.stream());
 
         this.addLine("map totalSeconds: " + list.stream().map(time -> time.totalSeconds()).toString());
-        this.addLine("map Interval: " + list.stream().map(time -> new Interval(time, time.next())).toString());
+        this.addLine("map Interval: " + list.stream().map(time -> new Interval<Time>(time, time.next())).toString());
         this.addLine("mapToDouble + 1, sum: " + list.stream().mapToDouble(time -> time.totalSeconds()).sum());
         this.addLine("mapToLong + 1, sum: " + list.stream().mapToLong(time -> time.totalSeconds()).sum());
         // this.addLine("map + 1: " + intStream.flatMap(integer -> integer

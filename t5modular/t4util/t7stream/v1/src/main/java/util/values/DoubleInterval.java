@@ -1,5 +1,7 @@
 package util.values;
 
+import java.util.stream.IntStream;
+
 public class DoubleInterval extends Interval<Double> {
 
     public DoubleInterval(double min, double max) {
@@ -43,13 +45,10 @@ public class DoubleInterval extends Interval<Double> {
     public DoubleInterval[] split(int times) {
         assert times > 0;
 
-        DoubleInterval[] intervals = new DoubleInterval[times];
         final double length = this.length() / times;
-        intervals[0] = new DoubleInterval(this.min(), this.min() + length);
-        for (int i = 1; i < intervals.length; i++) {
-            intervals[i] = intervals[i - 1].shifted(length);
-        }
-        return intervals;
+        return IntStream.range(0, times)
+            .mapToObj(index -> new DoubleInterval(this.min() + index * length, this.min() + (index + 1) * length))
+            .toArray(DoubleInterval[]::new);
     }
 
     

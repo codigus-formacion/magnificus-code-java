@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
-public class DoubleLinkedListDialog extends LinkedListDialog<List<Double>> {
+public class DoubleListDialog extends ListDialog<List<Double>> {
 
-    public DoubleLinkedListDialog(String title) {
+    public DoubleListDialog(String title) {
         super(title, new DoubleDialog().regExp());
     }
 
@@ -112,7 +112,7 @@ public class DoubleLinkedListDialog extends LinkedListDialog<List<Double>> {
         this.addLine("map + 1, sum: " + this.toDoubleStream(list).map(decimal -> decimal + 1).sum());
         this.addLine("asDoubleStream + 1, sum: " + this.toDoubleStream(list).sum());
         this.addLine("mapToLong + 1, sum: " + this.toDoubleStream(list).mapToLong(decimal -> (long) decimal).sum());
-        this.addLine("mapToObj Interval: " + this.toDoubleStream(list).mapToObj(decimal -> new Interval(-decimal, decimal)).toString());
+        this.addLine("mapToObj Interval: " + this.toDoubleStream(list).mapToObj(decimal -> new Interval<Double>(-decimal, decimal)).toString());
         // this.addLine("map + 1: " + intStream.flatMap(decimal -> decimal
         // + 1));
         // this.addLine("map + 1: " + intStream.mapMulti(decimal ->
