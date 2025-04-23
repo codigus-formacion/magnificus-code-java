@@ -34,22 +34,21 @@
     - [Introducción](practica.plantuml)
     - Sin dominio practicar: 
         - con requisitos de teoría futura: colecciones y flujos
-        - con el bien y el mal o alternativas
+        - del mal al bien y/o alternativas
     - Con dominio: 
         - Ejemplo: Plataforma educativa
+        - EJERCIICO: Marcador de Tenis por comandos/menu
         - EJERCICIO: Gestor de Servicios con intervalos de horas y grado de satisfacción para distintos días o intervalos de días del año o periódicas por cada cliente: colisiones, informes, ...
 
 CONCLUSIONES
 
 - Programación
-    - Jerarquía (expresiones, sentencias, clases por composición/herencia en paquetes) de Vistas (Menu, Formularios, Dialogos) "paralela" a Jerarquía de Colecciónes y flujos de entidades/valores!!!
-    - Mecanismos de Ocultación: modulo, paquete, clase, interna, local, anónima, función!! azucar sintáctico!!!
     - Mecanismos de Reusabilidad: comparativa
         - Genericidad/Parametrización
             - reusa estructura de código salpicado de variables de tipo abiertas a cualquier tipo concreto
                 - estruturas de datos y 
                 - algoritmos con jerarquía de estrcturas de control de flujo de ejecucuión
-            - 5%, raro pero con una EFECTIVIDAD!!!
+            - 5%, raro pero con una EFECTIVIDAD!!! vs 50% por cada Interfaz Funcional
             - si se complica ... con código por composicion y herencia
         - Herencia/Clasificación 
             - reusa código "rigido/estático"
@@ -59,6 +58,8 @@ CONCLUSIONES
             - reusa código "flexible/dinámico"
             - 75% de modelo del dominio y por Patrón Adapter
             - ... no se complica, tritura y jerarquiza hasta encontrar el orden!!! Principios!!!
+    - Mecanismos de Ocultación: modulo, paquete, clase, interna, local, anónima, función!! reglas de ámbito con azucar sintáctico!!!
+    - Jerarquía (expresiones, sentencias, clases por composición/herencia en paquetes) de Vistas (Menu, Formularios, Dialogos) "paralela" a Jerarquía de Colecciónes/Flujos de Entidades/Valores!!!
 
 - Diseño
     - Principios de Diseño ... de Información!
@@ -75,10 +76,10 @@ CONCLUSIONES
                     < Principio de Cohesión
                     < Principio de Desacoplamiento
                     < Principio de Granularización
-                : relaciones: jerarquía de composición(genericidad)
+                : relaciones: jerarquía de colaboración(composición, asociación genericidad)
                     < Principio de Jerarquización
                     < Principio de Dominio
-                    < Principio de Tecnología
+                    < Principio de la Tecnología
         - Principio de Extensibilidad: jeraquía de clasificacion(genericidad)
                 > Generalización
                 > Especialización
@@ -101,107 +102,112 @@ CONCLUSIONES
                 - Origen: Principio de Dominio
                 - Acoplado: Modelos 
             - Vista: tecnologías
-                - Origen: Principio de Tecnología
-                - Acoplado: Controladores y/o Modelos
-            - Controlador: intermediario entre Vista y Modelo
+                - Origen: Principio de Tecnología (interfaz de usuario menu/cli texto/gráfico)
+                - Responsabilidad: enviar peticiones correctas del cliente al controlador
+                - Acoplado: Controladores y Modelos devueltos opcionalmente
+            - Controlador: 
                 - Origen:   
-                    - Principio de Desacoplamiento: la vista está enfocada a tecnologías de entrada/salida y nada más!!!
-                    - Principio de Unificación: varias vistas realizan las mismas consultas y actuliazaciónes de los modelos, recuperan y persisten, log, ...
+                    - Principio de Desacoplamiento: 
+                        - vista está enfocada a tecnologías de entrada/salida del cliente!!!
+                        - controlador está enfocado a tecnologías de entrada/salidad de los servicios!!!
+                    - Principio de Unificación: varias vistas realizan las mismas consultas y actuliazaciónes de los modelos, recuperan y persisten, logs, ...
+                - Responsabilidad: reglas del negocio: CRUD de modelos del dominio como intermediario entre Vistas y Modelos colaborando con otros servicios => Facade
                 - Acoplado: 
-                    - BackEnd(CRUD): 
-                        - Controlador gestión de: 
-                            - Persistencia (proxy/base acceso a SQL, NotSQL, ...)
-                                - Principio de Extensibilidad
-                            - Modelos y Colecciones 
-                            - Auxiliares: permisos, logs, ... servicios
-                        - Vistas: resources, controller?!?!?!?, ..., dispatcher, ... 
-                        - ... DTO, Error, ... Mapper, ... ResultSet, ...
-                    - FrontEnd (CRUD):
-                        - Controlador gestión de: 
-                            - Acceso a Backend (proxy/base acceso REST, GraphQL, ...)
-                            agrupado por: 
-                                - pantallas en el FrontEnd, donde el controlador atiende peticiones de la vista (interfaz gráfica de usuario, texto -CLI, menu, ...)
-                            - Modelos y Colecciones, 
-                            - ... Events, Layaouts, ...
-                        - Vistas: Dialgos -> form, frame, ..., window, ... 
-                        - ... xxx, ... yyy, ...
-        - Estilos
-            - MVP con Presentador: "expuesta"
-            - MVP con Controlador Supervisor/Vista Pasiva: alternativas por Inversión de control (cliente->colaborador vs colaborador->client)
-                    - Patrones Obeservador
-                    - ...
-        - Presencia
-            - Modelo 
-                - Modelo - Modelo
-                    - Lista - Nodo - Entidad - Entidad, ...
-            - Controlador 
-                - Controlador - Modelo
-                    - Controlador - DAO - Entidad, ...
-                - Controlador - Controlador
-                    - Controlador - Controlador - Mapper, ...
-            - Vista 
-                - Vista - Vista
-                    - Menu - Opción - Dialogo - Dialogo, ...
-                    - DIV - DIV - FORM - INPUT, ...
-                    - CLI - Command - CLI - Command, ...
-                - Vista - Controlador
-                - Vista - Modelo
+                    - FrontEnd:
+                        - Vistas: Menu, Dialgos, ..., DIV, FORM, ..., frame, window, ... 
+                            - Acceso al Usuario: grafico, texto, gadgets, ...
+                            - Auxiliares: Math, Colorator, Events, Layaouts, ...
+                        - Controlador: 
+                            - Agrupado por pantallas/modelos
+                            - Acceso al Backend (proxy de TCP/IP, HTTP, ...)
+                            - Auxiliares: DAO, File, ...
+                        - Modelos y Colecciones, Values, Error, ... 
+                    - BackEnd:                         
+                        - Vistas: resources, controller?!?!?!?, dispatcher, ...  
+                            - Acceso del Backend: HTTP, TCP/IP, ...
+                            - Auxiliares: ... DTO, ... Mapper, ... 
+                        - Controlador: services, ...
+                            - Acceso a Persistencia/... (proxy a SQL, NotSQL, files, ...)
+                            - Auxiliares: DAO, ResultSet, ..., permisos, logs, ... 
+                                - Principio de Extensibilidad!!! 
+                        - Modelos y Colecciones, Entity, Value, Error, ...
+                    - Monolito
+                        - Vistas: del Front sin "proxy" (controlador del frontend)
+                        - Controlador: del Backend sin "adapter" (vista del backend)
+                        - Modelos
+            - Jerarquía en capas MVC
+                - Modelo 
+                    - Modelo - Modelo
+                        - Lista - Nodo - Entidad - Valor, ...
+                - Controlador 
+                    - Controlador - Modelo
+                        - Controlador - DAO - Entidad, ...
+                    - Controlador - Controlador
+                        - Controlador - Controlador - Mapper, ...
+                - Vista 
+                    - Vista - Vista
+                        - Menu - Opción - Dialogo - Dialogo, ...
+                        - DIV - DIV - FORM - INPUT, ...
+                        - CLI - Command - CLI - Command, ...
+                    - Vista - Controlador
+                    - Vista - Modelo
             - Tecnologías:
                 - Spring: Entity + Controller + Service
-                - Android: Entitiy++ Activity + Controler
+                - Android: Entitiy + Activity + Controler
                 - Angular: HTML + CSS + Controller
-                - React: Componente-JSX+CSS+Hook
+                - React: Componente + JSX + CSS+Hook
                     - Jerárquico: componentes MVC - componente MVC, ...
-
-
+            - Estilos
+                - MVP con Presentador: "expuesta"
+                - MVP con Controlador Supervisor/Vista Pasiva: alternativas por Inversión de control (cliente->colaborador vs colaborador->client)
+                        - Patrones Obeservador
+                        - ...
 
 - Funciones Lambda
-    - Funciónal/Declarativa(Lógica) vs Imperativo?!?
-        - Transparencia Referencial: 
-            - Sin mutabilidad, sin variables, ... todo simbolos asociados a constantes
-                - Java+Lambdas: objetos mutables?!?!
-            - Sin tiempo, sin secuencia, sin alternativas, sin bucles, ... todo recursividad mediante el operador if, no sentencia!
+    - Dónde? Ámbito de aplicación:
+        - Modelo ... con colecciones
+        - Controladores para consultas!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+        - Vistas ... con colecciones
+    - Cuánto? aprox-aprox 30% de esfuerzo de implementación (30% proyecto) => 9% proyecto!!!
+    - Qué? 
+        - Programación Funciónal/Declarativa(Lógica) vs Imperativa?!? 
+            - Transparencia Referencial vs Opacidad Referencial
+                - Funcional: Sin mutabilidad, sin variables, ... todo simbolos asociados a constantes
+                - Java+Lambdas: objetos mutables, locales mutables, ...?!?!
+            - Expresiones vs Sentencias
+                - Funcional: Sin tiempo, sin secuencia, sin alternativas, sin bucles, ... todo recursividad mediante el operador if, no sentencia!
                 - Java+Lambdas: sentencia secuencial y más allá?!?!
-    - Orientada a Funciones o a Objetos
-    - Aplicación funciones Lambda (objeto-función)
-        - Ámbito
-            - Modelo ... con colecciones
-            - Controladores para consultas!!!!!!!! 
-            - Vistas ... con coleeciones
-            - ... 30% de implementación (30% proyecto) => 9% proyecto!!!
-        - Ventajas
-            - Principio de Legibildad: se simplifica todo
-                - Principio de Unicidad: se secuencializa!!!! todo
-                - Principio de Uniformidad: programación declarativa!??!
-                - Principio de Minimización: sin verbosidad se secuencializa!!!! todo
-            - Principio de Modularidad: cosifición/acción/ ... partir más!
-            - Principio de Extensibilidad: polimorfismo por implementacion de interfaces ... Patrón estrategia
-        - Desventajas
-            - Principio de Legibilidad?!?!?
-                - Ejemplo ;})}))}
-                - sin explicitar nombre?!?!
-            - Principio de Unicidad?!?
-                - repite código "a mansalva"?!?! de operativas comunes en distintos controladores sobre los mismos flujos?!?!?
-                - paradigma?!?!?
-                    - funcional e imperativo?!?
-                        - cuando se complica el algoritmo se mezclan for y stream?!?!
-                        - constantes efectivas de tipo primitivo pero no los objetos que cuelgan de referencias constantes efectivas: funcional??!
-                    - objetos y procesos?!?
-                        - parto en 4 el DAO/Dialogo(Input/Label, Lector/Escrito)?!!? 
-                        - Había problema, por qué?!?!? 
-                            - No pero Principio de Uniformidad al extremo ... 
-                                - Vete a C o uno que te permita solo funciones libre ... 
-                                - No, me quedo con clases y procesos! Más es más
-                                - Por qué 2 organizaciones si con uno se hace todo? Menos es más!!!! Qué criterio para organizar en clase y o proceso?!?!
-                                - ... silencio o ejemplos, no un criterio! Know-how 
-                                    - arquitectrua hexagonal, clean, onion, ... en vez de pragmática de mvc 
-                            - Si la entra y salida son tecnologías completamente dispares
-                                - Ok, modulariza y cuando surjan objetos-función disfruta de su sintaxis!!!
-        - Conclusion: 
-            - Nombre y descripción muy muy confusas, ... falsas, marketing??!?
-            - Está más o menos bien pero 
-                - no arregla un proyecto ... 
-                - la experiencia más bien es contraproducente ... 
-                    - por el contexto (nivel cultural)
-            - prudencia, ... equilibrio!!! 
+        - Orientada a Funciones o a Objetos inmutables con métodos "return ? " recursivos!!!!!!!
+    - Ventajas
+        - Principio de Legibildad: se simplifica todo
+            - Principio de Unicidad: se secuencializa!!!! todo
+            - Principio de Uniformidad: programación declarativa!!!!?
+            - Principio de Minimización: sin verbosidad se secuencializa!!!! todo
+        - Principio de Modularidad: cosifición/acción/ ... partir más! Patrón Visitor!!!
+        - Principio de Extensibilidad: polimorfismo por implementacion de interfaces ... Patrón estrategia
+    - Desventajas
+        - Principio de Legibilidad?!?!?
+            - Ejemplo ;})}))}
+            - sin explicitar nombre?!?!
+        - Principio de Unicidad?!?
+            - repite código "a mansalva"?!?! de operativas comunes en distintos controladores sobre los mismos flujos?!?!?
+            - paradigma?!?!?
+                - funcional e imperativo?!?
+                    - cuando se complica el algoritmo se mezclan for y stream?!?!
+                    - constantes efectivas de tipo primitivo pero no los objetos que cuelgan de referencias constantes efectivas: funcional??!
+                - objetos y procesos?!?
+                    - parto en 4 el DAO/Dialogo(Input/Label, Lector/Escrito)?!!? 
+                    - Había problema, por qué?!?!? 
+                        - No pero Principio de Uniformidad al extremo ... 
+                            - Vete a C o uno que te permita solo funciones libre ... 
+                            - No, me quedo con clases y procesos! Más es más
+                            - Por qué 2 organizaciones si con uno se hace todo? Menos es más!!!! Qué criterio para organizar en clase y o proceso?!?!
+                            - ... silencio o ejemplos, no un criterio! Know-how 
+                                - arquitectrua hexagonal, clean, onion, ... en vez de pragmática de mvc 
+    - Conclusion: 
+        - Nombre y descripción muy muy confusas, ... falsas, marketing??!?
+        - Está más o menos bien pero 
+            - no arregla un proyecto ... 
+            - la experiencia más bien es contraproducente ... muy dependiente del nivel cultural
+        - prudencia, ... equilibrio!!! me dejaría arrastrar!!!
 
