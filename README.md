@@ -54,11 +54,13 @@ CONCLUSIONES
             - reusa código "rigido/estático"
             - 20%, habitual pero muy sencilla 
             - si se complica ... por composición+herencia con código "flexible/dinámico"!
-        - Compisición/Agregación/Jeraquía 
+        - Compisición/Colabroración 
             - reusa código "flexible/dinámico"
             - 75% de modelo del dominio y por Patrón Adapter
             - ... no se complica, tritura y jerarquiza hasta encontrar el orden!!! Principios!!!
-    - Mecanismos de Ocultación: modulo, paquete, clase, interna, local, anónima, función!! reglas de ámbito con azucar sintáctico!!!
+    - Mecanismos de Ocultación: 
+        - modulo, paquete, clase, interna, local, anónima, función lamda, referencia a método!!!! 
+        - reglas de ámbito con azucar sintáctico!!!
     - Jerarquía (expresiones, sentencias, clases por composición/herencia en paquetes) de Vistas (Menu, Formularios, Dialogos) "paralela" a Jerarquía de Colecciónes/Flujos de Entidades/Valores!!!
 
 - Diseño
@@ -69,21 +71,21 @@ CONCLUSIONES
             > Principio de Minimización
         - Principio de Modularidad: cada modulo (aplicación/componente/paquete/clase/función)
                 : interfaz/publico/caja negra
-                    < Principio de Abstracción
-                    < Principio de Autoprotección
-                    < Principio de Ocultación
+                < Principio de Abstracción
+                < Principio de Autoprotección
+                < Principio de Ocultación
                 : implementación/privado/caja blanca
-                    < Principio de Cohesión
-                    < Principio de Desacoplamiento
-                    < Principio de Granularización
+                < Principio de Cohesión
+                < Principio de Desacoplamiento
+                < Principio de Granularización
                 : relaciones: jerarquía de colaboración(composición, asociación genericidad)
-                    < Principio de Jerarquización
-                    < Principio de Dominio
-                    < Principio de la Tecnología
+                < Principio de Jerarquización
+                < Principio de Dominio
+                < Principio de la Tecnología
         - Principio de Extensibilidad: jeraquía de clasificacion(genericidad)
-                > Generalización
-                > Especialización
-                > Sustitución
+            > Generalización
+            > Especialización
+            > Sustitución
     - Patrones de Diseño
         - Patrón Facade (Console)
         - Patrón Singleton (Console)
@@ -120,13 +122,14 @@ CONCLUSIONES
                         - Controlador: 
                             - Agrupado por pantallas/modelos
                             - Acceso al Backend (proxy de TCP/IP, HTTP, ...)
-                            - Auxiliares: DAO, File, ...
+                            - Auxiliares: Service, ...
                         - Modelos y Colecciones, Values, Error, ... 
                     - BackEnd:                         
                         - Vistas: resources, controller?!?!?!?, dispatcher, ...  
                             - Acceso del Backend: HTTP, TCP/IP, ...
                             - Auxiliares: ... DTO, ... Mapper, ... 
                         - Controlador: services, ...
+                            - Agrupado por modelos (recursos)
                             - Acceso a Persistencia/... (proxy a SQL, NotSQL, files, ...)
                             - Auxiliares: DAO, ResultSet, ..., permisos, logs, ... 
                                 - Principio de Extensibilidad!!! 
@@ -146,8 +149,8 @@ CONCLUSIONES
                         - Controlador - Controlador - Mapper, ...
                 - Vista 
                     - Vista - Vista
-                        - Menu - Opción - Dialogo - Dialogo, ...
-                        - DIV - DIV - FORM - INPUT, ...
+                        - Menu - Opción - Dialogo - Menu, ...
+                        - DIV - FORM - DIV - INPUT, ...
                         - CLI - Command - CLI - Command, ...
                     - Vista - Controlador
                     - Vista - Modelo
@@ -160,7 +163,7 @@ CONCLUSIONES
             - Estilos
                 - MVP con Presentador: "expuesta"
                 - MVP con Controlador Supervisor/Vista Pasiva: alternativas por Inversión de control (cliente->colaborador vs colaborador->client)
-                        - Patrones Obeservador
+                        - Patron Obeservador
                         - ...
 
 - Funciones Lambda
