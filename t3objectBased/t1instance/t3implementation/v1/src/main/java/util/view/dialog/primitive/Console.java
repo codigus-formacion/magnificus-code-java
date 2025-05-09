@@ -44,6 +44,10 @@ public class Console {
 		Console.input = new BufferedReader(new InputStreamReader(System.in));
 		Console.output = System.out;
 		try {
+			File logDir = new File(HEAD_PATH);
+			if (!logDir.exists()) {
+				logDir.mkdirs();
+			}
 			Console.inputLog = new PrintWriter(INPUT_PATH);
 			Console.inputOutputLog = new PrintWriter(INPUT_OUTPUT_PATH);
 		} catch (FileNotFoundException exception) {
