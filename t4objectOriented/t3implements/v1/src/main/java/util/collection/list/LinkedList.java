@@ -50,10 +50,15 @@ public class LinkedList<T> implements Collection<T>{
             return false;
         }
         if (removed.isFirst()){
-            this.head = Optional.empty();
-            this.last = Optional.empty();
+            this.head = removed.next();
+            if (removed.isLast()) {
+                this.last = Optional.empty();
+            }
         } else {
             removed.previous().get().setNext(removed.next());
+            if (removed.isLast()) {
+                this.last = removed.previous();
+            }
         }
         return true;
     }
