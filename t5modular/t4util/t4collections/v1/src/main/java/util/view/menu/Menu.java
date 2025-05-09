@@ -55,6 +55,7 @@ public class Menu {
     }
 
     public void removeOptions() {
+        this.subtitles = new LinkedList<String>();
         this.options = new LinkedList<Option>();
     }
 

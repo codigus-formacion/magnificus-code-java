@@ -55,6 +55,7 @@ public class Menu {
 
     public void removeOptions() {
         this.options = new LinkedList<Option>();
+        this.subtitles = new LinkedList<String>();
     }
 
     public boolean has(Option option) {
